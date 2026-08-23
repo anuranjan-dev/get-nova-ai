@@ -145,7 +145,7 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
                             Rename
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            variant="destructive"
+                            className="text-destructive focus:text-destructive"
                             onClick={() => {
                               deleteConversation(conversation.id);
                               if (active) void navigate({ to: "/app" });
