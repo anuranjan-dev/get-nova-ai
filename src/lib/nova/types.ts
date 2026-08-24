@@ -1,29 +1,86 @@
-export type Role = "user" | "assistant";
+/** Domain types for NOVA — AI marketing intelligence for youth brands. */
 
-export interface Message {
-  id: string;
-  role: Role;
-  content: string;
-  createdAt: number;
+export interface BrandProfile {
+  brandName: string;
+  personality: string[];
+  audience: string;
+  tone: string;
+  useWords: string;
+  avoidWords: string;
+  updatedAt: number | null;
 }
 
-export interface Conversation {
-  id: string;
+export type ContentPlatform =
+  | "TikTok"
+  | "Instagram"
+  | "YouTube Shorts"
+  | "X"
+  | "Email"
+  | "Landing page";
+
+export type MarketingGoal =
+  | "Awareness"
+  | "Engagement"
+  | "Followers"
+  | "Sales"
+  | "Launch hype"
+  | "Community";
+
+export interface ContentBrief {
+  brandName: string;
+  product: string;
+  audience: string;
+  platform: ContentPlatform;
+  goal: MarketingGoal;
+  tone: string;
+}
+
+export interface ContentResult {
+  postIdeas: string[];
+  hooks: string[];
+  captions: string[];
+  adCopy: string[];
+  ctas: string[];
+  hashtags: string[];
+}
+
+export interface TrendItem {
   title: string;
-  messages: Message[];
+  summary: string;
+  momentum: number;
+  window: string;
+}
+
+export interface TrendReport {
+  category: string;
+  generatedAt: number;
+  risingTopics: TrendItem[];
+  contentIdeas: string[];
+  hashtags: { tag: string; volume: string; trend: "up" | "flat" }[];
+  conversations: { audience: string; quote: string; takeaway: string }[];
+}
+
+export type ActivityKind = "trend" | "content" | "voice";
+
+export interface ActivityItem {
+  id: string;
+  kind: ActivityKind;
+  title: string;
+  detail: string;
   createdAt: number;
-  updatedAt: number;
 }
 
 /**
- * Contract the UI depends on. Today it is fulfilled by the local mock client
- * (`src/lib/nova/mock-client.ts`). Later, swap in an implementation that calls
- * a FastAPI backend (`POST /api/chat` -> Gemini) without touching any UI code.
+ * Contract the UI depends on. Fulfilled today by the local demo client
+ * (`src/lib/nova/nova-client.ts`). Later, point `novaClient` at a Python
+ * (FastAPI) backend — e.g. `POST /api/trends` and `POST /api/content` — without
+ * touching any UI code. No API keys ever live in the frontend.
  */
-export interface NovaAIClient {
-  streamReply(
-    input: { messages: Message[]; signal?: AbortSignal },
-    onChunk: (text: string) => void,
-  ): Promise<string>;
-  suggestTitle(firstUserMessage: string): Promise<string>;
+export interface NovaClient {
+  scanTrends(input: { category: string; signal?: AbortSignal }): Promise<TrendReport>;
+  generateContent(input: {
+    brief: ContentBrief;
+    profile?: BrandProfile | null;
+    signal?: AbortSignal;
+  }): Promise<ContentResult>;
 }
