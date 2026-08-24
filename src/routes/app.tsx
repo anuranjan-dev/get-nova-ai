@@ -5,7 +5,7 @@ import { useState } from "react";
 import { AppSidebar } from "@/components/app/sidebar";
 import { NovaLogo } from "@/components/nova/logo";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ChatProvider } from "@/lib/nova/chat-store";
+import { WorkspaceProvider } from "@/lib/nova/workspace-store";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -15,9 +15,9 @@ function AppLayout() {
   const [open, setOpen] = useState(false);
 
   return (
-    <ChatProvider>
+    <WorkspaceProvider>
       <div className="flex h-screen overflow-hidden bg-background">
-        <aside className="hidden w-[17rem] shrink-0 border-r border-sidebar-border lg:block">
+        <aside className="hidden w-[16rem] shrink-0 border-r border-sidebar-border lg:block">
           <AppSidebar />
         </aside>
 
@@ -30,7 +30,7 @@ function AppLayout() {
               >
                 <Menu className="size-5" />
               </SheetTrigger>
-              <SheetContent side="left" className="w-[17rem] border-sidebar-border p-0">
+              <SheetContent side="left" className="w-[16rem] border-sidebar-border p-0">
                 <SheetTitle className="sr-only">NOVA navigation</SheetTitle>
                 <AppSidebar onNavigate={() => setOpen(false)} />
               </SheetContent>
@@ -44,6 +44,6 @@ function AppLayout() {
           </main>
         </div>
       </div>
-    </ChatProvider>
+    </WorkspaceProvider>
   );
 }
