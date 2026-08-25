@@ -6,6 +6,7 @@ import {
   Settings,
   Sparkles,
   Wand2,
+  type LucideIcon,
 } from "lucide-react";
 
 import { NovaLogo } from "@/components/nova/logo";
