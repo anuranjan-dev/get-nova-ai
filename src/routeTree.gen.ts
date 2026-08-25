@@ -15,9 +15,12 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppInsightsRouteImport } from './routes/app.insights'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppStudioRouteImport } from './routes/app.studio'
 import { Route as AppToolsRouteImport } from './routes/app.tools'
-import { Route as AppChatChatIdRouteImport } from './routes/app.chat.$chatId'
+import { Route as AppTrendsRouteImport } from './routes/app.trends'
+import { Route as AppVoiceRouteImport } from './routes/app.voice'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -49,9 +52,19 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppInsightsRoute = AppInsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStudioRoute = AppStudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
   getParentRoute: () => AppRoute,
 } as any)
 const AppToolsRoute = AppToolsRouteImport.update({
@@ -59,9 +72,14 @@ const AppToolsRoute = AppToolsRouteImport.update({
   path: '/tools',
   getParentRoute: () => AppRoute,
 } as any)
-const AppChatChatIdRoute = AppChatChatIdRouteImport.update({
-  id: '/chat/$chatId',
-  path: '/chat/$chatId',
+const AppTrendsRoute = AppTrendsRouteImport.update({
+  id: '/trends',
+  path: '/trends',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVoiceRoute = AppVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
   getParentRoute: () => AppRoute,
 } as any)
 
@@ -71,20 +89,26 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/insights': typeof AppInsightsRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
+  '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app/': typeof AppIndexRoute
-  '/app/chat/$chatId': typeof AppChatChatIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/insights': typeof AppInsightsRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
+  '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app': typeof AppIndexRoute
-  '/app/chat/$chatId': typeof AppChatChatIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,10 +117,13 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/insights': typeof AppInsightsRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
+  '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app/': typeof AppIndexRoute
-  '/app/chat/$chatId': typeof AppChatChatIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -106,20 +133,26 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/signup'
+    | '/app/insights'
     | '/app/settings'
+    | '/app/studio'
     | '/app/tools'
+    | '/app/trends'
+    | '/app/voice'
     | '/app/'
-    | '/app/chat/$chatId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/forgot-password'
     | '/login'
     | '/signup'
+    | '/app/insights'
     | '/app/settings'
+    | '/app/studio'
     | '/app/tools'
+    | '/app/trends'
+    | '/app/voice'
     | '/app'
-    | '/app/chat/$chatId'
   id:
     | '__root__'
     | '/'
@@ -127,10 +160,13 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/signup'
+    | '/app/insights'
     | '/app/settings'
+    | '/app/studio'
     | '/app/tools'
+    | '/app/trends'
+    | '/app/voice'
     | '/app/'
-    | '/app/chat/$chatId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -185,11 +221,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/insights': {
+      id: '/app/insights'
+      path: '/insights'
+      fullPath: '/app/insights'
+      preLoaderRoute: typeof AppInsightsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/settings': {
       id: '/app/settings'
       path: '/settings'
       fullPath: '/app/settings'
       preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/studio': {
+      id: '/app/studio'
+      path: '/studio'
+      fullPath: '/app/studio'
+      preLoaderRoute: typeof AppStudioRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/tools': {
@@ -199,28 +249,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/chat/$chatId': {
-      id: '/app/chat/$chatId'
-      path: '/chat/$chatId'
-      fullPath: '/app/chat/$chatId'
-      preLoaderRoute: typeof AppChatChatIdRouteImport
+    '/app/trends': {
+      id: '/app/trends'
+      path: '/trends'
+      fullPath: '/app/trends'
+      preLoaderRoute: typeof AppTrendsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/voice': {
+      id: '/app/voice'
+      path: '/voice'
+      fullPath: '/app/voice'
+      preLoaderRoute: typeof AppVoiceRouteImport
       parentRoute: typeof AppRoute
     }
   }
 }
 
 interface AppRouteChildren {
+  AppInsightsRoute: typeof AppInsightsRoute
   AppSettingsRoute: typeof AppSettingsRoute
+  AppStudioRoute: typeof AppStudioRoute
   AppToolsRoute: typeof AppToolsRoute
+  AppTrendsRoute: typeof AppTrendsRoute
+  AppVoiceRoute: typeof AppVoiceRoute
   AppIndexRoute: typeof AppIndexRoute
-  AppChatChatIdRoute: typeof AppChatChatIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppInsightsRoute: AppInsightsRoute,
   AppSettingsRoute: AppSettingsRoute,
+  AppStudioRoute: AppStudioRoute,
   AppToolsRoute: AppToolsRoute,
+  AppTrendsRoute: AppTrendsRoute,
+  AppVoiceRoute: AppVoiceRoute,
   AppIndexRoute: AppIndexRoute,
-  AppChatChatIdRoute: AppChatChatIdRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
