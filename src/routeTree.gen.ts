@@ -16,6 +16,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppStudioRouteImport } from './routes/app.studio'
 import { Route as AppToolsRouteImport } from './routes/app.tools'
 import { Route as AppTrendsRouteImport } from './routes/app.trends'
 
@@ -54,6 +55,11 @@ const AppSettingsRoute = AppSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
+const AppStudioRoute = AppStudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppToolsRoute = AppToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
   '/app/trends': typeof AppTrendsRoute
   '/app/': typeof AppIndexRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
   '/app/trends': typeof AppTrendsRoute
   '/app': typeof AppIndexRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
   '/app/trends': typeof AppTrendsRoute
   '/app/': typeof AppIndexRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/settings'
+    | '/app/studio'
     | '/app/tools'
     | '/app/trends'
     | '/app/'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/settings'
+    | '/app/studio'
     | '/app/tools'
     | '/app/trends'
     | '/app'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/settings'
+    | '/app/studio'
     | '/app/tools'
     | '/app/trends'
     | '/app/'
@@ -192,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/studio': {
+      id: '/app/studio'
+      path: '/studio'
+      fullPath: '/app/studio'
+      preLoaderRoute: typeof AppStudioRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/tools': {
       id: '/app/tools'
       path: '/tools'
@@ -211,6 +230,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppSettingsRoute: typeof AppSettingsRoute
+  AppStudioRoute: typeof AppStudioRoute
   AppToolsRoute: typeof AppToolsRoute
   AppTrendsRoute: typeof AppTrendsRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -218,6 +238,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppSettingsRoute: AppSettingsRoute,
+  AppStudioRoute: AppStudioRoute,
   AppToolsRoute: AppToolsRoute,
   AppTrendsRoute: AppTrendsRoute,
   AppIndexRoute: AppIndexRoute,
