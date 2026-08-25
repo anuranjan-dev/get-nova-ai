@@ -1,13 +1,13 @@
 import {
-  Bot,
-  Braces,
-  FileText,
-  Globe,
-  Image as ImageIcon,
-  MessageSquare,
-  Mic,
-  PenLine,
-  Telescope,
+  BarChart3,
+  CalendarClock,
+  Camera,
+  Hash,
+  Radar,
+  Sparkles,
+  Users,
+  Video,
+  Wand2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -21,58 +21,70 @@ export interface Tool {
 
 export const tools: Tool[] = [
   {
-    name: "AI Chat",
-    description: "Think out loud, ask anything, and keep the thread organized.",
-    icon: MessageSquare,
+    name: "Trend Scanner",
+    description:
+      "Surface emerging Gen Z cultural signals in your category before they saturate.",
+    icon: Radar,
     status: "available",
-    to: "/app",
+    to: "/app/trends",
   },
   {
-    name: "PDF Assistant",
-    description: "Ask questions across long documents and get cited answers.",
-    icon: FileText,
+    name: "Content Studio",
+    description:
+      "Turn a trend into hooks, captions, CTAs and campaign concepts built for relevance.",
+    icon: Wand2,
     status: "available",
+    to: "/app/studio",
   },
   {
-    name: "Image Understanding",
-    description: "Describe scenes, read text in images, and critique visuals.",
-    icon: ImageIcon,
+    name: "Brand Voice Engine",
+    description:
+      "Lock your personality, vocabulary and no-go words so every draft sounds like you.",
+    icon: Sparkles,
     status: "available",
+    to: "/app/voice",
   },
   {
-    name: "Writing Assistant",
-    description: "Draft, tighten, and adapt tone without losing your voice.",
-    icon: PenLine,
+    name: "Performance Insights",
+    description:
+      "See which formats earn attention with young audiences, and when to publish them.",
+    icon: BarChart3,
     status: "available",
+    to: "/app/insights",
   },
   {
-    name: "Code Assistant",
-    description: "Explain unfamiliar code, refactor safely, and debug faster.",
-    icon: Braces,
-    status: "available",
-  },
-  {
-    name: "Voice Assistant",
-    description: "Speak naturally and get answers back in real time.",
-    icon: Mic,
+    name: "Hashtag Intelligence",
+    description:
+      "Understand which tags carry real conversation volume and improve discoverability.",
+    icon: Hash,
     status: "soon",
   },
   {
-    name: "Research Mode",
-    description: "Multi-step research with sources you can verify yourself.",
-    icon: Telescope,
+    name: "Audience Listening",
+    description:
+      "Read what young audiences are actually saying about your category, in their words.",
+    icon: Users,
     status: "soon",
   },
   {
-    name: "AI Agents",
-    description: "Delegate repeatable work to agents that report back.",
-    icon: Bot,
+    name: "Campaign Calendar",
+    description:
+      "Map cultural moments and drops into a publishing plan your team can execute.",
+    icon: CalendarClock,
     status: "soon",
   },
   {
-    name: "Web Intelligence",
-    description: "Pull live context from the web into your workspace.",
-    icon: Globe,
+    name: "Creator Matching",
+    description:
+      "Shortlist creators whose audience and tone genuinely overlap with your brand.",
+    icon: Camera,
+    status: "soon",
+  },
+  {
+    name: "Short-Form Storyboards",
+    description:
+      "Shot-by-shot Reels and TikTok outlines derived from a detected trend.",
+    icon: Video,
     status: "soon",
   },
 ];

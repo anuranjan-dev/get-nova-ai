@@ -1,12 +1,12 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
-  Braces,
-  FileText,
-  Image as ImageIcon,
-  MessageSquare,
-  PenLine,
-  Telescope,
+  BarChart3,
+  Hash,
+  Radar,
+  Sparkles,
+  Users,
+  Wand2,
 } from "lucide-react";
 
 import { WorkspacePreview } from "@/components/landing/workspace-preview";
@@ -24,18 +24,20 @@ import { tools } from "@/lib/nova/tools";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NOVA — Intelligence, made simple." },
+      { title: "NOVA — AI Marketing Intelligence for Youth Brands" },
       {
         name: "description",
         content:
-          "NOVA is one intelligent workspace for AI: chat, documents, images, writing, code and research, organized in a single calm interface.",
+          "NOVA helps youth-focused brands spot Gen Z cultural signals early and turn them into campaign ideas, Instagram content, hooks, captions and hashtags that stay relevant.",
       },
-      { property: "og:title", content: "NOVA — Intelligence, made simple." },
+      { property: "og:title", content: "NOVA — AI Marketing Intelligence for Youth Brands" },
       {
         property: "og:description",
         content:
-          "One intelligent workspace for AI chat, documents, images, writing, code and research.",
+          "Trend intelligence, cultural signals and on-brand social content for marketing teams at youth-focused brands.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Landing,
@@ -43,72 +45,87 @@ export const Route = createFileRoute("/")({
 
 const capabilities = [
   {
-    icon: MessageSquare,
-    name: "AI Chat",
-    copy: "A focused thread for thinking out loud, with history you can actually find again.",
+    icon: Radar,
+    name: "Cultural signal detection",
+    copy: "Catch emerging Gen Z trends, formats and references in your category while they're still early — not after every competitor has posted them.",
   },
   {
-    icon: FileText,
-    name: "Document Intelligence",
-    copy: "Ask questions across contracts, papers and reports and get answers with citations.",
+    icon: Users,
+    name: "Audience conversations",
+    copy: "See what young audiences are actually talking about, sharing and defending, in the language they use themselves.",
   },
   {
-    icon: ImageIcon,
-    name: "Image Understanding",
-    copy: "Describe scenes, pull text out of screenshots, and get feedback on visuals.",
+    icon: Sparkles,
+    name: "Trend → opportunity",
+    copy: "Every signal is translated into a concrete marketing opportunity: the angle, the product tie-in, and why it fits your brand.",
   },
   {
-    icon: PenLine,
-    name: "AI Writing",
-    copy: "Draft, tighten and re-tone anything without losing the way you sound.",
+    icon: Wand2,
+    name: "Social content generation",
+    copy: "Instagram and short-form content ideas with hooks, captions, CTAs and hashtag sets built for relevance and discoverability.",
   },
   {
-    icon: Braces,
-    name: "Code Assistant",
-    copy: "Understand unfamiliar code, refactor with intent, and debug in fewer steps.",
+    icon: Hash,
+    name: "Brand voice consistency",
+    copy: "Define personality, vocabulary and banned words once — every draft comes back sounding recognisably like your brand.",
   },
   {
-    icon: Telescope,
-    name: "Research",
-    copy: "Follow a question through several steps and keep every source in view.",
+    icon: BarChart3,
+    name: "Engagement insights",
+    copy: "Understand which formats and posting windows earn attention with youth audiences, and what to do differently next week.",
   },
 ];
 
-const steps = [
+const pipeline = [
   {
-    title: "Start with a question",
-    copy: "Type it plainly. NOVA opens a thread and keeps the context for you.",
+    step: "Cultural signals",
+    copy: "NOVA reads momentum across youth communities, creator formats and category conversations.",
   },
   {
-    title: "Bring in your material",
-    copy: "Attach a document or an image when the answer depends on it.",
+    step: "Trend intelligence",
+    copy: "Signals are scored for momentum, saturation risk and fit with your audience.",
   },
   {
-    title: "Keep the good thinking",
-    copy: "Rename, revisit and search past conversations instead of starting over.",
+    step: "Marketing opportunity",
+    copy: "Each trend becomes a positioning angle or campaign idea your team can argue for internally.",
   },
+  {
+    step: "Content strategy",
+    copy: "Choose platform, goal and voice, and NOVA shapes the format around them.",
+  },
+  {
+    step: "Ready to publish",
+    copy: "Hooks, captions, CTAs, hashtags and campaign concepts, on-brand and review-ready.",
+  },
+];
+
+const teams = [
+  { label: "Beauty & skincare", copy: "Shelfie culture, routine content, ingredient discourse." },
+  { label: "Fashion & streetwear", copy: "Drop cycles, styling formats, resale conversation." },
+  { label: "Food & beverage", copy: "Flavour trends, cafe culture, snack rituals." },
+  { label: "Lifestyle & tech", copy: "Setup culture, everyday-carry, campus life." },
 ];
 
 const faqs = [
   {
-    q: "Is NOVA connected to a live model right now?",
-    a: "Not in this preview. Responses are realistic samples so you can judge the experience. The interface talks to a single client interface, so a backend can be connected without changing the UI.",
+    q: "Who is NOVA built for?",
+    a: "Brand, social and growth teams at youth-focused companies — beauty, fashion, food, lifestyle and consumer tech. It's an internal intelligence platform for marketers, not a general-purpose chatbot.",
   },
   {
-    q: "Where will my data live?",
-    a: "Conversations in this preview stay in your browser. In production, NOVA is designed to talk to your own backend, so model credentials never reach the browser.",
+    q: "Does NOVA guarantee that content will go viral?",
+    a: "No, and any tool that promises that is selling you something. NOVA identifies cultural opportunities early and helps you produce more relevant, discoverable, engagement-focused content. Distribution and audience response still belong to the platforms.",
   },
   {
-    q: "Does NOVA work on mobile?",
-    a: "Yes. The workspace, chat and tools are fully responsive, with the sidebar collapsing into a drawer on smaller screens.",
+    q: "How does hashtag intelligence work?",
+    a: "Hashtags are treated as discoverability signals, not magic. NOVA suggests tag sets tied to real conversation context so your content is findable by the audiences already discussing the topic.",
   },
   {
-    q: "Which model does NOVA use?",
-    a: "NOVA is provider-agnostic by design. The chat client is a single interface, so you can point it at the model your team already trusts.",
+    q: "How does NOVA keep our brand voice intact?",
+    a: "You define personality traits, audience, tone, preferred vocabulary and words to avoid. Every generation in Content Studio is conditioned on that profile, so output stays recognisable across the team.",
   },
   {
-    q: "What does the free plan include?",
-    a: "Unlimited chats, full history and search, plus access to every tool marked available. Higher usage limits arrive with the Pro workspace.",
+    q: "Is this preview connected to live data?",
+    a: "Responses in this preview are realistic samples so you can judge the workflow. The interface talks to a single client contract, so your own trend and model backend can be connected without touching the UI — credentials never reach the browser.",
   },
 ];
 
@@ -123,14 +140,14 @@ function Landing() {
             <NovaLogo />
           </Link>
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
-            <a href="#capabilities" className="transition-colors hover:text-foreground">
-              Capabilities
+            <a href="#platform" className="transition-colors hover:text-foreground">
+              Platform
             </a>
-            <a href="#how" className="transition-colors hover:text-foreground">
-              How it works
+            <a href="#workflow" className="transition-colors hover:text-foreground">
+              Workflow
             </a>
-            <a href="#roadmap" className="transition-colors hover:text-foreground">
-              Roadmap
+            <a href="#categories" className="transition-colors hover:text-foreground">
+              Categories
             </a>
             <a href="#faq" className="transition-colors hover:text-foreground">
               FAQ
@@ -141,7 +158,7 @@ function Landing() {
               <Link to="/login">Log in</Link>
             </Button>
             <Button asChild className="rounded-xl">
-              <Link to="/signup">Start for free</Link>
+              <Link to="/signup">Request access</Link>
             </Button>
           </div>
         </div>
@@ -154,19 +171,20 @@ function Landing() {
               variant="outline"
               className="rounded-full border-border-strong px-3 py-1 text-xs font-normal text-muted-foreground"
             >
-              Intelligence, made simple.
+              Trend intelligence for brand teams
             </Badge>
             <h1 className="text-balance-tight mt-6 text-4xl font-semibold sm:text-6xl sm:leading-[1.05]">
-              One intelligent workspace
-              <span className="block text-muted-foreground">for all of your AI work.</span>
+              AI Marketing Intelligence
+              <span className="block text-muted-foreground">for Youth Brands.</span>
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Chat, documents, images, writing, code and research — in a single calm interface
-              that keeps your thinking organized instead of scattered across ten tabs.
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              NOVA helps ambitious brands understand how youth culture moves — then turns
+              fast-moving cultural signals into sharper product positioning, stronger campaigns
+              and social content that stays relevant.
             </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg" className="h-12 w-full rounded-xl px-6 sm:w-auto">
-                <Link to="/signup">Start for free</Link>
+                <Link to="/signup">Request access</Link>
               </Button>
               <Button
                 asChild
@@ -175,11 +193,14 @@ function Landing() {
                 className="h-12 w-full rounded-xl px-6 sm:w-auto"
               >
                 <Link to="/app">
-                  Explore NOVA
+                  Explore the command center
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
             </div>
+            <p className="mt-5 text-xs text-muted-foreground">
+              Built for marketing teams in beauty, fashion, food, lifestyle and consumer tech.
+            </p>
           </div>
 
           <div className="mt-16 sm:mt-20">
@@ -188,13 +209,18 @@ function Landing() {
         </div>
       </section>
 
-      <section id="capabilities" className="border-b border-border">
+      <section id="platform" className="border-b border-border">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-semibold sm:text-4xl">What can NOVA do?</h2>
+            <p className="text-[0.7rem] font-medium tracking-[0.16em] text-muted-foreground uppercase">
+              Platform
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
+              A brand intelligence command center, not a chat window.
+            </h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              Six capabilities that cover most of the thinking work in a week — each one built
-              into the same workspace, with one shared history.
+              Six connected capabilities that take your team from cultural signal to
+              publish-ready content — inside one workspace, on one shared brand voice.
             </p>
           </div>
 
@@ -215,22 +241,57 @@ function Landing() {
         </div>
       </section>
 
+      <section id="workflow" className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+          <div className="max-w-2xl">
+            <p className="text-[0.7rem] font-medium tracking-[0.16em] text-muted-foreground uppercase">
+              Workflow
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
+              From trend detected to content ready — in one sitting.
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              The gap between noticing a cultural moment and publishing something worth seeing is
+              where most brands lose relevance. NOVA closes it.
+            </p>
+          </div>
+
+          <ol className="mt-12 grid gap-4 lg:grid-cols-5">
+            {pipeline.map((item, index) => (
+              <li
+                key={item.step}
+                className="rounded-2xl border border-border bg-surface p-5"
+              >
+                <span className="flex size-8 items-center justify-center rounded-lg border border-border text-xs text-muted-foreground">
+                  {index + 1}
+                </span>
+                <h3 className="mt-4 text-sm font-medium text-foreground">{item.step}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  {item.copy}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       <section className="border-b border-border">
         <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:items-center">
           <div>
             <h2 className="text-3xl font-semibold sm:text-4xl">
-              One workspace. Multiple ways to think.
+              Built on audience signals, not guesswork.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              Most AI tools ask you to change what you're doing to fit them. NOVA keeps the same
-              surface whether you're reading a contract, reviewing a diff or drafting a memo —
-              so switching modes costs you nothing.
+              Youth culture doesn't wait for a quarterly planning cycle. NOVA gives brand and
+              social teams a shared, evidence-backed read on what young audiences care about this
+              week — so campaign decisions can be argued with signals instead of opinions.
             </p>
             <ul className="mt-8 space-y-4">
               {[
-                "Every thread stays searchable, renameable and yours.",
-                "Answers arrive formatted: headings, lists, tables and code.",
-                "Tools share context, so you never re-explain yourself.",
+                "Momentum scoring shows what's rising and what's already saturated.",
+                "Audience quotes and conversation themes back every recommendation.",
+                "Content opportunities are tied to formats with real engagement potential.",
+                "Brand voice rules travel with every draft your team generates.",
               ].map((line) => (
                 <li key={line} className="flex gap-3 text-sm text-muted-foreground">
                   <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
@@ -242,47 +303,51 @@ function Landing() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {[
-              { label: "Median first token", value: "0.4s" },
-              { label: "Threads kept per user", value: "120+" },
-              { label: "Formats understood", value: "18" },
-              { label: "Workspace members", value: "Unlimited" },
+              { label: "Cultural signals tracked weekly", value: "3.4k" },
+              { label: "Youth communities monitored", value: "260+" },
+              { label: "Avg. time from trend to draft", value: "9 min" },
+              { label: "Brand voice profiles per team", value: "Unlimited" },
             ].map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl border border-border bg-surface p-6"
-              >
+              <div key={stat.label} className="rounded-2xl border border-border bg-surface p-6">
                 <p className="text-2xl font-semibold">{stat.value}</p>
                 <p className="mt-1.5 text-sm text-muted-foreground">{stat.label}</p>
               </div>
             ))}
+            <p className="text-xs text-muted-foreground sm:col-span-2">
+              Illustrative figures shown in this preview environment.
+            </p>
           </div>
         </div>
       </section>
 
-      <section id="how" className="border-b border-border">
+      <section id="categories" className="border-b border-border">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-          <h2 className="text-3xl font-semibold sm:text-4xl">How it works</h2>
-          <div className="mt-12 grid gap-8 sm:grid-cols-3">
-            {steps.map((step, index) => (
-              <div key={step.title}>
-                <span className="flex size-9 items-center justify-center rounded-xl border border-border text-sm text-muted-foreground">
-                  {index + 1}
-                </span>
-                <h3 className="mt-5 text-base font-medium">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.copy}</p>
+          <div className="max-w-2xl">
+            <p className="text-[0.7rem] font-medium tracking-[0.16em] text-muted-foreground uppercase">
+              Categories
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
+              Tuned to the categories young audiences move fastest in.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {teams.map((item) => (
+              <div key={item.label} className="rounded-2xl border border-border bg-surface p-6">
+                <h3 className="text-base font-medium">{item.label}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.copy}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="roadmap" className="border-b border-border">
+      <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-semibold sm:text-4xl">Coming to NOVA</h2>
+            <h2 className="text-3xl font-semibold sm:text-4xl">On the roadmap</h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              The next set of tools, already in design. They'll land in the same workspace, with
-              the same history.
+              The next modules in design — each one landing inside the same command center, on the
+              same brand voice.
             </p>
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -330,14 +395,15 @@ function Landing() {
       <section>
         <div className="mx-auto max-w-6xl px-5 py-20 text-center sm:px-8 sm:py-28">
           <h2 className="text-balance-tight text-3xl font-semibold sm:text-4xl">
-            Bring your thinking somewhere calmer.
+            Stay relevant to the audience everyone is competing for.
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-base text-muted-foreground">
-            Start free, keep every thread, and add tools as you need them.
+          <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground">
+            Give your marketing team a shared read on youth culture — and a faster route from
+            cultural signal to content worth publishing.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-12 w-full rounded-xl px-6 sm:w-auto">
-              <Link to="/signup">Start for free</Link>
+              <Link to="/signup">Request access</Link>
             </Button>
             <Button
               asChild
@@ -345,7 +411,7 @@ function Landing() {
               variant="outline"
               className="h-12 w-full rounded-xl px-6 sm:w-auto"
             >
-              <Link to="/app/tools">See all tools</Link>
+              <Link to="/app/trends">See the Trend Scanner</Link>
             </Button>
           </div>
         </div>
@@ -355,20 +421,22 @@ function Landing() {
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div>
             <NovaLogo />
-            <p className="mt-3 text-sm text-muted-foreground">Intelligence, made simple.</p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              AI Marketing Intelligence for Youth Brands.
+            </p>
           </div>
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <Link to="/app" className="hover:text-foreground">
-              Workspace
+              Command center
             </Link>
-            <Link to="/app/tools" className="hover:text-foreground">
-              Tools
+            <Link to="/app/trends" className="hover:text-foreground">
+              Trend Scanner
+            </Link>
+            <Link to="/app/studio" className="hover:text-foreground">
+              Content Studio
             </Link>
             <Link to="/login" className="hover:text-foreground">
               Log in
-            </Link>
-            <Link to="/signup" className="hover:text-foreground">
-              Start for free
             </Link>
           </nav>
         </div>
