@@ -15,6 +15,7 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppInsightsRouteImport } from './routes/app.insights'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppStudioRouteImport } from './routes/app.studio'
 import { Route as AppToolsRouteImport } from './routes/app.tools'
@@ -51,6 +52,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppInsightsRoute = AppInsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/insights': typeof AppInsightsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/insights': typeof AppInsightsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/app/insights': typeof AppInsightsRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/signup'
+    | '/app/insights'
     | '/app/settings'
     | '/app/studio'
     | '/app/tools'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/signup'
+    | '/app/insights'
     | '/app/settings'
     | '/app/studio'
     | '/app/tools'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/signup'
+    | '/app/insights'
     | '/app/settings'
     | '/app/studio'
     | '/app/tools'
@@ -209,6 +221,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/insights': {
+      id: '/app/insights'
+      path: '/insights'
+      fullPath: '/app/insights'
+      preLoaderRoute: typeof AppInsightsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/settings': {
       id: '/app/settings'
       path: '/settings'
@@ -248,6 +267,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppInsightsRoute: typeof AppInsightsRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppStudioRoute: typeof AppStudioRoute
   AppToolsRoute: typeof AppToolsRoute
@@ -257,6 +277,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppInsightsRoute: AppInsightsRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppStudioRoute: AppStudioRoute,
   AppToolsRoute: AppToolsRoute,

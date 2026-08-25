@@ -12,14 +12,19 @@ import { NovaLogo } from "@/components/nova/logo";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
 
-const nav = [
+const nav: {
+  to: "/app" | "/app/trends" | "/app/studio" | "/app/voice" | "/app/insights" | "/app/settings";
+  label: string;
+  icon: LucideIcon;
+  exact?: boolean;
+}[] = [
   { to: "/app", label: "Overview", icon: LayoutDashboard, exact: true },
   { to: "/app/trends", label: "Trend Scanner", icon: Radar },
   { to: "/app/studio", label: "Content Studio", icon: Wand2 },
   { to: "/app/voice", label: "Brand Voice", icon: Sparkles },
   { to: "/app/insights", label: "Insights", icon: LineChart },
   { to: "/app/settings", label: "Settings", icon: Settings },
-] as const;
+];
 
 export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
