@@ -19,6 +19,7 @@ import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppStudioRouteImport } from './routes/app.studio'
 import { Route as AppToolsRouteImport } from './routes/app.tools'
 import { Route as AppTrendsRouteImport } from './routes/app.trends'
+import { Route as AppVoiceRouteImport } from './routes/app.voice'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +71,11 @@ const AppTrendsRoute = AppTrendsRouteImport.update({
   path: '/trends',
   getParentRoute: () => AppRoute,
 } as any)
+const AppVoiceRoute = AppVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
   '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
   '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
   '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/app/studio'
     | '/app/tools'
     | '/app/trends'
+    | '/app/voice'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/app/studio'
     | '/app/tools'
     | '/app/trends'
+    | '/app/voice'
     | '/app'
   id:
     | '__root__'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/app/studio'
     | '/app/tools'
     | '/app/trends'
+    | '/app/voice'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -225,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppTrendsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/voice': {
+      id: '/app/voice'
+      path: '/voice'
+      fullPath: '/app/voice'
+      preLoaderRoute: typeof AppVoiceRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -233,6 +252,7 @@ interface AppRouteChildren {
   AppStudioRoute: typeof AppStudioRoute
   AppToolsRoute: typeof AppToolsRoute
   AppTrendsRoute: typeof AppTrendsRoute
+  AppVoiceRoute: typeof AppVoiceRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
@@ -241,6 +261,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppStudioRoute: AppStudioRoute,
   AppToolsRoute: AppToolsRoute,
   AppTrendsRoute: AppTrendsRoute,
+  AppVoiceRoute: AppVoiceRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
