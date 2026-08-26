@@ -11,6 +11,7 @@ import {
 
 import { WorkspacePreview } from "@/components/landing/workspace-preview";
 import { NovaLogo } from "@/components/nova/logo";
+import { TextScramble } from "@/components/nova/text-scramble";
 import {
   Accordion,
   AccordionContent,
@@ -174,7 +175,7 @@ function Landing() {
               Trend intelligence for brand teams
             </Badge>
             <h1 className="text-balance-tight mt-6 text-4xl font-semibold sm:text-6xl sm:leading-[1.05]">
-              AI Marketing Intelligence
+              <TextScramble>AI Marketing Intelligence</TextScramble>
               <span className="block text-muted-foreground">for Youth Brands.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
