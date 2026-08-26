@@ -11,6 +11,7 @@ import {
 
 import { WorkspacePreview } from "@/components/landing/workspace-preview";
 import { NovaLogo } from "@/components/nova/logo";
+import { TextScramble } from "@/components/nova/text-scramble";
 import {
   Accordion,
   AccordionContent,
