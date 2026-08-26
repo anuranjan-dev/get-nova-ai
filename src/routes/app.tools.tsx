@@ -47,7 +47,7 @@ function ToolsPage() {
               <button
                 key={tool.name}
                 type="button"
-                onClick={() => tool.to && void navigate({ to: "/app" })}
+                onClick={() => tool.to && void navigate({ to: tool.to })}
                 className="group surface-sheen flex flex-col rounded-2xl border border-border bg-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-surface-2"
               >
                 <span className="flex size-9 items-center justify-center rounded-xl bg-primary-soft text-primary">
