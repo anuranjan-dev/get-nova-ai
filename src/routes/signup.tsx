@@ -9,15 +9,15 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
-      { title: "Create your NOVA account" },
+      { title: "Request access — NOVA" },
       {
         name: "description",
-        content: "Start free with NOVA — one intelligent workspace for AI chat and tools.",
+        content: "Set up your brand workspace in NOVA — trend intelligence and on-brand social content for youth brands.",
       },
-      { property: "og:title", content: "Create your NOVA account" },
+      { property: "og:title", content: "Request access — NOVA" },
       {
         property: "og:description",
-        content: "Start free with NOVA — one intelligent workspace for AI chat and tools.",
+        content: "Set up your brand workspace in NOVA — trend intelligence for youth-brand marketing teams.",
       },
     ],
   }),
@@ -30,8 +30,8 @@ function SignupPage() {
 
   return (
     <AuthShell
-      title="Create your workspace"
-      subtitle="Free to start. No credit card required."
+      title="Create your brand workspace"
+      subtitle="For brand, social and growth teams. No credit card required."
       footer={
         <>
           Already have an account?{" "}

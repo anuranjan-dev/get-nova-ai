@@ -79,16 +79,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NOVA — Intelligence, made simple." },
+      { title: "NOVA — AI Marketing Intelligence for Youth Brands" },
       {
         name: "description",
         content:
-          "NOVA is one intelligent workspace for AI chat, documents, images, writing, code and research.",
+          "NOVA is the marketing intelligence platform youth brands use to spot Gen Z trends early and turn them into campaigns and social content.",
       },
-      { property: "og:title", content: "NOVA — Intelligence, made simple." },
+      { property: "og:title", content: "NOVA — AI Marketing Intelligence for Youth Brands" },
       {
         property: "og:description",
-        content: "One intelligent workspace for AI chat, documents, images, writing and code.",
+        content: "Trend intelligence and on-brand social content for youth-brand marketing teams.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

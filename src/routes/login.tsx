@@ -10,9 +10,9 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Log in — NOVA" },
-      { name: "description", content: "Log in to your NOVA workspace." },
+      { name: "description", content: "Log in to your NOVA brand intelligence command center." },
       { property: "og:title", content: "Log in — NOVA" },
-      { property: "og:description", content: "Log in to your NOVA workspace." },
+      { property: "og:description", content: "Log in to your NOVA brand intelligence command center." },
     ],
   }),
   component: LoginPage,
@@ -25,7 +25,7 @@ function LoginPage() {
   return (
     <AuthShell
       title="Welcome back"
-      subtitle="Log in to continue in your workspace."
+      subtitle="Log in to your brand intelligence command center."
       footer={
         <>
           New to NOVA?{" "}
