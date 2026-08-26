@@ -8,16 +8,16 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/app/tools")({
   head: () => ({
     meta: [
-      { title: "AI Tools — NOVA" },
+      { title: "Marketing Modules — NOVA" },
       {
         name: "description",
         content:
-          "Chat, PDF assistant, image understanding, writing and code help — with voice, research and agents coming next.",
+          "Trend scanning, content generation, brand voice and performance insights — with hashtag intelligence, listening and creator matching coming next.",
       },
-      { property: "og:title", content: "AI Tools — NOVA" },
+      { property: "og:title", content: "Marketing Modules — NOVA" },
       {
         property: "og:description",
-        content: "Every NOVA tool in one place, from chat to document and code assistance.",
+        content: "Every NOVA marketing module in one place, from trend intelligence to content strategy.",
       },
     ],
   }),
@@ -32,10 +32,10 @@ function ToolsPage() {
   return (
     <div className="scroll-slim h-full overflow-y-auto">
       <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-8 sm:py-14">
-        <h1 className="text-2xl font-semibold sm:text-3xl">AI Tools</h1>
+        <h1 className="text-2xl font-semibold sm:text-3xl">Marketing modules</h1>
         <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-          Purpose-built surfaces for the work you do most. Everything shares one workspace and
-          one history.
+          Purpose-built modules for brand and social teams. Every module shares the same cultural
+          signals and the same brand voice profile.
         </p>
 
         <section className="mt-10">
@@ -47,7 +47,7 @@ function ToolsPage() {
               <button
                 key={tool.name}
                 type="button"
-                onClick={() => tool.to && void navigate({ to: "/app" })}
+                onClick={() => tool.to && void navigate({ to: tool.to })}
                 className="group surface-sheen flex flex-col rounded-2xl border border-border bg-surface p-5 text-left transition-colors hover:border-border-strong hover:bg-surface-2"
               >
                 <span className="flex size-9 items-center justify-center rounded-xl bg-primary-soft text-primary">

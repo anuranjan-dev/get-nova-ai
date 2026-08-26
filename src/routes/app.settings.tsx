@@ -144,7 +144,7 @@ function SettingsPage() {
                 </Badge>
               </Row>
               <Separator />
-              <Row title="Message density" description="Spacing used in the chat transcript.">
+              <Row title="Message density" description="Spacing used across generated content lists.">
                 <div className="flex gap-1 rounded-xl border border-border p-1">
                   {(["comfortable", "compact"] as const).map((option) => (
                     <button
@@ -180,7 +180,7 @@ function SettingsPage() {
                 <Switch defaultChecked />
               </Row>
               <Separator />
-              <Row title="Weekly summary" description="A recap of your workspace activity.">
+              <Row title="Weekly summary" description="A weekly recap of new cultural signals in your category.">
                 <Switch />
               </Row>
             </Section>

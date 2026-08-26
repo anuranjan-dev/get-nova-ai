@@ -16,7 +16,7 @@ export interface Tool {
   description: string;
   icon: LucideIcon;
   status: "available" | "soon";
-  to?: string;
+  to?: "/app/trends" | "/app/studio" | "/app/voice" | "/app/insights";
 }
 
 export const tools: Tool[] = [

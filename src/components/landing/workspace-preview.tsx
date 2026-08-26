@@ -1,9 +1,9 @@
-import { ArrowUpRight, BarChart3, Radar, Settings, Sparkles, Wand2 } from "lucide-react";
+import { ArrowUpRight, BarChart3, LayoutGrid, Radar, Settings, Sparkles, Wand2 } from "lucide-react";
 
 import { NovaLogo } from "@/components/nova/logo";
 
 const nav = [
-  { label: "Overview", icon: Radar },
+  { label: "Overview", icon: LayoutGrid },
   { label: "Trend Scanner", icon: Radar },
   { label: "Content Studio", icon: Wand2 },
   { label: "Brand Voice", icon: Sparkles },
