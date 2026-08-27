@@ -81,7 +81,11 @@ export interface ActivityItem {
  * touching any UI code. No API keys ever live in the frontend.
  */
 export interface NovaClient {
-  scanTrends(input: { category: string; signal?: AbortSignal }): Promise<TrendReport>;
+  scanTrends(input: {
+    category: string;
+    brandName: string;
+    signal?: AbortSignal;
+  }): Promise<TrendReport>;
   generateContent(input: {
     brief: ContentBrief;
     profile?: BrandProfile | null;
