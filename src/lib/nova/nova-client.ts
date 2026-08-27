@@ -1,4 +1,4 @@
-import { demoTrendReport } from "./demo-data";
+import { buildTrendReport } from "./trend-data";
 import type { BrandProfile, ContentBrief, ContentResult, NovaClient, TrendReport } from "./types";
 
 /**
