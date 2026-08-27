@@ -47,12 +47,16 @@ export interface ContentResult {
 export interface TrendItem {
   title: string;
   summary: string;
+  /** Brand-specific "why this matters" line, already personalised. */
+  brandAngle: string;
   momentum: number;
   window: string;
 }
 
 export interface TrendReport {
   category: string;
+  /** Brand the scan was run for. */
+  brandName: string;
   generatedAt: number;
   risingTopics: TrendItem[];
   contentIdeas: string[];
