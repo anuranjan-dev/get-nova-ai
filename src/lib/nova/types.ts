@@ -47,12 +47,16 @@ export interface ContentResult {
 export interface TrendItem {
   title: string;
   summary: string;
+  /** Brand-specific "why this matters" line, already personalised. */
+  brandAngle: string;
   momentum: number;
   window: string;
 }
 
 export interface TrendReport {
   category: string;
+  /** Brand the scan was run for. */
+  brandName: string;
   generatedAt: number;
   risingTopics: TrendItem[];
   contentIdeas: string[];
@@ -77,7 +81,11 @@ export interface ActivityItem {
  * touching any UI code. No API keys ever live in the frontend.
  */
 export interface NovaClient {
-  scanTrends(input: { category: string; signal?: AbortSignal }): Promise<TrendReport>;
+  scanTrends(input: {
+    category: string;
+    brandName: string;
+    signal?: AbortSignal;
+  }): Promise<TrendReport>;
   generateContent(input: {
     brief: ContentBrief;
     profile?: BrandProfile | null;

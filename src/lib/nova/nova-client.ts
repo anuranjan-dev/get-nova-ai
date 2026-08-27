@@ -1,4 +1,4 @@
-import { demoTrendReport } from "./demo-data";
+import { buildTrendReport } from "./trend-data";
 import type { BrandProfile, ContentBrief, ContentResult, NovaClient, TrendReport } from "./types";
 
 /**
@@ -23,12 +23,12 @@ function toneLine(brief: ContentBrief, profile?: BrandProfile | null) {
 }
 
 export const demoClient: NovaClient = {
-  async scanTrends({ category, signal }): Promise<TrendReport> {
+  async scanTrends({ category, brandName, signal }): Promise<TrendReport> {
     await wait(900, signal);
     if (/^fail$/i.test(category.trim())) {
       throw new Error("Trend service unavailable. Try again in a moment.");
     }
-    return demoTrendReport(category);
+    return buildTrendReport(category, brandName);
   },
 
   async generateContent({ brief, profile, signal }): Promise<ContentResult> {
