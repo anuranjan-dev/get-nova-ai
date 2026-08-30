@@ -11,6 +11,7 @@ import {
 
 import { WorkspacePreview } from "@/components/landing/workspace-preview";
 import { NovaLogo } from "@/components/nova/logo";
+import { ThemeToggle } from "@/components/nova/theme-toggle";
 import { TextScramble } from "@/components/nova/text-scramble";
 import {
   Accordion,
@@ -155,6 +156,7 @@ function Landing() {
             </a>
           </nav>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="ghost" asChild className="rounded-xl text-muted-foreground">
               <Link to="/login">Log in</Link>
             </Button>
