@@ -32,15 +32,14 @@ function ToolsPage() {
   return (
     <div className="scroll-slim h-full overflow-y-auto">
       <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-8 sm:py-14">
-        <h1 className="text-2xl font-semibold sm:text-3xl">Marketing modules</h1>
+        <h1 className="text-2xl font-semibold sm:text-3xl">Explore</h1>
         <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-          Purpose-built modules for brand and social teams. Every module shares the same cultural
-          signals and the same brand voice profile.
+          Everything NOVA can do for your brand, in plain English. Click any card below to open it.
         </p>
 
         <section className="mt-10">
           <h2 className="text-[0.7rem] font-medium tracking-wider text-muted-foreground uppercase">
-            Available now
+            Ready to use — click to open
           </h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {available.map((tool) => (
