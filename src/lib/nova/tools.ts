@@ -23,7 +23,7 @@ export const tools: Tool[] = [
   {
     name: "Trend Scanner",
     description:
-      "Surface emerging Gen Z cultural signals in your category before they saturate.",
+      "Type in your brand and a category to get rising topics, hashtags, and real audience quotes.",
     icon: Radar,
     status: "available",
     to: "/app/trends",
@@ -31,7 +31,7 @@ export const tools: Tool[] = [
   {
     name: "Content Studio",
     description:
-      "Turn a trend into hooks, captions, CTAs and campaign concepts built for relevance.",
+      "Fill in a short brief and get post ideas, hooks, captions, ad copy and CTAs you can paste straight into a post.",
     icon: Wand2,
     status: "available",
     to: "/app/studio",
@@ -39,7 +39,7 @@ export const tools: Tool[] = [
   {
     name: "Brand Voice Engine",
     description:
-      "Lock your personality, vocabulary and no-go words so every draft sounds like you.",
+      "Save how your brand talks once, and everything NOVA writes for you will match it.",
     icon: Sparkles,
     status: "available",
     to: "/app/voice",
@@ -47,7 +47,7 @@ export const tools: Tool[] = [
   {
     name: "Performance Insights",
     description:
-      "See which formats earn attention with young audiences, and when to publish them.",
+      "See which post formats performed best and the best days and times to publish.",
     icon: BarChart3,
     status: "available",
     to: "/app/insights",
@@ -55,35 +55,35 @@ export const tools: Tool[] = [
   {
     name: "Hashtag Intelligence",
     description:
-      "Understand which tags carry real conversation volume and improve discoverability.",
+      "Will show which hashtags actually have people talking, so you stop guessing.",
     icon: Hash,
     status: "soon",
   },
   {
     name: "Audience Listening",
     description:
-      "Read what young audiences are actually saying about your category, in their words.",
+      "Will collect what young people say about your category in their own words.",
     icon: Users,
     status: "soon",
   },
   {
     name: "Campaign Calendar",
     description:
-      "Map cultural moments and drops into a publishing plan your team can execute.",
+      "Will turn your ideas into a dated posting plan your team can follow.",
     icon: CalendarClock,
     status: "soon",
   },
   {
     name: "Creator Matching",
     description:
-      "Shortlist creators whose audience and tone genuinely overlap with your brand.",
+      "Will suggest creators whose followers match the people you want to reach.",
     icon: Camera,
     status: "soon",
   },
   {
     name: "Short-Form Storyboards",
     description:
-      "Shot-by-shot Reels and TikTok outlines derived from a detected trend.",
+      "Will write a shot-by-shot outline for a TikTok or Reel, so you know exactly what to film.",
     icon: Video,
     status: "soon",
   },

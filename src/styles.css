@@ -127,6 +127,68 @@
   color-scheme: dark;
 }
 
+/* Light theme. Applied by adding `.light` to <html> (see components/nova/theme-toggle.tsx). */
+.light {
+  color-scheme: light;
+
+  --background: oklch(0.995 0.002 285);
+  --foreground: oklch(0.19 0.008 285);
+  --surface: oklch(0.975 0.003 285);
+  --surface-2: oklch(0.945 0.005 285);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.19 0.008 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.19 0.008 285);
+
+  --primary: oklch(0.53 0.235 298);
+  --primary-foreground: oklch(0.99 0.002 285);
+  --primary-soft: oklch(0.53 0.235 298 / 10%);
+
+  --secondary: oklch(0.955 0.004 285);
+  --secondary-foreground: oklch(0.24 0.008 285);
+  --muted: oklch(0.955 0.004 285);
+  --muted-foreground: oklch(0.48 0.012 285);
+  --accent: oklch(0.94 0.012 292);
+  --accent-foreground: oklch(0.22 0.01 292);
+  --destructive: oklch(0.55 0.2 22);
+  --destructive-foreground: oklch(0.99 0.002 285);
+
+  --border: oklch(0.19 0.008 285 / 12%);
+  --border-strong: oklch(0.19 0.008 285 / 22%);
+  --input: oklch(0.19 0.008 285 / 18%);
+  --ring: oklch(0.53 0.235 298 / 45%);
+
+  --chart-1: oklch(0.53 0.235 298);
+  --chart-2: oklch(0.58 0.15 260);
+  --chart-3: oklch(0.62 0.11 200);
+  --chart-4: oklch(0.66 0.12 320);
+  --chart-5: oklch(0.5 0.15 280);
+
+  --sidebar: oklch(0.972 0.003 285);
+  --sidebar-foreground: oklch(0.22 0.008 285);
+  --sidebar-primary: oklch(0.53 0.235 298);
+  --sidebar-primary-foreground: oklch(0.99 0.002 285);
+  --sidebar-accent: oklch(0.925 0.008 292);
+  --sidebar-accent-foreground: oklch(0.2 0.01 292);
+  --sidebar-border: oklch(0.19 0.008 285 / 12%);
+  --sidebar-ring: oklch(0.53 0.235 298 / 45%);
+
+  --gradient-hero: radial-gradient(
+    120% 80% at 50% -10%,
+    oklch(0.53 0.235 298 / 14%) 0%,
+    transparent 60%
+  );
+  --gradient-mark: linear-gradient(140deg, oklch(0.62 0.2 300), oklch(0.48 0.24 292));
+  --gradient-surface: linear-gradient(
+    180deg,
+    oklch(0.19 0.008 285 / 3%) 0%,
+    oklch(0.19 0.008 285 / 0%) 100%
+  );
+
+  --shadow-subtle: 0 1px 2px oklch(0.19 0.008 285 / 10%);
+  --shadow-panel: 0 24px 60px -30px oklch(0.19 0.008 285 / 25%);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
@@ -189,4 +251,23 @@
 
 @utility animate-rise {
   animation: nova-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes nova-radar {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+
+@utility animate-radar {
+  animation: nova-radar 1.8s ease-out infinite;
 }
