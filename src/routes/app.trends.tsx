@@ -280,7 +280,6 @@ function ScanningPanel({ steps, activeIndex }: { steps: string[]; activeIndex: n
       <ul className="mx-auto mt-5 max-w-md space-y-2.5">
         {steps.map((step, index) => {
           const done = index < activeIndex;
-          const active = index === activeIndex;
           if (index > activeIndex) return null;
           return (
             <li
@@ -298,7 +297,7 @@ function ScanningPanel({ steps, activeIndex }: { steps: string[]; activeIndex: n
               >
                 {done ? <Check className="size-3" /> : <Loader2 className="size-3.5 animate-spin" />}
               </span>
-              <span className={active ? "" : "line-through decoration-border-strong"}>{step}</span>
+              <span>{step}</span>
             </li>
           );
         })}
