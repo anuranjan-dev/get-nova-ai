@@ -66,7 +66,7 @@ function ToolsPage() {
 
         <section className="mt-12 pb-6">
           <h2 className="text-[0.7rem] font-medium tracking-wider text-muted-foreground uppercase">
-            On the roadmap
+            Not built yet — you can't click these
           </h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {soon.map((tool) => (
