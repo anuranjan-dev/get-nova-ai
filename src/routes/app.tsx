@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { AppSidebar } from "@/components/app/sidebar";
 import { NovaLogo } from "@/components/nova/logo";
+import { ThemeToggle } from "@/components/nova/theme-toggle";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { WorkspaceProvider } from "@/lib/nova/workspace-store";
 
