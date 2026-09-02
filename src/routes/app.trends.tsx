@@ -56,15 +56,24 @@ function scanSteps(brand: string, category: string) {
     "Scanning Instagram & TikTok conversations…",
     "Reading creator and community posts…",
     `Cross-referencing ${category} audience signals…`,
-    `Scoring relevance and momentum for ${brand}…`,
+    `Scoring relevance and momentum for ${brand || "your brand"}…`,
     "Compiling marketing opportunities…",
   ];
 }
+
+const tagStyles: Record<MomentumTag, string> = {
+  Exploding: "border-emerald-500/30 bg-emerald-500/12 text-emerald-500",
+  Rising: "border-emerald-500/30 bg-emerald-500/12 text-emerald-500",
+  Peaking: "border-border-strong bg-surface-2 text-foreground",
+  Stable: "border-border bg-surface-2 text-muted-foreground",
+  Declining: "border-amber-500/30 bg-amber-500/12 text-amber-600 dark:text-amber-500",
+};
 
 function TrendScanner() {
   const { logActivity } = useWorkspace();
   const [brandName, setBrandName] = useState("");
   const [category, setCategory] = useState("");
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [stepIndex, setStepIndex] = useState(0);
@@ -73,17 +82,13 @@ function TrendScanner() {
 
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
 
-  const canScan = brandName.trim().length > 0 && category.trim().length > 0;
+  const canScan = category.trim().length > 0;
 
   const scan = async (nextCategory: string) => {
     const brand = brandName.trim();
     const cat = nextCategory.trim();
-    if (!brand) {
-      toast.error("Enter a brand name first.");
-      return;
-    }
     if (!cat) {
-      toast.error("Enter a category or niche first.");
+      toast.error("Pick a category or niche first.");
       return;
     }
 
@@ -107,7 +112,7 @@ function TrendScanner() {
       setReport(result);
       logActivity(
         "trend",
-        `Scanned ${result.category} for ${result.brandName}`,
+        `Scanned ${result.category}${result.brandName ? ` for ${result.brandName}` : ""}`,
         `${result.risingTopics.length} rising topics found`,
       );
     } catch (error) {
@@ -122,7 +127,7 @@ function TrendScanner() {
       <PageHeader
         eyebrow="Trend Scanner"
         title="What your audience is talking about"
-        description="Enter your brand and a category. NOVA returns rising topics, hashtags, audience conversations and ready-to-use content angles for that brand."
+        description="Pick a category to see rising topics, hashtags, audience conversations and ready-to-use content angles. Add a brand name to personalise every recommendation."
         demo
       />
 
@@ -134,35 +139,70 @@ function TrendScanner() {
         }}
       >
         <div className="space-y-1.5">
-          <Label htmlFor="brand-name">Brand name</Label>
+          <Label htmlFor="brand-name">Brand name (optional)</Label>
           <Input
             id="brand-name"
             value={brandName}
             onChange={(event) => setBrandName(event.target.value)}
             placeholder="e.g. Nike, Gymshark"
-            required
           />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="category">Category or niche</Label>
-          <Input
-            id="category"
-            value={category}
-            onChange={(event) => setCategory(event.target.value)}
-            placeholder="e.g. streetwear, energy drinks, gaming"
-            required
-          />
+          <Popover open={pickerOpen} onOpenChange={setPickerOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                id="category"
+                type="button"
+                variant="outline"
+                role="combobox"
+                aria-expanded={pickerOpen}
+                className="w-full justify-between font-normal"
+              >
+                <span className={cn(!category && "text-muted-foreground")}>
+                  {category || "Select a category"}
+                </span>
+                <ChevronsUpDown className="size-4 shrink-0 opacity-60" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+              <Command>
+                <CommandInput placeholder="Search categories…" />
+                <CommandList>
+                  <CommandEmpty>No category with data yet.</CommandEmpty>
+                  <CommandGroup>
+                    {trendCategories.map((item) => (
+                      <CommandItem
+                        key={item}
+                        value={item}
+                        onSelect={() => {
+                          setCategory(item);
+                          setPickerOpen(false);
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            "size-4",
+                            category === item ? "opacity-100" : "opacity-0",
+                          )}
+                        />
+                        {item}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
         <div className="sm:col-span-2">
           <Button type="submit" disabled={loading || !canScan} className="w-full sm:w-44">
             {loading ? <Loader2 className="size-4 animate-spin" /> : <Radar className="size-4" />}
             {loading ? "Scanning" : "Scan trends"}
           </Button>
-          {!canScan ? (
-            <p className="mt-2 text-xs text-muted-foreground">
-              Both a brand name and a category are needed to run a scan.
-            </p>
-          ) : null}
+          <p className="mt-2 text-xs text-muted-foreground">
+            Category is required. Add a brand name to personalize results to your brand.
+          </p>
         </div>
       </form>
 
@@ -176,7 +216,12 @@ function TrendScanner() {
               setCategory(item);
               void scan(item);
             }}
-            className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground disabled:opacity-50"
+            className={cn(
+              "rounded-full border px-3 py-1 text-xs transition-colors disabled:opacity-50",
+              category === item
+                ? "border-border-strong bg-surface-2 text-foreground"
+                : "border-border bg-surface text-muted-foreground hover:border-border-strong hover:text-foreground",
+            )}
           >
             {item}
           </button>
@@ -190,8 +235,7 @@ function TrendScanner() {
           <Radar className="mx-auto size-6 text-muted-foreground" />
           <p className="mt-3 text-sm font-medium text-foreground">No scan yet</p>
           <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
-            Add your brand name and pick a category to see rising topics and the conversations
-            behind them.
+            Pick a category to see rising topics and the conversations behind them.
           </p>
         </div>
       ) : null}
@@ -199,34 +243,61 @@ function TrendScanner() {
       {report && !loading ? (
         <div className="mt-10 space-y-10">
           <section>
-            <SectionTitle title="Rising topics" note={`${report.category} · ${report.brandName}`} />
+            <SectionTitle
+              title="Rising topics"
+              note={
+                report.brandName ? `${report.category} · ${report.brandName}` : report.category
+              }
+              hint="Score reflects audience momentum, category relevance, and brand fit, out of 100."
+            />
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {report.risingTopics.map((topic) => (
-                <article key={topic.title} className="rounded-2xl border border-border bg-surface p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="text-sm font-medium text-foreground">{topic.title}</h3>
-                    <Badge variant="outline" className="border-border-strong text-xs">
-                      {topic.momentum}
-                    </Badge>
-                  </div>
-                  <p className="mt-2 text-sm text-muted-foreground">{topic.summary}</p>
-                  <div className="mt-3 rounded-xl bg-primary-soft p-3">
-                    <p className="text-[0.7rem] font-medium tracking-wide text-primary uppercase">
-                      Why this matters for {report.brandName}
-                    </p>
-                    <p className="mt-1 text-sm text-foreground">{topic.brandAngle}</p>
-                  </div>
-                  <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-surface-2">
-                    <div className="h-full rounded-full bg-primary" style={{ width: `${topic.momentum}%` }} />
-                  </div>
-                  <p className="mt-2 text-xs text-muted-foreground">{topic.window}</p>
-                </article>
-              ))}
+              {report.risingTopics.map((topic) => {
+                const tag = momentumTag(topic.momentum);
+                return (
+                  <article key={topic.title} className="rounded-2xl border border-border bg-surface p-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-sm font-medium text-foreground">{topic.title}</h3>
+                      <div className="flex shrink-0 flex-col items-end gap-1.5">
+                        <Badge variant="outline" className="border-border-strong text-xs">
+                          {topic.momentum}/100
+                        </Badge>
+                        <span
+                          className={cn(
+                            "rounded-full border px-2 py-0.5 text-[0.65rem] font-medium",
+                            tagStyles[tag],
+                          )}
+                        >
+                          {tag}
+                        </span>
+                      </div>
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">{topic.summary}</p>
+                    <div className="mt-3 rounded-xl bg-primary-soft p-3">
+                      <p className="text-[0.7rem] font-medium tracking-wide text-primary uppercase">
+                        {report.brandName
+                          ? `Why this matters for ${report.brandName}`
+                          : "Marketing opportunity"}
+                      </p>
+                      <p className="mt-1 text-sm text-foreground">{topic.brandAngle}</p>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
+                      <span>Relevance score</span>
+                      <span>{topic.momentum}/100</span>
+                    </div>
+                    <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-surface-2">
+                      <div className="h-full rounded-full bg-primary" style={{ width: `${topic.momentum}%` }} />
+                    </div>
+                    <p className="mt-2 text-xs text-muted-foreground">{topic.window}</p>
+                  </article>
+                );
+              })}
             </div>
           </section>
 
           <section>
-            <SectionTitle title={`Content ideas for ${report.brandName}`} />
+            <SectionTitle
+              title={report.brandName ? `Content ideas for ${report.brandName}` : "Content ideas"}
+            />
             <ul className="mt-4 grid gap-2 sm:grid-cols-2">
               {report.contentIdeas.map((idea) => (
                 <li key={idea} className="rounded-xl border border-border bg-surface px-4 py-3 text-sm text-muted-foreground">
