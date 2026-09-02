@@ -444,9 +444,446 @@ export const trendLibrary: CategoryDataset[] = [
       },
     ],
   },
+  {
+    label: "Food & beverage",
+    aliases: ["food", "food & beverage", "snacks", "drinks", "restaurant", "fmcg"],
+    risingTopics: [
+      {
+        title: "Ingredient-list read-alouds",
+        summary:
+          "Shoppers film themselves reading the back of the pack and rate brands on how few words they can't pronounce.",
+        brandAngle: "Read {brand}'s full ingredient list on camera in one take, including the boring ones.",
+        momentum: 92,
+        window: "Last 7 days",
+      },
+      {
+        title: "Portion-honesty videos",
+        summary:
+          "Pack shot versus real plate comparisons are the most-commented format — exaggeration gets called out instantly.",
+        brandAngle: "Show one {brand} pack served on a real plate at real portion size, no styling.",
+        momentum: 84,
+        window: "Last 14 days",
+      },
+      {
+        title: "Dupe-recipe reverse engineering",
+        summary:
+          "Home cooks recreate popular products and publish cost-per-serving maths against the retail price.",
+        brandAngle: "Publish the {brand} recipe yourself and explain what's hard to make at home.",
+        momentum: 76,
+        window: "Last 21 days",
+      },
+      {
+        title: "Late-night snack rituals",
+        summary:
+          "Midnight eating content is quietly outperforming breakfast and lunch occasions with under-24s.",
+        brandAngle: "Film a {brand} 1am snack routine in a real kitchen with the lights half off.",
+        momentum: 67,
+        window: "Last 30 days",
+      },
+    ],
+    contentIdeas: [
+      "Read the ingredient list out loud, no music, no cuts",
+      "Pack photo vs real plate, side by side, same camera",
+      "Make your own product at home and total up the cost per serving",
+      "1am snack ritual filmed in a student kitchen",
+      "Factory line clip with one worker explaining one step",
+      "Answer the harshest review from last month and say what you changed",
+    ],
+    hashtags: [
+      { tag: "#foodtok", volume: "7.4M posts", trend: "flat" },
+      { tag: "#ingredientlist", volume: "128K posts", trend: "up" },
+      { tag: "#snackreview", volume: "890K posts", trend: "up" },
+      { tag: "#costperserving", volume: "54K posts", trend: "up" },
+      { tag: "#midnightsnack", volume: "1.2M posts", trend: "up" },
+      { tag: "#realportion", volume: "71K posts", trend: "flat" },
+    ],
+    conversations: [
+      {
+        audience: "18–23, students cooking for one",
+        quote: "If the photo is three times the size of what's in the bag, I'm done with the brand.",
+        takeaway: "Match packaging imagery to the served portion — accuracy is now a purchase factor.",
+      },
+      {
+        audience: "16–20, snack buyers",
+        quote: "I read the back of the pack in the aisle. Every time.",
+        takeaway: "Front-of-pack simplicity claims must survive a back-of-pack read.",
+      },
+      {
+        audience: "22–26, budget-first shoppers",
+        quote: "Tell me the price per serving, not the price per box.",
+        takeaway: "Publish per-serving cost to defend against dupe recipes.",
+      },
+    ],
+  },
+  {
+    label: "Fashion (general)",
+    aliases: ["fashion", "fashion (general)", "clothing", "apparel", "style"],
+    risingTopics: [
+      {
+        title: "Cost-per-wear framing",
+        summary:
+          "Buyers justify purchases publicly with cost-per-wear maths instead of trend cycles.",
+        brandAngle: "Put a realistic cost-per-wear figure on {brand}'s core pieces and show the workings.",
+        momentum: 90,
+        window: "Last 7 days",
+      },
+      {
+        title: "Wardrobe-decluttering confessions",
+        summary:
+          "Buy-less content is growing faster than haul content, and creators name brands they regret.",
+        brandAngle: "Ask customers which {brand} piece they kept longest and build the campaign on that.",
+        momentum: 83,
+        window: "Last 14 days",
+      },
+      {
+        title: "Return-rate honesty",
+        summary:
+          "Sizing anxiety dominates comments; brands publishing return reasons are treated as safer bets.",
+        brandAngle: "Show {brand}'s top three return reasons and what the next production run fixes.",
+        momentum: 75,
+        window: "Last 21 days",
+      },
+      {
+        title: "Office-to-night one-piece styling",
+        summary:
+          "Single-garment transformation videos are replacing multi-look lookbooks in saves.",
+        brandAngle: "Take one {brand} garment from 9am desk to 9pm dinner in a single clip.",
+        momentum: 66,
+        window: "Last 30 days",
+      },
+    ],
+    contentIdeas: [
+      "Cost-per-wear card for your three best sellers, maths on screen",
+      "Customers show the oldest piece of yours they still wear",
+      "Read your top return reasons and say what changes next run",
+      "One garment, 9am to 9pm, no outfit changes",
+      "Measure the same size across three of your styles on camera",
+      "Repair tutorial for a seam customers actually complain about",
+    ],
+    hashtags: [
+      { tag: "#costperwear", volume: "96K posts", trend: "up" },
+      { tag: "#capsulewardrobe", volume: "1.9M posts", trend: "up" },
+      { tag: "#deinfluencing", volume: "740K posts", trend: "up" },
+      { tag: "#sizingcheck", volume: "133K posts", trend: "up" },
+      { tag: "#styleinspo", volume: "8.6M posts", trend: "flat" },
+      { tag: "#slowfashion", volume: "2.4M posts", trend: "flat" },
+    ],
+    conversations: [
+      {
+        audience: "19–24, considered buyers",
+        quote: "I'm not buying twelve things this season. I'm buying two that last.",
+        takeaway: "Sell longevity per piece rather than breadth of range.",
+      },
+      {
+        audience: "18–22, online-only shoppers",
+        quote: "Half my order goes back because your medium isn't anyone else's medium.",
+        takeaway: "Publish real garment measurements, not letter sizes alone.",
+      },
+      {
+        audience: "23–27, working early career",
+        quote: "If it only works for one occasion it's not worth the hanger space.",
+        takeaway: "Demonstrate multi-occasion range on the same item.",
+      },
+    ],
+  },
+  {
+    label: "Fitness & wellness",
+    aliases: ["fitness", "wellness", "fitness & wellness", "gym", "health", "training"],
+    risingTopics: [
+      {
+        title: "Beginner-gym-anxiety content",
+        summary:
+          "First-week-in-the-gym footage is out-performing physique transformations across all under-25 segments.",
+        brandAngle: "Follow one true beginner through week one with {brand} and keep the awkward parts in.",
+        momentum: 94,
+        window: "Last 7 days",
+      },
+      {
+        title: "Recovery over intensity",
+        summary:
+          "Sleep, mobility and rest-day content is overtaking hardcore training edits in saves and shares.",
+        brandAngle: "Build a {brand} rest-day routine and treat recovery as the product, not the filler.",
+        momentum: 87,
+        window: "Last 14 days",
+      },
+      {
+        title: "Anti-transformation honesty",
+        summary:
+          "Audiences flag lighting-and-posing tricks; unedited progress posts earn far higher trust.",
+        brandAngle: "Publish {brand} progress photos in the same light and pose, months apart, unedited.",
+        momentum: 78,
+        window: "Last 21 days",
+      },
+      {
+        title: "20-minute home sessions",
+        summary:
+          "Short equipment-free workouts filmed in small rooms are the highest-completion format.",
+        brandAngle: "Film a 20-minute {brand} session in a bedroom-sized space with nothing but a mat.",
+        momentum: 68,
+        window: "Last 30 days",
+      },
+    ],
+    contentIdeas: [
+      "Week one of a total beginner: nerves, wrong machine, first win",
+      "Rest-day routine in real time, no motivational voiceover",
+      "Same light, same pose, three months apart",
+      "20-minute session in a 2m x 2m space, no equipment",
+      "Coach corrects three form mistakes from the comments",
+      "What one month of training actually costs, itemised",
+    ],
+    hashtags: [
+      { tag: "#gymbeginner", volume: "1.7M posts", trend: "up" },
+      { tag: "#restday", volume: "2.1M posts", trend: "up" },
+      { tag: "#formcheck", volume: "820K posts", trend: "up" },
+      { tag: "#homeworkout", volume: "6.3M posts", trend: "flat" },
+      { tag: "#recoveryday", volume: "310K posts", trend: "up" },
+      { tag: "#realprogress", volume: "148K posts", trend: "flat" },
+    ],
+    conversations: [
+      {
+        audience: "17–21, first-time gym members",
+        quote: "I walked in, saw the free weights area, and walked straight back out.",
+        takeaway: "Reduce entry anxiety before selling performance benefits.",
+      },
+      {
+        audience: "20–25, burnt-out trainers",
+        quote: "Everyone shows the PR. Nobody shows the deload week.",
+        takeaway: "Recovery content builds credibility that intensity content cannot.",
+      },
+      {
+        audience: "22–26, home trainers",
+        quote: "I have a mat and a corner of my room. That's it.",
+        takeaway: "Design programming for constrained space and zero equipment.",
+      },
+    ],
+  },
+  {
+    label: "Consumer tech",
+    aliases: ["consumer tech", "tech", "electronics", "gadgets", "hardware", "devices"],
+    risingTopics: [
+      {
+        title: "Battery-degradation receipts",
+        summary:
+          "Buyers post battery health after 18 months and use it as the deciding spec over launch benchmarks.",
+        brandAngle: "Publish {brand}'s battery health data at 12 and 24 months instead of day-one numbers.",
+        momentum: 93,
+        window: "Last 7 days",
+      },
+      {
+        title: "Repairability scoring",
+        summary:
+          "Teardown creators score glue, screws and part pricing, and their verdicts outlive review cycles.",
+        brandAngle: "Show a {brand} teardown yourself and list every replaceable part with its price.",
+        momentum: 85,
+        window: "Last 14 days",
+      },
+      {
+        title: "Real-use, not spec-sheet reviews",
+        summary:
+          "Week-long daily-driver diaries beat benchmark videos on watch time with student buyers.",
+        brandAngle: "Give a student a {brand} device for seven days and publish the diary uncut.",
+        momentum: 79,
+        window: "Last 21 days",
+      },
+      {
+        title: "Subscription fatigue backlash",
+        summary:
+          "Hardware locked behind monthly fees triggers the sharpest negative sentiment in the category.",
+        brandAngle: "State plainly which {brand} features work forever with no subscription.",
+        momentum: 71,
+        window: "Last 30 days",
+      },
+    ],
+    contentIdeas: [
+      "Battery health screenshots from real units at 12 and 24 months",
+      "Teardown with every spare part and its price on screen",
+      "Seven-day daily-driver diary from a student, uncut",
+      "List which features are free forever and which are paid",
+      "Support call recreated: how long until a human answers",
+      "One year of scratches: honest durability check",
+    ],
+    hashtags: [
+      { tag: "#techtok", volume: "5.9M posts", trend: "flat" },
+      { tag: "#batteryhealth", volume: "168K posts", trend: "up" },
+      { tag: "#righttorepair", volume: "420K posts", trend: "up" },
+      { tag: "#teardown", volume: "230K posts", trend: "up" },
+      { tag: "#dailydriver", volume: "310K posts", trend: "up" },
+      { tag: "#nosubscription", volume: "58K posts", trend: "flat" },
+    ],
+    conversations: [
+      {
+        audience: "18–23, student buyers",
+        quote: "Benchmarks are useless. Tell me what it's like on day 400.",
+        takeaway: "Long-term performance evidence beats launch specs.",
+      },
+      {
+        audience: "20–25, repair-minded",
+        quote: "If I can't replace the battery myself it's a rental, not a purchase.",
+        takeaway: "Publish part availability and pricing as a trust asset.",
+      },
+      {
+        audience: "21–26, first-job buyers",
+        quote: "I already pay for five subscriptions. Don't make my charger one of them.",
+        takeaway: "Be explicit about what is included outright.",
+      },
+    ],
+  },
+  {
+    label: "Home & lifestyle",
+    aliases: ["home", "lifestyle", "home & lifestyle", "interiors", "homeware", "decor"],
+    risingTopics: [
+      {
+        title: "Rental-friendly upgrades",
+        summary:
+          "No-drill, no-paint changes dominate the category as under-25s decorate places they don't own.",
+        brandAngle: "Show a {brand} setup that leaves zero marks and comes down in five minutes.",
+        momentum: 91,
+        window: "Last 7 days",
+      },
+      {
+        title: "Small-room realism",
+        summary:
+          "Tours of genuinely small rooms outperform aspirational apartments on comments and saves.",
+        brandAngle: "Film {brand} styled in a 9m² room with the clutter left in frame.",
+        momentum: 84,
+        window: "Last 14 days",
+      },
+      {
+        title: "Second-hand-first styling",
+        summary:
+          "Creators mix one new item with marketplace finds and publish the total spend on screen.",
+        brandAngle: "Pair one {brand} piece with a fully second-hand room and show the receipt.",
+        momentum: 77,
+        window: "Last 21 days",
+      },
+      {
+        title: "Evening wind-down routines",
+        summary:
+          "Low-light, low-energy routine content is the fastest-growing occasion in the category.",
+        brandAngle: "Build a {brand} 10pm wind-down sequence with no talking and no upbeat music.",
+        momentum: 65,
+        window: "Last 30 days",
+      },
+    ],
+    contentIdeas: [
+      "No-drill install and full removal in one take",
+      "Room tour of a genuinely small room, clutter included",
+      "One new item, everything else second-hand, total spend on screen",
+      "10pm wind-down routine, no voiceover",
+      "Assembly timed honestly, including the confusing step",
+      "What it looks like after six months of real use",
+    ],
+    hashtags: [
+      { tag: "#rentalfriendly", volume: "410K posts", trend: "up" },
+      { tag: "#smallspaceliving", volume: "1.5M posts", trend: "up" },
+      { tag: "#homeinspo", volume: "7.1M posts", trend: "flat" },
+      { tag: "#secondhandhome", volume: "260K posts", trend: "up" },
+      { tag: "#winddownroutine", volume: "180K posts", trend: "up" },
+      { tag: "#roomtour", volume: "3.3M posts", trend: "flat" },
+    ],
+    conversations: [
+      {
+        audience: "19–24, renters",
+        quote: "My contract says no drilling. Most of your ideas break my deposit.",
+        takeaway: "Lead with damage-free installation, not permanent fixtures.",
+      },
+      {
+        audience: "18–22, shared housing",
+        quote: "Nobody I know has a bedroom that looks like that.",
+        takeaway: "Shoot in realistic room sizes to keep credibility.",
+      },
+      {
+        audience: "23–27, first flat",
+        quote: "I'd rather buy one good thing and find the rest on Marketplace.",
+        takeaway: "Position products as the one new anchor piece in a mixed room.",
+      },
+    ],
+  },
+  {
+    label: "Campus & edtech",
+    aliases: ["campus", "edtech", "campus & edtech", "education", "study", "students", "learning"],
+    risingTopics: [
+      {
+        title: "Anti-AI-cheating anxiety",
+        summary:
+          "Students discuss false plagiarism flags more than study hacks; fairness is the live issue.",
+        brandAngle: "Explain exactly how {brand} handles AI-detection disputes, in plain language.",
+        momentum: 95,
+        window: "Last 7 days",
+      },
+      {
+        title: "Study-with-me accountability",
+        summary:
+          "Long silent co-working streams keep growing while short productivity-hack clips lose retention.",
+        brandAngle: "Host a weekly two-hour {brand} silent study room and never sell during it.",
+        momentum: 86,
+        window: "Last 14 days",
+      },
+      {
+        title: "Real exam-week breakdowns",
+        summary:
+          "Honest burnout posts during assessment weeks earn the highest engagement of the academic year.",
+        brandAngle: "Publish a {brand} exam-week plan that assumes two bad days, not perfect discipline.",
+        momentum: 80,
+        window: "Last 21 days",
+      },
+      {
+        title: "Free-tier gatekeeping backlash",
+        summary:
+          "Paywalling basic features mid-term triggers fast, coordinated criticism in student communities.",
+        brandAngle: "Guarantee which {brand} features stay free for the whole academic year and say it once, clearly.",
+        momentum: 73,
+        window: "Last 30 days",
+      },
+    ],
+    contentIdeas: [
+      "Explain your AI-detection appeals process in 40 seconds",
+      "Two-hour silent study stream, timer only, zero promotion",
+      "Exam-week plan that budgets for two bad days",
+      "List the features that stay free all year",
+      "One student's real revision timetable, including the skipped sessions",
+      "Answer the three questions support gets most in September",
+    ],
+    hashtags: [
+      { tag: "#studywithme", volume: "4.7M posts", trend: "up" },
+      { tag: "#studytok", volume: "6.2M posts", trend: "flat" },
+      { tag: "#examweek", volume: "1.1M posts", trend: "up" },
+      { tag: "#studentlife", volume: "9.4M posts", trend: "flat" },
+      { tag: "#revisiontips", volume: "540K posts", trend: "up" },
+      { tag: "#aidetection", volume: "88K posts", trend: "up" },
+    ],
+    conversations: [
+      {
+        audience: "18–21, undergraduates",
+        quote: "I wrote it myself and still got flagged. Nobody explains the appeal.",
+        takeaway: "Process transparency matters more than feature depth right now.",
+      },
+      {
+        audience: "19–23, finalists",
+        quote: "I don't need hacks, I need someone on the call so I actually sit down.",
+        takeaway: "Accountability formats beat tips-and-tricks content.",
+      },
+      {
+        audience: "17–20, applicants",
+        quote: "It was free in October and paywalled by January. That's a bait.",
+        takeaway: "Commit to free-tier stability across the academic year.",
+      },
+    ],
+  },
 ];
 
 export const trendCategories = trendLibrary.map((c) => c.label);
+
+/** Categorical momentum tag derived from the relevance score. */
+export type MomentumTag = "Exploding" | "Rising" | "Peaking" | "Stable" | "Declining";
+
+export function momentumTag(score: number): MomentumTag {
+  if (score >= 90) return "Exploding";
+  if (score >= 80) return "Rising";
+  if (score >= 72) return "Peaking";
+  if (score >= 66) return "Stable";
+  return "Declining";
+}
 
 function findDataset(category: string): CategoryDataset {
   const q = category.trim().toLowerCase();
@@ -460,7 +897,8 @@ const fill = (text: string, brand: string) => text.replaceAll("{brand}", brand);
 
 export function buildTrendReport(category: string, brandName: string): TrendReport {
   const data = findDataset(category);
-  const brand = brandName.trim() || "your brand";
+  const brand = brandName.trim();
+  const subject = brand || "your brand";
   return {
     category: data.label,
     brandName: brand,
@@ -468,11 +906,11 @@ export function buildTrendReport(category: string, brandName: string): TrendRepo
     risingTopics: data.risingTopics.map((t) => ({
       title: t.title,
       summary: t.summary,
-      brandAngle: fill(t.brandAngle, brand),
+      brandAngle: fill(t.brandAngle, subject),
       momentum: t.momentum,
       window: t.window,
     })),
-    contentIdeas: data.contentIdeas.map((i) => fill(i, brand)),
+    contentIdeas: data.contentIdeas.map((i) => fill(i, subject)),
     hashtags: data.hashtags,
     conversations: data.conversations,
   };
