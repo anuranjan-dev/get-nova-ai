@@ -20,7 +20,7 @@ export interface CategoryDataset {
 export const trendLibrary: CategoryDataset[] = [
   {
     label: "Streetwear",
-    aliases: ["streetwear", "street wear", "fashion", "apparel", "clothing"],
+    aliases: ["streetwear", "street wear", "hypebeast"],
     risingTopics: [
       {
         title: "Proof-of-fabric close-ups",
