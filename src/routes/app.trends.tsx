@@ -1,15 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Check, Loader2, Minus, Radar } from "lucide-react";
+import { ArrowUpRight, Check, ChevronsUpDown, Info, Loader2, Minus, Radar } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { DemoBadge, PageHeader, PageShell } from "@/components/app/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { novaClient } from "@/lib/nova/nova-client";
-import { trendCategories } from "@/lib/nova/trend-data";
+import { momentumTag, trendCategories, type MomentumTag } from "@/lib/nova/trend-data";
 import type { TrendReport } from "@/lib/nova/types";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
