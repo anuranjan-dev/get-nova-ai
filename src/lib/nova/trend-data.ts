@@ -91,7 +91,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Beauty & skincare",
+    label: "Beauty & Skincare",
     aliases: ["beauty", "skincare", "skin care", "cosmetics", "makeup", "beauty & skincare"],
     risingTopics: [
       {
@@ -162,7 +162,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Energy drinks",
+    label: "Energy Drinks",
     aliases: ["energy drinks", "energy drink", "energy", "beverage", "drinks"],
     risingTopics: [
       {
@@ -304,7 +304,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Fintech for students",
+    label: "Fintech for Students",
     aliases: ["fintech", "fintech for students", "banking", "finance", "student finance", "money"],
     risingTopics: [
       {
@@ -446,7 +446,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Food & beverage",
+    label: "Food & Beverage",
     aliases: ["food", "food & beverage", "snacks", "drinks", "restaurant", "fmcg"],
     risingTopics: [
       {
@@ -588,7 +588,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Fitness & wellness",
+    label: "Fitness & Wellness",
     aliases: ["fitness", "wellness", "fitness & wellness", "gym", "health", "training"],
     risingTopics: [
       {
@@ -659,7 +659,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Consumer tech",
+    label: "Consumer Tech",
     aliases: ["consumer tech", "tech", "electronics", "gadgets", "hardware", "devices"],
     risingTopics: [
       {
@@ -730,7 +730,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Home & lifestyle",
+    label: "Home & Lifestyle",
     aliases: ["home", "lifestyle", "home & lifestyle", "interiors", "homeware", "decor"],
     risingTopics: [
       {
@@ -801,7 +801,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Campus & edtech",
+    label: "Campus & EdTech",
     aliases: ["campus", "edtech", "campus & edtech", "education", "study", "students", "learning"],
     risingTopics: [
       {
