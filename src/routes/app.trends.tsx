@@ -69,6 +69,32 @@ const tagStyles: Record<MomentumTag, string> = {
   Declining: "border-amber-500/30 bg-amber-500/12 text-amber-600 dark:text-amber-500",
 };
 
+/** Clipboard write with a legacy fallback; returns false when both fail. */
+async function copyText(value: string): Promise<boolean> {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
+  } catch {
+    // fall through to the legacy path
+  }
+  try {
+    const area = document.createElement("textarea");
+    area.value = value;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(area);
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
 function TrendScanner() {
   const { logActivity } = useWorkspace();
   const [brandName, setBrandName] = useState("");
