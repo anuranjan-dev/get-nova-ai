@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Check, ChevronsUpDown, Info, Loader2, Minus, Radar } from "lucide-react";
+import { ArrowUpRight, Check, ChevronsUpDown, Copy, Info, Loader2, Minus, Radar } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
