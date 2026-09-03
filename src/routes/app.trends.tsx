@@ -282,12 +282,11 @@ function TrendScanner() {
                     </div>
                     <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
                       <span>Relevance score</span>
-                      <span>{topic.momentum}/100</span>
+                      <span>{topic.window}</span>
                     </div>
                     <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-surface-2">
                       <div className="h-full rounded-full bg-primary" style={{ width: `${topic.momentum}%` }} />
                     </div>
-                    <p className="mt-2 text-xs text-muted-foreground">{topic.window}</p>
                   </article>
                 );
               })}
@@ -399,10 +398,36 @@ function ScanningPanel({ steps, activeIndex }: { steps: string[]; activeIndex: n
   );
 }
 
-function SectionTitle({ title, note }: { title: string; note?: string }) {
+function SectionTitle({
+  title,
+  note,
+  hint,
+}: {
+  title: string;
+  note?: string;
+  hint?: string;
+}) {
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+      <div className="flex items-center gap-1.5">
+        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+        {hint ? (
+          <TooltipProvider delayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="How the relevance score works"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <Info className="size-4" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">{hint}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ) : null}
+      </div>
       {note ? <DemoBadge label={note} /> : null}
     </div>
   );

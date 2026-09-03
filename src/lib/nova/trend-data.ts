@@ -2,7 +2,8 @@ import type { TrendReport } from "./types";
 
 /**
  * Hand-written sample trend datasets, one per category.
- * `{brand}` inside any string is replaced with the brand name entered by the user.
+ * `{brand}` is replaced with the brand name (or "your brand" when none is given).
+ * `{b}` is an adjectival slot: "Nike " with a brand, empty without one.
  * To add a category: append an entry to `trendLibrary` — nothing else needs changing.
  */
 
@@ -42,7 +43,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Thrift-vs-new styling battles",
         summary:
           "Creators pair one new piece with four secondhand items to prove versatility on a student budget.",
-        brandAngle: "Give creators a single {brand} hero piece and let them build looks around charity-shop finds.",
+        brandAngle: "Give creators a single {b}hero piece and let them build looks around charity-shop finds.",
         momentum: 78,
         window: "Last 21 days",
       },
@@ -50,7 +51,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Size-inclusive fit checks",
         summary:
           "Multi-body fit videos are the top-saved format; single-model lookbooks are losing watch time.",
-        brandAngle: "Show every {brand} silhouette on three body types in the same 20-second clip.",
+        brandAngle: "Show every {b}silhouette on three body types in the same 20-second clip.",
         momentum: 71,
         window: "Last 30 days",
       },
@@ -90,7 +91,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Beauty & skincare",
+    label: "Beauty & Skincare",
     aliases: ["beauty", "skincare", "skin care", "cosmetics", "makeup", "beauty & skincare"],
     risingTopics: [
       {
@@ -161,7 +162,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Energy drinks",
+    label: "Energy Drinks",
     aliases: ["energy drinks", "energy drink", "energy", "beverage", "drinks"],
     risingTopics: [
       {
@@ -184,7 +185,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Afternoon-crash alternatives",
         summary:
           "Lower-caffeine and no-sugar options are being discussed as study fuel rather than extreme sports fuel.",
-        brandAngle: "Reposition one {brand} SKU around 3pm study focus instead of pre-workout.",
+        brandAngle: "Reposition one {b}SKU around 3pm study focus instead of pre-workout.",
         momentum: 76,
         window: "Last 21 days",
       },
@@ -192,7 +193,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Can design as desk decor",
         summary:
           "Cans are photographed as objects — colourways and limited art runs drive collection behaviour.",
-        brandAngle: "Drop a limited {brand} can artwork with a student illustrator and show the sketches.",
+        brandAngle: "Drop a limited {b}can artwork with a student illustrator and show the sketches.",
         momentum: 64,
         window: "Last 30 days",
       },
@@ -247,7 +248,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Clip-culture highlight edits",
         summary:
           "Community-submitted clips edited into weekly compilations outperform official trailers on retention.",
-        brandAngle: "Run a weekly {brand} clip roundup and credit every creator on screen.",
+        brandAngle: "Run a weekly {b}clip roundup and credit every creator on screen.",
         momentum: 89,
         window: "Last 14 days",
       },
@@ -263,7 +264,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Anti-FOMO battle passes",
         summary:
           "Backlash against expiring content is pushing goodwill toward permanent unlocks and honest roadmaps.",
-        brandAngle: "State clearly which {brand} content never expires — it converts sceptics faster than a discount.",
+        brandAngle: "State clearly which {b}content never expires — it converts sceptics faster than a discount.",
         momentum: 72,
         window: "Last 30 days",
       },
@@ -303,14 +304,14 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Fintech for students",
+    label: "Fintech for Students",
     aliases: ["fintech", "fintech for students", "banking", "finance", "student finance", "money"],
     risingTopics: [
       {
         title: "Fee-screenshot receipts",
         summary:
           "Students post screenshots of surprise charges; brands that show a zero-fee statement get shared as proof.",
-        brandAngle: "Publish a real {brand} statement with every fee line visible, including the zeroes.",
+        brandAngle: "Publish a real {b}statement with every fee line visible, including the zeroes.",
         momentum: 90,
         window: "Last 7 days",
       },
@@ -326,7 +327,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Term-loan reality checks",
         summary:
           "Honest budget breakdowns across a full term outperform aspirational investing content.",
-        brandAngle: "Co-post a real 12-week {brand} student budget, overspend months included.",
+        brandAngle: "Co-post a real 12-week {b}student budget, overspend months included.",
         momentum: 79,
         window: "Last 21 days",
       },
@@ -445,7 +446,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Food & beverage",
+    label: "Food & Beverage",
     aliases: ["food", "food & beverage", "snacks", "drinks", "restaurant", "fmcg"],
     risingTopics: [
       {
@@ -460,7 +461,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Portion-honesty videos",
         summary:
           "Pack shot versus real plate comparisons are the most-commented format — exaggeration gets called out instantly.",
-        brandAngle: "Show one {brand} pack served on a real plate at real portion size, no styling.",
+        brandAngle: "Show one {b}pack served on a real plate at real portion size, no styling.",
         momentum: 84,
         window: "Last 14 days",
       },
@@ -468,7 +469,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Dupe-recipe reverse engineering",
         summary:
           "Home cooks recreate popular products and publish cost-per-serving maths against the retail price.",
-        brandAngle: "Publish the {brand} recipe yourself and explain what's hard to make at home.",
+        brandAngle: "Publish the {b}recipe yourself and explain what's hard to make at home.",
         momentum: 76,
         window: "Last 21 days",
       },
@@ -476,7 +477,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Late-night snack rituals",
         summary:
           "Midnight eating content is quietly outperforming breakfast and lunch occasions with under-24s.",
-        brandAngle: "Film a {brand} 1am snack routine in a real kitchen with the lights half off.",
+        brandAngle: "Film a {b}1am snack routine in a real kitchen with the lights half off.",
         momentum: 67,
         window: "Last 30 days",
       },
@@ -531,7 +532,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Wardrobe-decluttering confessions",
         summary:
           "Buy-less content is growing faster than haul content, and creators name brands they regret.",
-        brandAngle: "Ask customers which {brand} piece they kept longest and build the campaign on that.",
+        brandAngle: "Ask customers which {b}piece they kept longest and build the campaign on that.",
         momentum: 83,
         window: "Last 14 days",
       },
@@ -547,7 +548,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Office-to-night one-piece styling",
         summary:
           "Single-garment transformation videos are replacing multi-look lookbooks in saves.",
-        brandAngle: "Take one {brand} garment from 9am desk to 9pm dinner in a single clip.",
+        brandAngle: "Take one {b}garment from 9am desk to 9pm dinner in a single clip.",
         momentum: 66,
         window: "Last 30 days",
       },
@@ -587,7 +588,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Fitness & wellness",
+    label: "Fitness & Wellness",
     aliases: ["fitness", "wellness", "fitness & wellness", "gym", "health", "training"],
     risingTopics: [
       {
@@ -602,7 +603,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Recovery over intensity",
         summary:
           "Sleep, mobility and rest-day content is overtaking hardcore training edits in saves and shares.",
-        brandAngle: "Build a {brand} rest-day routine and treat recovery as the product, not the filler.",
+        brandAngle: "Build a {b}rest-day routine and treat recovery as the product, not the filler.",
         momentum: 87,
         window: "Last 14 days",
       },
@@ -610,7 +611,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Anti-transformation honesty",
         summary:
           "Audiences flag lighting-and-posing tricks; unedited progress posts earn far higher trust.",
-        brandAngle: "Publish {brand} progress photos in the same light and pose, months apart, unedited.",
+        brandAngle: "Publish {b}progress photos in the same light and pose, months apart, unedited.",
         momentum: 78,
         window: "Last 21 days",
       },
@@ -618,7 +619,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "20-minute home sessions",
         summary:
           "Short equipment-free workouts filmed in small rooms are the highest-completion format.",
-        brandAngle: "Film a 20-minute {brand} session in a bedroom-sized space with nothing but a mat.",
+        brandAngle: "Film a 20-minute {b}session in a bedroom-sized space with nothing but a mat.",
         momentum: 68,
         window: "Last 30 days",
       },
@@ -658,7 +659,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Consumer tech",
+    label: "Consumer Tech",
     aliases: ["consumer tech", "tech", "electronics", "gadgets", "hardware", "devices"],
     risingTopics: [
       {
@@ -673,7 +674,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Repairability scoring",
         summary:
           "Teardown creators score glue, screws and part pricing, and their verdicts outlive review cycles.",
-        brandAngle: "Show a {brand} teardown yourself and list every replaceable part with its price.",
+        brandAngle: "Show a {b}teardown yourself and list every replaceable part with its price.",
         momentum: 85,
         window: "Last 14 days",
       },
@@ -681,7 +682,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Real-use, not spec-sheet reviews",
         summary:
           "Week-long daily-driver diaries beat benchmark videos on watch time with student buyers.",
-        brandAngle: "Give a student a {brand} device for seven days and publish the diary uncut.",
+        brandAngle: "Give a student a {b}device for seven days and publish the diary uncut.",
         momentum: 79,
         window: "Last 21 days",
       },
@@ -689,7 +690,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Subscription fatigue backlash",
         summary:
           "Hardware locked behind monthly fees triggers the sharpest negative sentiment in the category.",
-        brandAngle: "State plainly which {brand} features work forever with no subscription.",
+        brandAngle: "State plainly which {b}features work forever with no subscription.",
         momentum: 71,
         window: "Last 30 days",
       },
@@ -729,14 +730,14 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Home & lifestyle",
+    label: "Home & Lifestyle",
     aliases: ["home", "lifestyle", "home & lifestyle", "interiors", "homeware", "decor"],
     risingTopics: [
       {
         title: "Rental-friendly upgrades",
         summary:
           "No-drill, no-paint changes dominate the category as under-25s decorate places they don't own.",
-        brandAngle: "Show a {brand} setup that leaves zero marks and comes down in five minutes.",
+        brandAngle: "Show a {b}setup that leaves zero marks and comes down in five minutes.",
         momentum: 91,
         window: "Last 7 days",
       },
@@ -752,7 +753,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Second-hand-first styling",
         summary:
           "Creators mix one new item with marketplace finds and publish the total spend on screen.",
-        brandAngle: "Pair one {brand} piece with a fully second-hand room and show the receipt.",
+        brandAngle: "Pair one {b}piece with a fully second-hand room and show the receipt.",
         momentum: 77,
         window: "Last 21 days",
       },
@@ -760,7 +761,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Evening wind-down routines",
         summary:
           "Low-light, low-energy routine content is the fastest-growing occasion in the category.",
-        brandAngle: "Build a {brand} 10pm wind-down sequence with no talking and no upbeat music.",
+        brandAngle: "Build a {b}10pm wind-down sequence with no talking and no upbeat music.",
         momentum: 65,
         window: "Last 30 days",
       },
@@ -800,7 +801,7 @@ export const trendLibrary: CategoryDataset[] = [
     ],
   },
   {
-    label: "Campus & edtech",
+    label: "Campus & EdTech",
     aliases: ["campus", "edtech", "campus & edtech", "education", "study", "students", "learning"],
     risingTopics: [
       {
@@ -815,7 +816,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Study-with-me accountability",
         summary:
           "Long silent co-working streams keep growing while short productivity-hack clips lose retention.",
-        brandAngle: "Host a weekly two-hour {brand} silent study room and never sell during it.",
+        brandAngle: "Host a weekly two-hour {b}silent study room and never sell during it.",
         momentum: 86,
         window: "Last 14 days",
       },
@@ -823,7 +824,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Real exam-week breakdowns",
         summary:
           "Honest burnout posts during assessment weeks earn the highest engagement of the academic year.",
-        brandAngle: "Publish a {brand} exam-week plan that assumes two bad days, not perfect discipline.",
+        brandAngle: "Publish an exam-week plan for {brand} that assumes two bad days, not perfect discipline.",
         momentum: 80,
         window: "Last 21 days",
       },
@@ -831,7 +832,7 @@ export const trendLibrary: CategoryDataset[] = [
         title: "Free-tier gatekeeping backlash",
         summary:
           "Paywalling basic features mid-term triggers fast, coordinated criticism in student communities.",
-        brandAngle: "Guarantee which {brand} features stay free for the whole academic year and say it once, clearly.",
+        brandAngle: "Guarantee which {b}features stay free for the whole academic year and say it once, clearly.",
         momentum: 73,
         window: "Last 30 days",
       },
@@ -893,12 +894,12 @@ function findDataset(category: string): CategoryDataset {
   return alias ?? trendLibrary[0]!;
 }
 
-const fill = (text: string, brand: string) => text.replaceAll("{brand}", brand);
+const fill = (text: string, brand: string) =>
+  text.replaceAll("{b}", brand ? `${brand} ` : "").replaceAll("{brand}", brand || "your brand");
 
 export function buildTrendReport(category: string, brandName: string): TrendReport {
   const data = findDataset(category);
   const brand = brandName.trim();
-  const subject = brand || "your brand";
   return {
     category: data.label,
     brandName: brand,
@@ -906,11 +907,11 @@ export function buildTrendReport(category: string, brandName: string): TrendRepo
     risingTopics: data.risingTopics.map((t) => ({
       title: t.title,
       summary: t.summary,
-      brandAngle: fill(t.brandAngle, subject),
+      brandAngle: fill(t.brandAngle, brand),
       momentum: t.momentum,
       window: t.window,
     })),
-    contentIdeas: data.contentIdeas.map((i) => fill(i, subject)),
+    contentIdeas: data.contentIdeas.map((i) => fill(i, brand)),
     hashtags: data.hashtags,
     conversations: data.conversations,
   };
