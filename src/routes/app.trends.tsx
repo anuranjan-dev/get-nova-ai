@@ -149,6 +149,17 @@ function TrendScanner() {
     }
   };
 
+  const handleCopy = async (key: string, value: string, label: string) => {
+    const ok = await copyText(value);
+    if (!ok) {
+      toast.error("Couldn't access the clipboard.");
+      return;
+    }
+    setCopiedKey(key);
+    toast.success(`${label} copied to clipboard`);
+    timers.current.push(setTimeout(() => setCopiedKey(null), 2000));
+  };
+
   return (
     <PageShell>
       <PageHeader
