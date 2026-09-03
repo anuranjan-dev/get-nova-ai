@@ -346,7 +346,12 @@ function TrendScanner() {
 
           <section>
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <SectionTitle title="Hashtags" note="Tap any hashtag to copy it" />
+              <div className="flex flex-wrap items-baseline gap-2.5">
+                <SectionTitle title="Hashtags" />
+                <span className="text-xs text-muted-foreground">
+                  Tap any hashtag to copy it
+                </span>
+              </div>
               <Button
                 type="button"
                 variant="outline"
