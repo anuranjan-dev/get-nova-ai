@@ -282,12 +282,11 @@ function TrendScanner() {
                     </div>
                     <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
                       <span>Relevance score</span>
-                      <span>{topic.momentum}/100</span>
+                      <span>{topic.window}</span>
                     </div>
                     <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-surface-2">
                       <div className="h-full rounded-full bg-primary" style={{ width: `${topic.momentum}%` }} />
                     </div>
-                    <p className="mt-2 text-xs text-muted-foreground">{topic.window}</p>
                   </article>
                 );
               })}
