@@ -104,6 +104,7 @@ function TrendScanner() {
   const [steps, setSteps] = useState<string[]>([]);
   const [stepIndex, setStepIndex] = useState(0);
   const [report, setReport] = useState<TrendReport | null>(null);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
