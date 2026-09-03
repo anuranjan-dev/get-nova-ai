@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Check, ChevronsUpDown, Info, Loader2, Minus, Radar } from "lucide-react";
+import { ArrowUpRight, Check, ChevronsUpDown, Copy, Info, Loader2, Minus, Radar } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -69,6 +69,32 @@ const tagStyles: Record<MomentumTag, string> = {
   Declining: "border-amber-500/30 bg-amber-500/12 text-amber-600 dark:text-amber-500",
 };
 
+/** Clipboard write with a legacy fallback; returns false when both fail. */
+async function copyText(value: string): Promise<boolean> {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
+  } catch {
+    // fall through to the legacy path
+  }
+  try {
+    const area = document.createElement("textarea");
+    area.value = value;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(area);
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
 function TrendScanner() {
   const { logActivity } = useWorkspace();
   const [brandName, setBrandName] = useState("");
@@ -78,6 +104,7 @@ function TrendScanner() {
   const [steps, setSteps] = useState<string[]>([]);
   const [stepIndex, setStepIndex] = useState(0);
   const [report, setReport] = useState<TrendReport | null>(null);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
@@ -120,6 +147,17 @@ function TrendScanner() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCopy = async (key: string, value: string, label: string) => {
+    const ok = await copyText(value);
+    if (!ok) {
+      toast.error("Couldn't access the clipboard.");
+      return;
+    }
+    setCopiedKey(key);
+    toast.success(`${label} copied to clipboard`);
+    timers.current.push(setTimeout(() => setCopiedKey(null), 2000));
   };
 
   return (
@@ -307,22 +345,71 @@ function TrendScanner() {
           </section>
 
           <section>
-            <SectionTitle title="Hashtags" />
-            <div className="mt-4 flex flex-wrap gap-2">
-              {report.hashtags.map((tag) => (
-                <span
-                  key={tag.tag}
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-foreground"
-                >
-                  {tag.tag}
-                  <span className="text-muted-foreground">{tag.volume}</span>
-                  {tag.trend === "up" ? (
-                    <ArrowUpRight className="size-3.5 text-primary" />
-                  ) : (
-                    <Minus className="size-3.5 text-muted-foreground" />
-                  )}
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <SectionTitle title="Hashtags" />
+                <span className="text-xs text-muted-foreground">
+                  Tap any hashtag to copy it
                 </span>
-              ))}
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-8 gap-1.5 rounded-full text-xs"
+                onClick={() =>
+                  void handleCopy(
+                    "all",
+                    report.hashtags.map((tag) => tag.tag).join(" "),
+                    "All hashtags",
+                  )
+                }
+              >
+                {copiedKey === "all" ? (
+                  <>
+                    <Check className="size-3.5 text-primary" />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy className="size-3.5" />
+                    Copy all
+                  </>
+                )}
+              </Button>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {report.hashtags.map((tag) => {
+                const copied = copiedKey === tag.tag;
+                return (
+                  <button
+                    key={tag.tag}
+                    type="button"
+                    title={`Copy ${tag.tag}`}
+                    aria-label={`Copy ${tag.tag}`}
+                    onClick={() => void handleCopy(tag.tag, tag.tag, tag.tag)}
+                    className={cn(
+                      "group inline-flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition-colors",
+                      copied
+                        ? "border-primary bg-primary-soft text-foreground"
+                        : "border-border bg-surface text-foreground hover:border-border-strong hover:bg-surface-2",
+                    )}
+                  >
+                    {copied ? (
+                      <Check className="size-3.5 shrink-0 text-primary" />
+                    ) : (
+                      <Copy className="size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                    )}
+                    {tag.tag}
+                    <span className="text-muted-foreground">{tag.volume}</span>
+                    {tag.trend === "up" ? (
+                      <ArrowUpRight className="size-3.5 text-primary" />
+                    ) : (
+                      <Minus className="size-3.5 text-muted-foreground" />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </section>
 
