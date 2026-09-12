@@ -19,6 +19,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { AnomalousMatterHero } from "@/components/ui/anomalous-matter-hero";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { tools } from "@/lib/nova/tools";
@@ -167,8 +168,9 @@ function Landing() {
         </div>
       </header>
 
-      <section className="hero-glow border-b border-border">
-        <div className="mx-auto max-w-6xl px-5 pt-20 pb-16 sm:px-8 sm:pt-28 sm:pb-24">
+      <section className="hero-glow relative overflow-hidden border-b border-border">
+        <AnomalousMatterHero />
+        <div className="relative z-10 mx-auto max-w-6xl px-5 pt-20 pb-16 sm:px-8 sm:pt-28 sm:pb-24">
           <div className="mx-auto max-w-3xl text-center">
             <Badge
               variant="outline"

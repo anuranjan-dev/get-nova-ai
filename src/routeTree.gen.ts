@@ -16,6 +16,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppInsightsRouteImport } from './routes/app.insights'
+import { Route as AppReputationRouteImport } from './routes/app.reputation'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppStudioRouteImport } from './routes/app.studio'
 import { Route as AppToolsRouteImport } from './routes/app.tools'
@@ -57,6 +58,11 @@ const AppInsightsRoute = AppInsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => AppRoute,
 } as any)
+const AppReputationRoute = AppReputationRouteImport.update({
+  id: '/reputation',
+  path: '/reputation',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/insights': typeof AppInsightsRoute
+  '/app/reputation': typeof AppReputationRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/insights': typeof AppInsightsRoute
+  '/app/reputation': typeof AppReputationRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/insights': typeof AppInsightsRoute
+  '/app/reputation': typeof AppReputationRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/studio': typeof AppStudioRoute
   '/app/tools': typeof AppToolsRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/insights'
+    | '/app/reputation'
     | '/app/settings'
     | '/app/studio'
     | '/app/tools'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/insights'
+    | '/app/reputation'
     | '/app/settings'
     | '/app/studio'
     | '/app/tools'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/insights'
+    | '/app/reputation'
     | '/app/settings'
     | '/app/studio'
     | '/app/tools'
@@ -228,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppInsightsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/reputation': {
+      id: '/app/reputation'
+      path: '/reputation'
+      fullPath: '/app/reputation'
+      preLoaderRoute: typeof AppReputationRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/settings': {
       id: '/app/settings'
       path: '/settings'
@@ -268,6 +287,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppInsightsRoute: typeof AppInsightsRoute
+  AppReputationRoute: typeof AppReputationRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppStudioRoute: typeof AppStudioRoute
   AppToolsRoute: typeof AppToolsRoute
@@ -278,6 +298,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppInsightsRoute: AppInsightsRoute,
+  AppReputationRoute: AppReputationRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppStudioRoute: AppStudioRoute,
   AppToolsRoute: AppToolsRoute,
