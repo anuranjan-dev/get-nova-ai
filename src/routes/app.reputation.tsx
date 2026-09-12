@@ -37,7 +37,7 @@ export const Route = createFileRoute("/app/reputation")({
       },
     ],
   }),
-  component: ReputationCheck;
+  component: ReputationCheck,
 });
 
 const SCAN_MS = 3200;
