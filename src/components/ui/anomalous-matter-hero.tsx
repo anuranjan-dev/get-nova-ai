@@ -176,7 +176,7 @@ export function GenerativeArtScene({ className = "" }: { className?: string }) {
 export function AnomalousMatterHero({ className = "" }: { className?: string }) {
   return (
     <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
-      <GenerativeArtScene className="absolute top-[-6rem] right-[-14rem] h-[42rem] w-[42rem] opacity-60 sm:right-[-8rem] lg:right-[-2rem]" />
+      <GenerativeArtScene className="absolute top-[-2rem] right-[-13rem] h-[30rem] w-[30rem] opacity-25 sm:top-[-5rem] sm:right-[-10rem] sm:h-[38rem] sm:w-[38rem] sm:opacity-40 lg:right-[-4rem] lg:h-[42rem] lg:w-[42rem]" />
     </div>
   );
 }
