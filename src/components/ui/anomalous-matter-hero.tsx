@@ -99,12 +99,13 @@ export function GenerativeArtScene({ className = "" }: { className?: string }) {
     mount.appendChild(renderer.domElement);
 
     const geometry = new THREE.IcosahedronGeometry(1.16, 5);
+    const uniforms = {
+      uTime: { value: 0 },
+      uLightPosition: { value: new THREE.Vector3(0.8, 0.6, 2.5) },
+      uColor: { value: readThemeColor(mount) },
+    };
     const material = new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0 },
-        uLightPosition: { value: new THREE.Vector3(0.8, 0.6, 2.5) },
-        uColor: { value: readThemeColor(mount) },
-      },
+      uniforms,
       vertexShader,
       fragmentShader,
       wireframe: true,
@@ -135,8 +136,8 @@ export function GenerativeArtScene({ className = "" }: { className?: string }) {
         mesh.rotation.y += delta * 0.1;
         mesh.rotation.x += delta * 0.035;
       }
-      material.uniforms.uTime.value = elapsed;
-      material.uniforms.uLightPosition.value.set(pointer.x * 2.2, pointer.y * 1.6, 2.5);
+      uniforms.uTime.value = elapsed;
+      uniforms.uLightPosition.value.set(pointer.x * 2.2, pointer.y * 1.6, 2.5);
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(render);
     };
@@ -149,7 +150,7 @@ export function GenerativeArtScene({ className = "" }: { className?: string }) {
     };
     const resizeObserver = new ResizeObserver(resize);
     const themeObserver = new MutationObserver(() => {
-      material.uniforms.uColor.value.copy(readThemeColor(mount));
+      uniforms.uColor.value.copy(readThemeColor(mount));
     });
     resizeObserver.observe(mount);
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
