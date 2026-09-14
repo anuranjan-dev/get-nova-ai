@@ -160,7 +160,7 @@ function StudioNav() {
   ];
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5">
-      <div className="mx-auto max-w-7xl rounded-full border border-border bg-background/90 px-4 shadow-sm backdrop-blur-xl sm:px-6">
+      <div className={cn("mx-auto max-w-7xl border border-border bg-background/90 px-4 shadow-sm backdrop-blur-xl transition-[border-radius] sm:px-6", open ? "rounded-[2rem]" : "rounded-full")}>
         <div className="grid h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 md:grid-cols-[1fr_auto_1fr]">
           <Link to="/" aria-label="NOVA home" className="min-w-0"><NovaLogo /></Link>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
@@ -261,6 +261,7 @@ function Showcase() {
           {[-1, 0, 1].map((offset) => {
             const index = (active + offset + caseStudies.length) % caseStudies.length;
             const item = caseStudies[index];
+            if (!item) return null;
             return (
               <article key={`${active}-${offset}`} className={cn("overflow-hidden rounded-[1.75rem] border border-border bg-card transition-all duration-500", offset === 0 ? "relative z-10 shadow-studio-lavender" : "scale-90 opacity-40 blur-[1px]")}>
                 <img src={item.image} alt={`${item.client} ${item.category} campaign concept`} loading="lazy" width={1408} height={1008} className={cn("aspect-[7/5] w-full object-cover", offset !== 0 && "min-h-52")} />
