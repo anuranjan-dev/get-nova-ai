@@ -160,7 +160,7 @@ function StudioNav() {
   ];
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5">
-      <div className="mx-auto max-w-7xl rounded-full border border-border bg-background/90 px-4 shadow-sm backdrop-blur-xl sm:px-6">
+      <div className={cn("mx-auto max-w-7xl border border-border bg-background/90 px-4 shadow-sm backdrop-blur-xl transition-[border-radius] sm:px-6", open ? "rounded-[2rem]" : "rounded-full")}>
         <div className="grid h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 md:grid-cols-[1fr_auto_1fr]">
           <Link to="/" aria-label="NOVA home" className="min-w-0"><NovaLogo /></Link>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">

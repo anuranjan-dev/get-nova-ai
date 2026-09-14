@@ -165,10 +165,10 @@
 @keyframes studio-float {
   0%,
   100% {
-    transform: translateY(0) rotate(var(--tw-rotate));
+    translate: 0 0;
   }
   50% {
-    transform: translateY(-10px) rotate(var(--tw-rotate));
+    translate: 0 -10px;
   }
 }
 
