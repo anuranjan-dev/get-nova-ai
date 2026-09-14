@@ -261,6 +261,7 @@ function Showcase() {
           {[-1, 0, 1].map((offset) => {
             const index = (active + offset + caseStudies.length) % caseStudies.length;
             const item = caseStudies[index];
+            if (!item) return null;
             return (
               <article key={`${active}-${offset}`} className={cn("overflow-hidden rounded-[1.75rem] border border-border bg-card transition-all duration-500", offset === 0 ? "relative z-10 shadow-studio-lavender" : "scale-90 opacity-40 blur-[1px]")}>
                 <img src={item.image} alt={`${item.client} ${item.category} campaign concept`} loading="lazy" width={1408} height={1008} className={cn("aspect-[7/5] w-full object-cover", offset !== 0 && "min-h-52")} />
