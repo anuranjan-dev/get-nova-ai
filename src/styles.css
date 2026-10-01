@@ -156,6 +156,10 @@
   border-radius: 0.5rem;
 }
 
+.studio-home [class*="shadow-"] {
+  box-shadow: none;
+}
+
 @utility studio-section {
   padding: 6rem 1.25rem;
 
