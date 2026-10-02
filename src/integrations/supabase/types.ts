@@ -14,7 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activity: {
+        Row: {
+          created_at: string
+          detail: string
+          id: string
+          kind: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          detail?: string
+          id?: string
+          kind: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          detail?: string
+          id?: string
+          kind?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ai_results: {
+        Row: {
+          created_at: string
+          id: string
+          input: Json
+          kind: string
+          output: Json
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          input?: Json
+          kind: string
+          output?: Json
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          input?: Json
+          kind?: string
+          output?: Json
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      brand_profiles: {
+        Row: {
+          audience: string
+          avoid_words: string
+          brand_name: string
+          created_at: string
+          personality: string[]
+          tone: string
+          updated_at: string
+          use_words: string
+          user_id: string
+        }
+        Insert: {
+          audience?: string
+          avoid_words?: string
+          brand_name?: string
+          created_at?: string
+          personality?: string[]
+          tone?: string
+          updated_at?: string
+          use_words?: string
+          user_id: string
+        }
+        Update: {
+          audience?: string
+          avoid_words?: string
+          brand_name?: string
+          created_at?: string
+          personality?: string[]
+          tone?: string
+          updated_at?: string
+          use_words?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          bio: string
+          created_at: string
+          full_name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio?: string
+          created_at?: string
+          full_name?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          full_name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
