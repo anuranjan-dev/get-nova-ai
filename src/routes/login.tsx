@@ -1,4 +1,5 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 import { AuthShell } from "@/components/auth/auth-shell";
@@ -9,116 +10,42 @@ import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({
-    meta: [
-      { title: "Log in — NOVA" },
-      { name: "description", content: "Log in to your NOVA brand intelligence command center." },
-      { property: "og:title", content: "Log in — NOVA" },
-      { property: "og:description", content: "Log in to your NOVA brand intelligence command center." },
-    ],
-  }),
+  head: () => ({ meta: [{ title: "Log in — NOVA" }, { name: "description", content: "Log in to NOVA." }] }),
   component: LoginPage,
 });
 
 function LoginPage() {
   const navigate = useNavigate();
   const [pending, setPending] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const googleSignIn = async () => {
-    setPending(true);
-    setError(null);
+    setPending(true); setError(null);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: import.meta.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || window.location.origin,
       extraParams: { prompt: "select_account" },
     });
-    if (result.error) {
-      setError(result.error.message);
-      setPending(false);
-      return;
-    }
+    if (result.error) { setError("Google sign-in is unavailable right now. Try email and password."); setPending(false); return; }
     if (!result.redirected) await navigate({ to: "/app" });
   };
 
-  return (
-    <AuthShell
-      title="Welcome back"
-      subtitle="Log in to your brand intelligence command center."
-      footer={
-        <>
-          New to NOVA?{" "}
-          <Link to="/signup" className="text-foreground underline underline-offset-4">
-            Create an account
-          </Link>
-        </>
-      }
-    >
-      <form
-        className="space-y-4"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setPending(true);
-          setError(null);
-          const form = new FormData(e.currentTarget);
-          const { error: signInError } = await supabase.auth.signInWithPassword({
-            email: String(form.get("email") ?? ""),
-            password: String(form.get("password") ?? ""),
-          });
-          if (signInError) {
-            setError(signInError.message);
-            setPending(false);
-            return;
-          }
-          await navigate({ to: "/app" });
-        }}
-      >
-        {error ? <p role="alert" className="rounded-lg border border-destructive/30 p-3 text-sm text-destructive">{error}</p> : null}
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            placeholder="you@company.com"
-            className="h-11 rounded-xl"
-          />
-        </div>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="password">Password</Label>
-            <Link
-              to="/forgot-password"
-              className="text-xs text-muted-foreground hover:text-foreground"
-            >
-              Forgot?
-            </Link>
-          </div>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            required
-            autoComplete="current-password"
-            placeholder="••••••••"
-            className="h-11 rounded-xl"
-          />
-        </div>
-        <Button type="submit" disabled={pending} className="h-11 w-full rounded-xl">
-          {pending ? "Signing in…" : "Log in"}
-        </Button>
-      </form>
-
-      <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
-        <span className="h-px flex-1 bg-border" />
-        or
-        <span className="h-px flex-1 bg-border" />
-      </div>
-
-      <Button type="button" variant="outline" className="h-11 w-full rounded-xl" disabled={pending} onClick={() => void googleSignIn()}>
-        Continue with Google
-      </Button>
-    </AuthShell>
-  );
+  return <AuthShell title="Welcome back" subtitle="Log in to your NOVA workspace." footer={<>New to NOVA? <Link to="/signup" className="text-foreground underline underline-offset-4">Create an account</Link></>}>
+    <Button type="button" variant="outline" className="h-11 w-full rounded-xl" disabled={pending} onClick={() => void googleSignIn()}>Continue with Google</Button>
+    <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
+    <form className="space-y-4" onSubmit={async (e) => {
+      e.preventDefault(); setPending(true); setError(null);
+      const form = new FormData(e.currentTarget);
+      const email = String(form.get("email") ?? "").trim(); const password = String(form.get("password") ?? "");
+      if (!email || password.length < 8) { setError("Enter a valid email and password."); setPending(false); return; }
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      if (signInError) { setError("Invalid email or password."); setPending(false); return; }
+      await navigate({ to: "/app" });
+    }}>
+      {error ? <p role="alert" className="rounded-lg border border-destructive/30 p-3 text-sm text-destructive">{error}</p> : null}
+      <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" name="email" type="email" required autoComplete="email" placeholder="you@company.com" className="h-11 rounded-xl" /></div>
+      <div className="space-y-2"><div className="flex items-center justify-between"><Label htmlFor="password">Password</Label><Link to="/forgot-password" className="text-xs text-muted-foreground hover:text-foreground">Forgot?</Link></div><div className="relative"><Input id="password" name="password" type={showPassword ? "text" : "password"} required minLength={8} autoComplete="current-password" className="h-11 rounded-xl pr-11" /><button type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((value) => !value)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">{showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}</button></div></div>
+      <Button type="submit" disabled={pending} className="h-11 w-full rounded-xl">{pending ? "Signing in…" : "Log in"}</Button>
+    </form>
+  </AuthShell>;
 }

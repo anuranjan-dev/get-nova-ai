@@ -20,7 +20,9 @@ export function AuthShell({
         <NovaLogo />
       </Link>
 
-      <div className="mt-8 w-full max-w-sm animate-rise">
+      <p className="mt-5 text-center text-sm text-muted-foreground">Your AI marketing team, set up in 2 minutes</p>
+
+      <div className="mt-6 w-full max-w-sm animate-rise">
         <div className="surface-sheen rounded-3xl border border-border bg-surface p-7">
           <h1 className="text-xl font-semibold">{title}</h1>
           <p className="mt-1.5 text-sm text-muted-foreground">{subtitle}</p>
