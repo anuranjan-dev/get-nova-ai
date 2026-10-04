@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { tools } from "@/lib/nova/tools";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/app/tools")({
+export const Route = createFileRoute("/_authenticated/app/tools")({
   head: () => ({
     meta: [
       { title: "Marketing Modules — NOVA" },

@@ -12,7 +12,7 @@ import { DemoBadge, PageShell } from "@/components/app/page-header";
 import { Button } from "@/components/ui/button";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 
-export const Route = createFileRoute("/app/")({
+export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
     meta: [
       { title: "Overview — NOVA marketing workspace" },

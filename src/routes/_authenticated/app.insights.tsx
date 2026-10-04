@@ -4,7 +4,7 @@ import { Clock, TrendingUp } from "lucide-react";
 import { PageHeader, PageShell } from "@/components/app/page-header";
 import { insightsDemo } from "@/lib/nova/demo-data";
 
-export const Route = createFileRoute("/app/insights")({
+export const Route = createFileRoute("/_authenticated/app/insights")({
   head: () => ({
     meta: [
       { title: "Insights — NOVA" },
