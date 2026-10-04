@@ -15,7 +15,7 @@ export function AuthShell({
   footer: ReactNode;
 }) {
   return (
-    <div className="hero-glow flex min-h-screen flex-col items-center justify-center px-4 py-14">
+    <main className="hero-glow flex min-h-screen flex-col items-center justify-center px-4 py-14">
       <Link to="/" aria-label="NOVA home">
         <NovaLogo />
       </Link>
@@ -30,6 +30,6 @@ export function AuthShell({
         </div>
         <div className="mt-5 text-center text-sm text-muted-foreground">{footer}</div>
       </div>
-    </div>
+    </main>
   );
 }

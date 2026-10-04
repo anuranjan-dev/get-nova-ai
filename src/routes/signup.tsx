@@ -6,8 +6,8 @@ import { AuthShell } from "@/components/auth/auth-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
+import { authErrorMessage, continueAfterAuth, ensureProfile, signInWithGoogle } from "@/lib/nova/auth-routing";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({ meta: [{ title: "Create account — NOVA" }, { name: "description", content: "Create your NOVA workspace." }] }),
@@ -23,9 +23,8 @@ function SignupPage() {
 
   const googleSignIn = async () => {
     setPending(true); setError(null);
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: import.meta.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || window.location.origin, extraParams: { prompt: "select_account" } });
-    if (result.error) { setError("Google sign-in is unavailable right now. Try creating an account with email."); setPending(false); return; }
-    if (!result.redirected) await navigate({ to: "/app" });
+    const { error: oauthError } = await signInWithGoogle();
+    if (oauthError) { setError(authErrorMessage(oauthError.message, "signup")); setPending(false); }
   };
 
   return <AuthShell title="Create your NOVA account" subtitle="Start with your name and business details." footer={<>Already have an account? <Link to="/login" className="text-foreground underline underline-offset-4">Log in</Link></>}>
@@ -37,10 +36,10 @@ function SignupPage() {
         const form = new FormData(e.currentTarget);
         const fullName = String(form.get("name") ?? "").trim(); const email = String(form.get("email") ?? "").trim(); const password = String(form.get("password") ?? "");
         if (!fullName || !email || password.length < 8) { setError("Enter your full name, a valid email, and a password with at least 8 characters."); setPending(false); return; }
-        const { data, error: signUpError } = await supabase.auth.signUp({ email, password, options: { data: { full_name: fullName, name: fullName }, emailRedirectTo: import.meta.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/auth/callback` } });
-        if (signUpError) { setError(signUpError.message.toLowerCase().includes("password") ? "Choose a stronger password." : "We could not create your account. Check your details and try again."); setPending(false); return; }
+        const { data, error: signUpError } = await supabase.auth.signUp({ email, password, options: { data: { full_name: fullName, name: fullName }, emailRedirectTo: import.meta.env["NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL"] || `${window.location.origin}/auth/callback` } });
+        if (signUpError) { setError(authErrorMessage(signUpError.message, "signup")); setPending(false); return; }
         if (!data.user) { setError("Your account could not be created. Try again."); setPending(false); return; }
-        if (data.session) { await supabase.from("profiles").upsert({ user_id: data.user.id, full_name: fullName }); await navigate({ to: "/app/voice" }); } else { setConfirmationSent(true); setPending(false); }
+        if (data.session) { await ensureProfile(data.user.id, fullName); await continueAfterAuth(data.user.id, navigate); } else { setConfirmationSent(true); setPending(false); }
       }}>
         {error ? <p role="alert" className="rounded-lg border border-destructive/30 p-3 text-sm text-destructive">{error}</p> : null}
         <div className="space-y-2"><Label htmlFor="name">Full name</Label><Input id="name" name="name" required autoComplete="name" placeholder="Your full name" className="h-11 rounded-xl" /></div>

@@ -6,8 +6,8 @@ import { AuthShell } from "@/components/auth/auth-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
+import { authErrorMessage, continueAfterAuth, signInWithGoogle } from "@/lib/nova/auth-routing";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Log in — NOVA" }, { name: "description", content: "Log in to NOVA." }] }),
@@ -22,12 +22,8 @@ function LoginPage() {
 
   const googleSignIn = async () => {
     setPending(true); setError(null);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: import.meta.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || window.location.origin,
-      extraParams: { prompt: "select_account" },
-    });
-    if (result.error) { setError("Google sign-in is unavailable right now. Try email and password."); setPending(false); return; }
-    if (!result.redirected) await navigate({ to: "/app" });
+    const { error: oauthError } = await signInWithGoogle();
+    if (oauthError) { setError(authErrorMessage(oauthError.message, "login")); setPending(false); }
   };
 
   return <AuthShell title="Welcome back" subtitle="Log in to your NOVA workspace." footer={<>New to NOVA? <Link to="/signup" className="text-foreground underline underline-offset-4">Create an account</Link></>}>
@@ -39,8 +35,10 @@ function LoginPage() {
       const email = String(form.get("email") ?? "").trim(); const password = String(form.get("password") ?? "");
       if (!email || password.length < 8) { setError("Enter a valid email and password."); setPending(false); return; }
       const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-      if (signInError) { setError("Invalid email or password."); setPending(false); return; }
-      await navigate({ to: "/app" });
+      if (signInError) { setError(authErrorMessage(signInError.message, "login")); setPending(false); return; }
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setError("We could not confirm your session. Please try again."); setPending(false); return; }
+      await continueAfterAuth(user.id, navigate);
     }}>
       {error ? <p role="alert" className="rounded-lg border border-destructive/30 p-3 text-sm text-destructive">{error}</p> : null}
       <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" name="email" type="email" required autoComplete="email" placeholder="you@company.com" className="h-11 rounded-xl" /></div>
