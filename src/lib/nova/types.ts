@@ -60,11 +60,19 @@ export interface TrendReport {
   generatedAt: number;
   risingTopics: TrendItem[];
   contentIdeas: string[];
-  hashtags: { tag: string; volume: string; trend: "up" | "flat" }[];
-  conversations: { audience: string; quote: string; takeaway: string }[];
+  hashtags: { tag: string; trend: "up" | "flat" }[];
+  conversations: { audience: string; theme: string; takeaway: string }[];
 }
 
-export type ActivityKind = "trend" | "content" | "voice";
+export interface ReputationReport {
+  brandName: string;
+  category: string;
+  strengths: { title: string; context: string }[];
+  risks: { title: string; context: string }[];
+  fixes: { title: string; action: string }[];
+}
+
+export type ActivityKind = "trend" | "content" | "reputation" | "voice" | "profile";
 
 export interface ActivityItem {
   id: string;
@@ -75,10 +83,8 @@ export interface ActivityItem {
 }
 
 /**
- * Contract the UI depends on. Fulfilled today by the local demo client
- * (`src/lib/nova/nova-client.ts`). Later, point `novaClient` at a Python
- * (FastAPI) backend — e.g. `POST /api/trends` and `POST /api/content` — without
- * touching any UI code. No API keys ever live in the frontend.
+ * Contract the UI depends on. Implemented through authenticated server functions;
+ * model credentials and prompts never enter the browser bundle.
  */
 export interface NovaClient {
   scanTrends(input: {
