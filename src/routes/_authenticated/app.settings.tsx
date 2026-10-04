@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/app/settings")({
+export const Route = createFileRoute("/_authenticated/app/settings")({
   head: () => ({
     meta: [
       { title: "Settings — NOVA" },

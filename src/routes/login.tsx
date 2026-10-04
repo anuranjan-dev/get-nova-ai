@@ -5,6 +5,8 @@ import { AuthShell } from "@/components/auth/auth-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -21,6 +23,22 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const navigate = useNavigate();
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const googleSignIn = async () => {
+    setPending(true);
+    setError(null);
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin,
+      extraParams: { prompt: "select_account" },
+    });
+    if (result.error) {
+      setError(result.error.message);
+      setPending(false);
+      return;
+    }
+    if (!result.redirected) await navigate({ to: "/app" });
+  };
 
   return (
     <AuthShell
@@ -37,16 +55,29 @@ function LoginPage() {
     >
       <form
         className="space-y-4"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           setPending(true);
-          setTimeout(() => void navigate({ to: "/app" }), 500);
+          setError(null);
+          const form = new FormData(e.currentTarget);
+          const { error: signInError } = await supabase.auth.signInWithPassword({
+            email: String(form.get("email") ?? ""),
+            password: String(form.get("password") ?? ""),
+          });
+          if (signInError) {
+            setError(signInError.message);
+            setPending(false);
+            return;
+          }
+          await navigate({ to: "/app" });
         }}
       >
+        {error ? <p role="alert" className="rounded-lg border border-destructive/30 p-3 text-sm text-destructive">{error}</p> : null}
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
+            name="email"
             type="email"
             required
             autoComplete="email"
@@ -66,6 +97,7 @@ function LoginPage() {
           </div>
           <Input
             id="password"
+            name="password"
             type="password"
             required
             autoComplete="current-password"
@@ -84,8 +116,8 @@ function LoginPage() {
         <span className="h-px flex-1 bg-border" />
       </div>
 
-      <Button variant="outline" className="h-11 w-full rounded-xl" asChild>
-        <Link to="/app">Continue with Google</Link>
+      <Button type="button" variant="outline" className="h-11 w-full rounded-xl" disabled={pending} onClick={() => void googleSignIn()}>
+        Continue with Google
       </Button>
     </AuthShell>
   );

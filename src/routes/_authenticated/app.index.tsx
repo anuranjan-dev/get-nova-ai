@@ -1,18 +1,12 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  LineChart,
-  Radar,
-  Sparkles,
-  Wand2,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, LineChart, Radar, Sparkles, Wand2, type LucideIcon } from "lucide-react";
 
-import { DemoBadge, PageShell } from "@/components/app/page-header";
+import { ErrorState, LoadingState } from "@/components/app/data-state";
+import { PageShell } from "@/components/app/page-header";
 import { Button } from "@/components/ui/button";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 
-export const Route = createFileRoute("/app/")({
+export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
     meta: [
       { title: "Overview — NOVA marketing workspace" },
@@ -40,7 +34,7 @@ const quickActions: {
   {
     to: "/app/trends",
     label: "Scan Trends",
-    copy: "See what your audience is actually talking about this week.",
+    copy: "Generate strategic trend hypotheses for your category.",
     icon: Radar,
   },
   {
@@ -58,29 +52,8 @@ const quickActions: {
   {
     to: "/app/insights",
     label: "View Insights",
-    copy: "Which formats earn attention, and when to post them.",
+    copy: "Review the real work saved in your NOVA account.",
     icon: LineChart,
-  },
-];
-
-const opportunities = [
-  {
-    title: "Turn last week's top comment into a post",
-    why: "Audience-authored questions convert better than brand-authored claims.",
-    to: "/app/studio" as const,
-    cta: "Draft it",
-  },
-  {
-    title: "Two static posts are underperforming",
-    why: "Short-form video earns 2.3× the engagement in youth categories.",
-    to: "/app/insights" as const,
-    cta: "See insights",
-  },
-  {
-    title: "A rising format matches your product",
-    why: "Routine-led storytelling gives your product a natural on-camera moment.",
-    to: "/app/trends" as const,
-    cta: "Scan trends",
   },
 ];
 
@@ -93,7 +66,10 @@ function greeting() {
 }
 
 function Overview() {
-  const { activity, profile, profileComplete } = useWorkspace();
+  const { activity, profile, profileComplete, user, loading, error, retry } = useWorkspace();
+
+  if (loading) return <PageShell><LoadingState /></PageShell>;
+  if (error) return <PageShell><ErrorState message={error} retry={retry} /></PageShell>;
 
   return (
     <PageShell>
@@ -102,14 +78,14 @@ function Overview() {
           Overview
         </p>
         <h1 className="text-balance-tight mt-3 text-3xl font-semibold sm:text-[2.35rem] sm:leading-[1.1]">
-          {greeting()}, Ada.
+          {greeting()}{user?.firstName ? `, ${user.firstName}` : ""}.
           <span className="block text-muted-foreground">
             Here's what matters for {profile.brandName || "your brand"} today.
           </span>
         </h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          NOVA watches how youth culture moves, turns it into content you can publish, and keeps
-          every word inside your brand voice. Start with a trend scan, or brief the studio directly.
+          Start by completing your business profile. Then generate strategic ideas or brief the
+          content studio directly.
         </p>
       </header>
 
@@ -137,25 +113,21 @@ function Overview() {
 
       <div className="mt-10 grid gap-6 lg:grid-cols-5">
         <section className="lg:col-span-3">
-          <div className="flex items-center gap-3">
-            <h2 className="text-sm font-medium text-foreground">Marketing opportunities</h2>
-            <DemoBadge label="Suggested" />
-          </div>
-          <div className="mt-3 space-y-3">
-            {opportunities.map((item) => (
-              <div
-                key={item.title}
-                className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5 sm:flex-row sm:items-center sm:justify-between"
-              >
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-foreground">{item.title}</p>
-                  <p className="mt-1 text-sm text-muted-foreground">{item.why}</p>
-                </div>
-                <Button asChild variant="secondary" size="sm" className="shrink-0 rounded-lg">
-                  <Link to={item.to}>{item.cta}</Link>
-                </Button>
-              </div>
-            ))}
+          <h2 className="text-sm font-medium text-foreground">Your next step</h2>
+          <div className="mt-3 rounded-2xl border border-border bg-surface p-6">
+            <p className="text-base font-medium text-foreground">
+              {profileComplete ? "Generate your next strategic direction" : "Complete your business profile"}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {profileComplete
+                ? "NOVA will use your saved audience, tone, and vocabulary in every result."
+                : "Add your audience, tone, and vocabulary so NOVA can personalize every result."}
+            </p>
+            <Button asChild className="mt-5">
+              <Link to={profileComplete ? "/app/trends" : "/app/voice"}>
+                {profileComplete ? "Generate trend ideas" : "Complete profile"}<ArrowRight className="size-4" />
+              </Link>
+            </Button>
           </div>
         </section>
 
@@ -166,10 +138,10 @@ function Overview() {
               <div className="py-4 text-center">
                 <p className="text-sm text-foreground">Nothing here yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Your trend scans and generations will show up here.
+                  Your saved generations and profile changes will show up here.
                 </p>
                 <Button asChild size="sm" className="mt-4 rounded-lg">
-                  <Link to="/app/trends">Run your first scan</Link>
+                  <Link to={profileComplete ? "/app/trends" : "/app/voice"}>{profileComplete ? "Generate your first ideas" : "Complete your profile"}</Link>
                 </Button>
               </div>
             ) : (

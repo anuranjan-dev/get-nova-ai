@@ -21,7 +21,7 @@ import { trendCategories } from "@/lib/nova/trend-data";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/app/reputation")({
+export const Route = createFileRoute("/_authenticated/app/reputation")({
   head: () => ({
     meta: [
       { title: "Reputation Check — NOVA" },

@@ -18,7 +18,7 @@ import { novaClient } from "@/lib/nova/nova-client";
 import type { ContentPlatform, ContentResult, MarketingGoal } from "@/lib/nova/types";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 
-export const Route = createFileRoute("/app/studio")({
+export const Route = createFileRoute("/_authenticated/app/studio")({
   head: () => ({
     meta: [
       { title: "Content Studio — NOVA" },

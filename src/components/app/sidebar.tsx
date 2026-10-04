@@ -29,7 +29,13 @@ const nav: {
 
 export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const { profile, profileComplete } = useWorkspace();
+  const { profile, profileComplete, user } = useWorkspace();
+  const initials = user?.fullName
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("") || user?.email.slice(0, 1).toUpperCase() || "?";
 
   return (
     <div className="flex h-full flex-col bg-sidebar">
@@ -81,10 +87,12 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
           className="flex items-center gap-3 rounded-xl px-2 py-2 transition-colors hover:bg-sidebar-accent/60"
         >
           <span className="flex size-8 items-center justify-center rounded-full bg-surface-2 text-xs font-medium text-foreground">
-            AR
+            {initials}
           </span>
           <span className="min-w-0">
-            <span className="block truncate text-sm text-foreground">Ada Reyes</span>
+            <span className="block truncate text-sm text-foreground">
+              {user?.fullName || user?.email || "Loading account…"}
+            </span>
             <span className="block truncate text-xs text-muted-foreground">
               {profile.brandName || "Marketing workspace"}
             </span>
