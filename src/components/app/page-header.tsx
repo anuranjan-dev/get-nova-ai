@@ -1,12 +1,16 @@
+import { Badge } from "@/components/ui/badge";
+
 export function PageHeader({
   eyebrow,
   title,
   description,
+  demo = false,
   action,
 }: {
   eyebrow?: string;
   title: string;
   description: string;
+  demo?: boolean;
   action?: React.ReactNode;
 }) {
   return (
@@ -17,11 +21,25 @@ export function PageHeader({
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="text-balance-tight mt-2 text-2xl font-semibold sm:text-3xl">{title}</h1>
+        <div className="mt-2 flex flex-wrap items-center gap-3">
+          <h1 className="text-balance-tight text-2xl font-semibold sm:text-3xl">{title}</h1>
+          {demo ? <DemoBadge /> : null}
+        </div>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{description}</p>
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </div>
+  );
+}
+
+export function DemoBadge({ label = "Sample data" }: { label?: string }) {
+  return (
+    <Badge
+      variant="outline"
+      className="border-border-strong bg-surface-2 text-[0.65rem] font-medium tracking-wide text-muted-foreground uppercase"
+    >
+      {label}
+    </Badge>
   );
 }
 

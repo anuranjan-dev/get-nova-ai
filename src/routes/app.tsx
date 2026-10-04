@@ -8,7 +8,7 @@ import { ThemeToggle } from "@/components/nova/theme-toggle";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { WorkspaceProvider } from "@/lib/nova/workspace-store";
 
-export const Route = createFileRoute("/_authenticated/app")({
+export const Route = createFileRoute("/app")({
   component: AppLayout,
 });
 

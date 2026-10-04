@@ -10,27 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
-import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
-import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
-import { Route as AuthenticatedAppInsightsRouteImport } from './routes/_authenticated/app.insights'
-import { Route as AuthenticatedAppReputationRouteImport } from './routes/_authenticated/app.reputation'
-import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
-import { Route as AuthenticatedAppStudioRouteImport } from './routes/_authenticated/app.studio'
-import { Route as AuthenticatedAppToolsRouteImport } from './routes/_authenticated/app.tools'
-import { Route as AuthenticatedAppTrendsRouteImport } from './routes/_authenticated/app.trends'
-import { Route as AuthenticatedAppVoiceRouteImport } from './routes/_authenticated/app.voice'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppInsightsRouteImport } from './routes/app.insights'
+import { Route as AppReputationRouteImport } from './routes/app.reputation'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppStudioRouteImport } from './routes/app.studio'
+import { Route as AppToolsRouteImport } from './routes/app.tools'
+import { Route as AppTrendsRouteImport } from './routes/app.trends'
+import { Route as AppVoiceRouteImport } from './routes/app.voice'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -48,109 +48,100 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
+const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthenticatedAppRoute,
+  getParentRoute: () => AppRoute,
 } as any)
-const AuthenticatedAppInsightsRoute =
-  AuthenticatedAppInsightsRouteImport.update({
-    id: '/insights',
-    path: '/insights',
-    getParentRoute: () => AuthenticatedAppRoute,
-  } as any)
-const AuthenticatedAppReputationRoute =
-  AuthenticatedAppReputationRouteImport.update({
-    id: '/reputation',
-    path: '/reputation',
-    getParentRoute: () => AuthenticatedAppRoute,
-  } as any)
-const AuthenticatedAppSettingsRoute =
-  AuthenticatedAppSettingsRouteImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => AuthenticatedAppRoute,
-  } as any)
-const AuthenticatedAppStudioRoute = AuthenticatedAppStudioRouteImport.update({
+const AppInsightsRoute = AppInsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReputationRoute = AppReputationRouteImport.update({
+  id: '/reputation',
+  path: '/reputation',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStudioRoute = AppStudioRouteImport.update({
   id: '/studio',
   path: '/studio',
-  getParentRoute: () => AuthenticatedAppRoute,
+  getParentRoute: () => AppRoute,
 } as any)
-const AuthenticatedAppToolsRoute = AuthenticatedAppToolsRouteImport.update({
+const AppToolsRoute = AppToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
-  getParentRoute: () => AuthenticatedAppRoute,
+  getParentRoute: () => AppRoute,
 } as any)
-const AuthenticatedAppTrendsRoute = AuthenticatedAppTrendsRouteImport.update({
+const AppTrendsRoute = AppTrendsRouteImport.update({
   id: '/trends',
   path: '/trends',
-  getParentRoute: () => AuthenticatedAppRoute,
+  getParentRoute: () => AppRoute,
 } as any)
-const AuthenticatedAppVoiceRoute = AuthenticatedAppVoiceRouteImport.update({
+const AppVoiceRoute = AppVoiceRouteImport.update({
   id: '/voice',
   path: '/voice',
-  getParentRoute: () => AuthenticatedAppRoute,
+  getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/app': typeof AuthenticatedAppRouteWithChildren
-  '/app/insights': typeof AuthenticatedAppInsightsRoute
-  '/app/reputation': typeof AuthenticatedAppReputationRoute
-  '/app/settings': typeof AuthenticatedAppSettingsRoute
-  '/app/studio': typeof AuthenticatedAppStudioRoute
-  '/app/tools': typeof AuthenticatedAppToolsRoute
-  '/app/trends': typeof AuthenticatedAppTrendsRoute
-  '/app/voice': typeof AuthenticatedAppVoiceRoute
-  '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/insights': typeof AppInsightsRoute
+  '/app/reputation': typeof AppReputationRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
+  '/app/tools': typeof AppToolsRoute
+  '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/app/insights': typeof AuthenticatedAppInsightsRoute
-  '/app/reputation': typeof AuthenticatedAppReputationRoute
-  '/app/settings': typeof AuthenticatedAppSettingsRoute
-  '/app/studio': typeof AuthenticatedAppStudioRoute
-  '/app/tools': typeof AuthenticatedAppToolsRoute
-  '/app/trends': typeof AuthenticatedAppTrendsRoute
-  '/app/voice': typeof AuthenticatedAppVoiceRoute
-  '/app': typeof AuthenticatedAppIndexRoute
+  '/app/insights': typeof AppInsightsRoute
+  '/app/reputation': typeof AppReputationRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
+  '/app/tools': typeof AppToolsRoute
+  '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/app': typeof AppRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
-  '/_authenticated/app/insights': typeof AuthenticatedAppInsightsRoute
-  '/_authenticated/app/reputation': typeof AuthenticatedAppReputationRoute
-  '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
-  '/_authenticated/app/studio': typeof AuthenticatedAppStudioRoute
-  '/_authenticated/app/tools': typeof AuthenticatedAppToolsRoute
-  '/_authenticated/app/trends': typeof AuthenticatedAppTrendsRoute
-  '/_authenticated/app/voice': typeof AuthenticatedAppVoiceRoute
-  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/app/insights': typeof AppInsightsRoute
+  '/app/reputation': typeof AppReputationRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/studio': typeof AppStudioRoute
+  '/app/tools': typeof AppToolsRoute
+  '/app/trends': typeof AppTrendsRoute
+  '/app/voice': typeof AppVoiceRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/app'
     | '/forgot-password'
     | '/login'
     | '/signup'
-    | '/app'
     | '/app/insights'
     | '/app/reputation'
     | '/app/settings'
@@ -176,24 +167,23 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/_authenticated'
+    | '/app'
     | '/forgot-password'
     | '/login'
     | '/signup'
-    | '/_authenticated/app'
-    | '/_authenticated/app/insights'
-    | '/_authenticated/app/reputation'
-    | '/_authenticated/app/settings'
-    | '/_authenticated/app/studio'
-    | '/_authenticated/app/tools'
-    | '/_authenticated/app/trends'
-    | '/_authenticated/app/voice'
-    | '/_authenticated/app/'
+    | '/app/insights'
+    | '/app/reputation'
+    | '/app/settings'
+    | '/app/studio'
+    | '/app/tools'
+    | '/app/trends'
+    | '/app/voice'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AppRoute: typeof AppRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
@@ -208,11 +198,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -236,111 +226,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/app': {
-      id: '/_authenticated/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AuthenticatedAppRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/app/': {
-      id: '/_authenticated/app/'
+    '/app/': {
+      id: '/app/'
       path: '/'
       fullPath: '/app/'
-      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_authenticated/app/insights': {
-      id: '/_authenticated/app/insights'
+    '/app/insights': {
+      id: '/app/insights'
       path: '/insights'
       fullPath: '/app/insights'
-      preLoaderRoute: typeof AuthenticatedAppInsightsRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      preLoaderRoute: typeof AppInsightsRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_authenticated/app/reputation': {
-      id: '/_authenticated/app/reputation'
+    '/app/reputation': {
+      id: '/app/reputation'
       path: '/reputation'
       fullPath: '/app/reputation'
-      preLoaderRoute: typeof AuthenticatedAppReputationRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      preLoaderRoute: typeof AppReputationRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_authenticated/app/settings': {
-      id: '/_authenticated/app/settings'
+    '/app/settings': {
+      id: '/app/settings'
       path: '/settings'
       fullPath: '/app/settings'
-      preLoaderRoute: typeof AuthenticatedAppSettingsRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_authenticated/app/studio': {
-      id: '/_authenticated/app/studio'
+    '/app/studio': {
+      id: '/app/studio'
       path: '/studio'
       fullPath: '/app/studio'
-      preLoaderRoute: typeof AuthenticatedAppStudioRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      preLoaderRoute: typeof AppStudioRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_authenticated/app/tools': {
-      id: '/_authenticated/app/tools'
+    '/app/tools': {
+      id: '/app/tools'
       path: '/tools'
       fullPath: '/app/tools'
-      preLoaderRoute: typeof AuthenticatedAppToolsRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      preLoaderRoute: typeof AppToolsRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_authenticated/app/trends': {
-      id: '/_authenticated/app/trends'
+    '/app/trends': {
+      id: '/app/trends'
       path: '/trends'
       fullPath: '/app/trends'
-      preLoaderRoute: typeof AuthenticatedAppTrendsRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      preLoaderRoute: typeof AppTrendsRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/_authenticated/app/voice': {
-      id: '/_authenticated/app/voice'
+    '/app/voice': {
+      id: '/app/voice'
       path: '/voice'
       fullPath: '/app/voice'
-      preLoaderRoute: typeof AuthenticatedAppVoiceRouteImport
-      parentRoute: typeof AuthenticatedAppRoute
+      preLoaderRoute: typeof AppVoiceRouteImport
+      parentRoute: typeof AppRoute
     }
   }
 }
 
-interface AuthenticatedAppRouteChildren {
-  AuthenticatedAppInsightsRoute: typeof AuthenticatedAppInsightsRoute
-  AuthenticatedAppReputationRoute: typeof AuthenticatedAppReputationRoute
-  AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
-  AuthenticatedAppStudioRoute: typeof AuthenticatedAppStudioRoute
-  AuthenticatedAppToolsRoute: typeof AuthenticatedAppToolsRoute
-  AuthenticatedAppTrendsRoute: typeof AuthenticatedAppTrendsRoute
-  AuthenticatedAppVoiceRoute: typeof AuthenticatedAppVoiceRoute
-  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+interface AppRouteChildren {
+  AppInsightsRoute: typeof AppInsightsRoute
+  AppReputationRoute: typeof AppReputationRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppStudioRoute: typeof AppStudioRoute
+  AppToolsRoute: typeof AppToolsRoute
+  AppTrendsRoute: typeof AppTrendsRoute
+  AppVoiceRoute: typeof AppVoiceRoute
+  AppIndexRoute: typeof AppIndexRoute
 }
 
-const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
-  AuthenticatedAppInsightsRoute: AuthenticatedAppInsightsRoute,
-  AuthenticatedAppReputationRoute: AuthenticatedAppReputationRoute,
-  AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
-  AuthenticatedAppStudioRoute: AuthenticatedAppStudioRoute,
-  AuthenticatedAppToolsRoute: AuthenticatedAppToolsRoute,
-  AuthenticatedAppTrendsRoute: AuthenticatedAppTrendsRoute,
-  AuthenticatedAppVoiceRoute: AuthenticatedAppVoiceRoute,
-  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+const AppRouteChildren: AppRouteChildren = {
+  AppInsightsRoute: AppInsightsRoute,
+  AppReputationRoute: AppReputationRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppStudioRoute: AppStudioRoute,
+  AppToolsRoute: AppToolsRoute,
+  AppTrendsRoute: AppTrendsRoute,
+  AppVoiceRoute: AppVoiceRoute,
+  AppIndexRoute: AppIndexRoute,
 }
 
-const AuthenticatedAppRouteWithChildren =
-  AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
-
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
-}
-
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AppRoute: AppRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,

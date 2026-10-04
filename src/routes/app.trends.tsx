@@ -29,7 +29,7 @@ import type { TrendReport } from "@/lib/nova/types";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_authenticated/app/trends")({
+export const Route = createFileRoute("/app/trends")({
   head: () => ({
     meta: [
       { title: "Trend Scanner — NOVA" },

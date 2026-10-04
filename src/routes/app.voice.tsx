@@ -12,7 +12,7 @@ import type { BrandProfile } from "@/lib/nova/types";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_authenticated/app/voice")({
+export const Route = createFileRoute("/app/voice")({
   head: () => ({
     meta: [
       { title: "Brand Voice — NOVA" },

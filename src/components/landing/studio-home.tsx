@@ -31,10 +31,8 @@ import { useState } from "react";
 import audioImage from "@/assets/nova-case-audio.jpg";
 import beautyImage from "@/assets/nova-case-beauty.jpg";
 import fashionImage from "@/assets/nova-case-fashion.jpg";
-import editorialObject from "@/assets/nova-editorial-object.jpg";
 import wellnessImage from "@/assets/nova-case-wellness.jpg";
 import { NovaLogo } from "@/components/nova/logo";
-import { ThemeToggle } from "@/components/nova/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -168,8 +166,7 @@ function StudioNav() {
           <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
             {links.map(([label, href]) => <a key={href} href={href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">{label}</a>)}
           </nav>
-          <div className="flex shrink-0 items-center justify-end gap-2">
-            <ThemeToggle className="border-0 bg-secondary" />
+          <div className="flex shrink-0 justify-end gap-2">
             <Button asChild className="hidden h-10 rounded-full bg-foreground px-5 text-background shadow-none hover:bg-foreground/85 sm:inline-flex">
               <Link to="/signup">Request access</Link>
             </Button>
@@ -189,31 +186,38 @@ function StudioNav() {
   );
 }
 
+function FloatingObjects() {
+  return (
+    <div className="pointer-events-none absolute inset-0 hidden overflow-hidden sm:block" aria-hidden="true">
+      <span className="studio-float absolute left-[5%] top-20 grid size-16 rotate-[-10deg] place-items-center rounded-3xl bg-studio-blue text-2xl shadow-studio-blue">✦</span>
+      <span className="studio-float-delayed absolute right-[7%] top-28 grid size-20 rotate-[12deg] place-items-center rounded-full bg-studio-blush text-3xl shadow-studio-blush">☺</span>
+      <span className="studio-float absolute bottom-28 left-[10%] grid size-12 rotate-[18deg] place-items-center rounded-2xl bg-studio-yellow text-xl shadow-studio-yellow">●</span>
+      <span className="studio-float-delayed absolute bottom-40 right-[10%] grid h-14 w-20 rotate-[-14deg] place-items-center rounded-[1.4rem] bg-studio-mint text-xl shadow-studio-mint">✧</span>
+    </div>
+  );
+}
+
 function Hero() {
   return (
-    <section className="px-5 pb-20 pt-12 sm:pb-28 sm:pt-20">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-6">
-        <div>
-          <span className="studio-pill"><Sparkles className="size-3.5" /> Youth culture, made useful</span>
-          <h1 className="mt-7 max-w-4xl font-display text-6xl font-bold uppercase leading-[0.88] sm:text-8xl lg:text-[7.8rem]">
-            See what culture becomes next.
-          </h1>
-          <p className="mt-7 max-w-xl text-lg leading-7 text-muted-foreground sm:text-xl">
-            NOVA turns emerging cultural signals into clear marketing opportunities, original campaign thinking, and content your brand can confidently own.
-          </p>
-          <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row">
-            <Button asChild size="lg" className="h-13 w-full bg-foreground px-7 text-background shadow-none hover:bg-foreground/85 sm:w-auto">
-              <Link to="/signup">Request access <ArrowRight /></Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="h-13 border-foreground bg-transparent px-6 text-foreground"><Link to="/app/trends">Explore Trend Scanner <ChevronRight /></Link></Button>
-          </div>
+    <section className="relative overflow-hidden px-5 pb-24 pt-20 sm:pb-32 sm:pt-28">
+      <FloatingObjects />
+      <div className="relative z-10 mx-auto max-w-5xl text-center">
+        <span className="studio-pill"><Sparkles className="size-3.5" /> Youth culture, made useful</span>
+        <h1 className="mx-auto mt-7 max-w-5xl text-balance text-5xl font-semibold leading-[0.98] sm:text-7xl lg:text-[5.6rem]">
+          See what youth culture is becoming. <span className="text-primary">Create what belongs next.</span>
+        </h1>
+        <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
+          NOVA turns emerging cultural signals into clear marketing opportunities, original campaign thinking, and content your brand can confidently own.
+        </p>
+        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Button asChild size="lg" className="h-13 w-full rounded-full bg-foreground px-7 text-background shadow-studio-lavender transition-transform hover:-translate-y-0.5 hover:bg-foreground/85 sm:w-auto">
+            <Link to="/signup">Request access <ArrowRight /></Link>
+          </Button>
+          <Button asChild variant="ghost" size="lg" className="h-13 rounded-full px-6 text-foreground"><Link to="/app/trends">Explore Trend Scanner <ChevronRight /></Link></Button>
         </div>
-        <figure className="overflow-hidden rounded-[3.5rem] bg-card">
-          <img src={editorialObject} alt="A tactile arrangement of NOVA's signal and strategy building blocks" width={1400} height={1200} className="aspect-[7/6] h-full w-full object-cover" />
-        </figure>
-        <div className="lg:col-span-2 lg:mt-8">
+        <div className="mt-20">
           <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">Made for ambitious teams in</p>
-          <div className="mt-6 flex flex-wrap items-center gap-x-9 gap-y-4 text-sm font-semibold text-foreground/55 sm:text-base">
+          <div className="mx-auto mt-6 flex max-w-4xl flex-wrap items-center justify-center gap-x-9 gap-y-4 text-sm font-semibold text-foreground/55 sm:text-base">
             <span>BEAUTY LABS</span><span>STREET / FORM</span><span>GOOD DAY GOODS</span><span>SOFTWAVE</span><span>CAMPUS CLUB</span>
           </div>
         </div>
