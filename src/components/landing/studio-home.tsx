@@ -196,14 +196,14 @@ function Hero() {
         <div>
           <span className="studio-pill"><Sparkles className="size-3.5" /> Youth culture, made useful</span>
           <h1 className="mt-7 max-w-4xl font-display text-6xl font-bold uppercase leading-[0.88] sm:text-8xl lg:text-[7.8rem]">
-            See what culture becomes next.
+            AI marketing intelligence for youth brands.
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-7 text-muted-foreground sm:text-xl">
-            NOVA turns emerging cultural signals into clear marketing opportunities, original campaign thinking, and content your brand can confidently own.
+            NOVA helps brands spot emerging trends, understand why they matter, and turn cultural signals into smarter marketing ideas.
           </p>
           <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-13 w-full bg-foreground px-7 text-background shadow-none hover:bg-foreground/85 sm:w-auto">
-              <Link to="/signup">Request access <ArrowRight /></Link>
+<Link to="/app/trends">Explore NOVA <ArrowRight /></Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="h-13 border-foreground bg-transparent px-6 text-foreground"><Link to="/app/trends">Explore Trend Scanner <ChevronRight /></Link></Button>
           </div>

@@ -1,3 +1,11 @@
+export function DemoBadge() {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1 text-[0.65rem] font-medium tracking-[0.12em] text-muted-foreground uppercase">
+      <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" /> Demo intelligence
+    </span>
+  );
+}
+
 export function PageHeader({
   eyebrow,
   title,

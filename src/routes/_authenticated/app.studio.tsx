@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Copy, Loader2, Wand2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { PageHeader, PageShell } from "@/components/app/page-header";
@@ -65,6 +65,12 @@ function ContentStudio() {
   const [goal, setGoal] = useState<MarketingGoal>("Engagement");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ContentResult | null>(null);
+
+  useEffect(() => {
+    setBrandName(profile.brandName);
+    setAudience(profile.audience);
+    setTone(profile.tone);
+  }, [profile.brandName, profile.audience, profile.tone]);
 
   const generate = async () => {
     if (!product.trim()) {
