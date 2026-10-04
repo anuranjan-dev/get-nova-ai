@@ -6,6 +6,7 @@ import { AuthShell } from "@/components/auth/auth-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/forgot-password")({
   head: () => ({
@@ -21,6 +22,8 @@ export const Route = createFileRoute("/forgot-password")({
 
 function ForgotPasswordPage() {
   const [sent, setSent] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <AuthShell
@@ -40,21 +43,36 @@ function ForgotPasswordPage() {
         <div className="flex items-center gap-3 rounded-xl border border-border bg-background p-4">
           <MailCheck className="size-5 text-primary" />
           <p className="text-sm text-muted-foreground">
-            The link expires in 30 minutes for your security.
+            Follow the instructions in the email to continue.
           </p>
         </div>
       ) : (
         <form
           className="space-y-4"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
+            setPending(true);
+            setError(null);
+            const form = new FormData(e.currentTarget);
+            const { error: resetError } = await supabase.auth.resetPasswordForEmail(
+              String(form.get("email") ?? ""),
+              { redirectTo: `${window.location.origin}/login` },
+            );
+            if (resetError) {
+              setError(resetError.message);
+              setPending(false);
+              return;
+            }
             setSent(true);
+            setPending(false);
           }}
         >
+          {error ? <p role="alert" className="rounded-lg border border-destructive/30 p-3 text-sm text-destructive">{error}</p> : null}
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
+              name="email"
               type="email"
               required
               autoComplete="email"
@@ -62,8 +80,8 @@ function ForgotPasswordPage() {
               className="h-11 rounded-xl"
             />
           </div>
-          <Button type="submit" className="h-11 w-full rounded-xl">
-            Send reset link
+          <Button type="submit" disabled={pending} className="h-11 w-full rounded-xl">
+            {pending ? "Sending…" : "Send reset link"}
           </Button>
         </form>
       )}
