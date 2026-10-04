@@ -3,7 +3,7 @@ import { ArrowUpRight, Check, ChevronsUpDown, Copy, Info, Loader2, Minus, Radar 
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
-import { DemoBadge, PageHeader, PageShell } from "@/components/app/page-header";
+import { PageHeader, PageShell } from "@/components/app/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -166,7 +166,6 @@ function TrendScanner() {
         eyebrow="Trend Scanner"
         title="What your audience is talking about"
         description="Pick a category to see rising topics, hashtags, audience conversations and ready-to-use content angles. Add a brand name to personalise every recommendation."
-        demo
       />
 
       <form

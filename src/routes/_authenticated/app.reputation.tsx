@@ -3,6 +3,7 @@ import { Check, ChevronsUpDown, Loader2, ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
+import { AiResultLabel, ErrorState, LoadingState } from "@/components/app/data-state";
 import { PageHeader, PageShell } from "@/components/app/page-header";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { buildReputationReport, type ReputationReport } from "@/lib/nova/reputation-data";
+import { checkReputation } from "@/lib/nova/nova.functions";
+import type { ReputationReport } from "@/lib/nova/types";
 import { trendCategories } from "@/lib/nova/trend-data";
 import { useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
@@ -88,13 +90,13 @@ function ReputationCheck() {
 
     await new Promise((resolve) => timers.current.push(setTimeout(resolve, SCAN_MS)));
 
-    const result = buildReputationReport(cat, brand);
+    const result = await checkReputation({ data: { category: cat, brandName: brand } });
     setReport(result);
     setLoading(false);
     logActivity(
       "trend",
       `Reputation check for ${brand}`,
-      `${result.category} · ${result.frustrations.length} frustrations, ${result.fixes.length} fixes`,
+      `${result.category} · ${result.risks.length} risks, ${result.fixes.length} fixes`,
     );
   };
 
@@ -104,12 +106,9 @@ function ReputationCheck() {
         eyebrow="Reputation Check"
         title="What people actually think about your brand"
         description="Enter your brand and category. NOVA surfaces what audiences love, what frustrates them, and how to fix it."
-        demo
       />
 
-      <p className="mt-4 rounded-xl border border-border bg-surface px-4 py-3 text-sm text-muted-foreground">
-        Illustrative sample data — not live-connected to Reddit or Twitter/X yet.
-      </p>
+      <div className="mt-4"><AiResultLabel /></div>
 
       <form
         className="mt-6 grid gap-3 sm:grid-cols-2"
@@ -221,21 +220,25 @@ function ReputationCheck() {
       {report && !loading ? (
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           <section>
-            <h2 className="text-lg font-semibold text-foreground">What people love</h2>
+            <h2 className="text-lg font-semibold text-foreground">Hypothetical strengths to validate</h2>
             <div className="mt-4 space-y-3">
-              {report.loves.map((item) => (
-                <QuoteCard key={item.quote} {...item} accent="positive" />
+              {report.strengths.map((item) => (
+                <article key={item.title} className="rounded-2xl border border-border bg-surface p-5">
+                  <p className="font-medium text-foreground">{item.title}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.context}</p>
+                </article>
               ))}
             </div>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-foreground">
-              What people are frustrated about
-            </h2>
+            <h2 className="text-lg font-semibold text-foreground">Hypothetical risks to validate</h2>
             <div className="mt-4 space-y-3">
-              {report.frustrations.map((item) => (
-                <QuoteCard key={item.quote} {...item} accent="negative" />
+              {report.risks.map((item) => (
+                <article key={item.title} className="rounded-2xl border border-border bg-surface p-5">
+                  <p className="font-medium text-foreground">{item.title}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.context}</p>
+                </article>
               ))}
             </div>
           </section>
@@ -265,34 +268,6 @@ function ReputationCheck() {
   );
 }
 
-function QuoteCard({
-  source,
-  quote,
-  context,
-  accent,
-}: {
-  source: string;
-  quote: string;
-  context: string;
-  accent: "positive" | "negative";
-}) {
-  return (
-    <article className="rounded-2xl border border-border bg-surface p-5">
-      <p
-        className={cn(
-          "text-[0.65rem] font-medium tracking-[0.12em] uppercase",
-          accent === "positive"
-            ? "text-emerald-600 dark:text-emerald-500"
-            : "text-amber-600 dark:text-amber-500",
-        )}
-      >
-        {source}
-      </p>
-      <blockquote className="mt-2 text-sm text-foreground">“{quote}”</blockquote>
-      <p className="mt-2.5 text-sm text-muted-foreground">{context}</p>
-    </article>
-  );
-}
 
 function ScanningPanel({ steps, activeIndex }: { steps: string[]; activeIndex: number }) {
   const progress = steps.length ? ((activeIndex + 1) / steps.length) * 100 : 0;

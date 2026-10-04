@@ -269,27 +269,12 @@ function SettingsPage() {
 
           <TabsContent value="Billing" className="mt-6">
             <Section title="Billing" description="Plan, usage and invoices.">
-              <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-background p-5">
-                <div>
-                  <p className="text-sm font-medium">Pro workspace</p>
-                  <p className="mt-0.5 text-sm text-muted-foreground">
-                    $20 per member / month · renews 1 September
-                  </p>
-                </div>
-                <Button variant="secondary" className="rounded-xl" onClick={saved}>
-                  Manage plan
-                </Button>
+              <div className="rounded-xl border border-dashed border-border bg-background p-5">
+                <p className="text-sm font-medium">No billing data yet</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Billing, usage, and invoices will appear here when your account has real billing records.
+                </p>
               </div>
-              <Separator className="my-5" />
-              <Row title="Usage this month" description="18,420 of 50,000 messages used.">
-                <Badge variant="secondary">37%</Badge>
-              </Row>
-              <Separator />
-              <Row title="Invoices" description="Download past receipts as PDF.">
-                <Button variant="outline" size="sm" className="rounded-lg" onClick={saved}>
-                  View invoices
-                </Button>
-              </Row>
             </Section>
           </TabsContent>
         </Tabs>

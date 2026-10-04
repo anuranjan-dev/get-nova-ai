@@ -92,7 +92,6 @@ function ContentStudio() {
         eyebrow="Content Studio"
         title="From brief to on-brand content"
         description="Describe what you're promoting. NOVA writes post ideas, hooks, captions, ad copy, CTAs and hashtags tuned to your platform and goal."
-        demo
       />
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[22rem_1fr]">
