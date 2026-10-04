@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Clock, TrendingUp } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { BarChart3 } from "lucide-react";
 
+import { ErrorState, LoadingState } from "@/components/app/data-state";
 import { PageHeader, PageShell } from "@/components/app/page-header";
-import { insightsDemo } from "@/lib/nova/demo-data";
+import { Button } from "@/components/ui/button";
+import { useWorkspace } from "@/lib/nova/workspace-store";
 
 export const Route = createFileRoute("/_authenticated/app/insights")({
   head: () => ({
@@ -24,92 +27,35 @@ export const Route = createFileRoute("/_authenticated/app/insights")({
 });
 
 function Insights() {
-  const max = Math.max(...insightsDemo.engagement.map((point) => point.value));
+  const { activity, loading, error, retry } = useWorkspace();
+  if (loading) return <PageShell><LoadingState label="Loading your saved work…" /></PageShell>;
+  if (error) return <PageShell><ErrorState message={error} retry={retry} /></PageShell>;
 
   return (
     <PageShell>
       <PageHeader
         eyebrow="Insights"
-        title="What's working, and what to do next"
-        description="A read on your content performance: engagement over time, the formats earning attention, and the windows worth posting in."
-        demo
+        title="Your saved work"
+        description="A factual history of the work generated and saved in your NOVA account. Performance analytics appear only after you connect a real data source."
       />
-
-      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {insightsDemo.kpis.map((kpi) => (
-          <div key={kpi.label} className="rounded-2xl border border-border bg-surface p-5">
-            <p className="text-xs text-muted-foreground">{kpi.label}</p>
-            <p className="mt-2 text-2xl font-semibold text-foreground">{kpi.value}</p>
-            <p className="mt-1 text-xs text-primary">{kpi.delta} vs last period</p>
-          </div>
-        ))}
-      </div>
-
-      <section className="mt-8 rounded-2xl border border-border bg-surface p-6">
-        <div className="flex items-center gap-2">
-          <TrendingUp className="size-4 text-primary" />
-          <h2 className="text-sm font-semibold text-foreground">Engagement trend</h2>
+      {activity.length === 0 ? (
+        <div className="mt-8 rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+          <BarChart3 className="mx-auto size-6 text-muted-foreground" />
+          <p className="mt-3 text-sm font-medium text-foreground">No saved work yet</p>
+          <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">Generate a trend direction or content set to begin your account history.</p>
+          <Button asChild className="mt-5"><Link to="/app/trends">Generate ideas</Link></Button>
         </div>
-        <div className="mt-6 flex h-40 items-end gap-3">
-          {insightsDemo.engagement.map((point) => (
-            <div key={point.week} className="flex min-w-0 flex-1 flex-col items-center gap-2">
-              <div
-                className="w-full rounded-t-md bg-primary/70"
-                style={{ height: `${(point.value / max) * 100}%` }}
-                title={`${point.week}: ${point.value}`}
-              />
-              <span className="text-[0.65rem] text-muted-foreground">{point.week}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="mt-8 grid gap-3 lg:grid-cols-2">
-        <section className="rounded-2xl border border-border bg-surface p-6">
-          <h2 className="text-sm font-semibold text-foreground">Best-performing formats</h2>
-          <ul className="mt-4 space-y-3">
-            {insightsDemo.formats.map((format) => (
-              <li key={format.name}>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">{format.name}</span>
-                  <span className="text-foreground">{format.score}</span>
-                </div>
-                <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-surface-2">
-                  <div className="h-full rounded-full bg-primary" style={{ width: `${format.score}%` }} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="rounded-2xl border border-border bg-surface p-6">
-          <div className="flex items-center gap-2">
-            <Clock className="size-4 text-primary" />
-            <h2 className="text-sm font-semibold text-foreground">Optimal posting windows</h2>
-          </div>
-          <ul className="mt-4 space-y-3">
-            {insightsDemo.slots.map((slot) => (
-              <li key={slot.day} className="rounded-xl bg-surface-2 px-4 py-3">
-                <p className="text-sm text-foreground">
-                  {slot.day} · {slot.time}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">{slot.note}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-
-      <section className="mt-8 rounded-2xl border border-border bg-surface p-6">
-        <h2 className="text-sm font-semibold text-foreground">Recommendations</h2>
-        <ul className="mt-4 space-y-2">
-          {insightsDemo.recommendations.map((item) => (
-            <li key={item} className="rounded-xl bg-surface-2 px-4 py-3 text-sm text-muted-foreground">
-              {item}
+      ) : (
+        <ul className="mt-8 space-y-3">
+          {activity.map((item) => (
+            <li key={item.id} className="rounded-xl border border-border bg-surface p-4">
+              <p className="text-sm font-medium text-foreground">{item.title}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{item.detail}</p>
+              <p className="mt-2 text-xs text-muted-foreground">{new Date(item.createdAt).toLocaleString()}</p>
             </li>
           ))}
         </ul>
-      </section>
+      )}
     </PageShell>
   );
 }
