@@ -1,6 +1,7 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
+import { supabase } from "@/integrations/supabase/client";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/signup")({
 function SignupPage() {
   const navigate = useNavigate();
   const [pending, setPending] = useState(false);
+  const [message, setMessage] = useState("");
 
   return (
     <AuthShell
@@ -43,16 +45,36 @@ function SignupPage() {
     >
       <form
         className="space-y-4"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           setPending(true);
-          setTimeout(() => void navigate({ to: "/app" }), 500);
+          setMessage("");
+          const form = new FormData(e.currentTarget);
+          const { data, error: authError } = await supabase.auth.signUp({
+            email: String(form.get("email")),
+            password: String(form.get("password")),
+            options: {
+              emailRedirectTo: import.meta.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? `${window.location.origin}/auth/callback`,
+              data: { username: String(form.get("name")) },
+            },
+          });
+          setPending(false);
+          if (authError) {
+            setMessage(authError.message.toLowerCase().includes("weak") ? "Use a stronger password with at least 8 characters." : "We couldn't create your account. Please check your details and try again.");
+            return;
+          }
+          if (data.session) {
+            await navigate({ to: "/app" });
+          } else {
+            setMessage("Account created. Check your email to confirm your account, then log in.");
+          }
         }}
       >
         <div className="space-y-2">
-          <Label htmlFor="name">Full name</Label>
+          <Label htmlFor="name">Username</Label>
           <Input
             id="name"
+            name="name"
             required
             autoComplete="name"
             placeholder="Ada Reyes"
@@ -63,6 +85,7 @@ function SignupPage() {
           <Label htmlFor="email">Work email</Label>
           <Input
             id="email"
+            name="email"
             type="email"
             required
             autoComplete="email"
@@ -74,6 +97,7 @@ function SignupPage() {
           <Label htmlFor="password">Password</Label>
           <Input
             id="password"
+            name="password"
             type="password"
             required
             minLength={8}
@@ -82,6 +106,7 @@ function SignupPage() {
             className="h-11 rounded-xl"
           />
         </div>
+        {message && <p className="text-sm text-muted-foreground" role="status">{message}</p>}
         <Button type="submit" disabled={pending} className="h-11 w-full rounded-xl">
           {pending ? "Creating workspace…" : "Start for free"}
         </Button>

@@ -1,6 +1,7 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
+import { supabase } from "@/integrations/supabase/client";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const navigate = useNavigate();
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
 
   return (
     <AuthShell
@@ -37,16 +39,28 @@ function LoginPage() {
     >
       <form
         className="space-y-4"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           setPending(true);
-          setTimeout(() => void navigate({ to: "/app" }), 500);
+          setError("");
+          const form = new FormData(e.currentTarget);
+          const { error: authError } = await supabase.auth.signInWithPassword({
+            email: String(form.get("email")),
+            password: String(form.get("password")),
+          });
+          setPending(false);
+          if (authError) {
+            setError(authError.message.toLowerCase().includes("confirm") ? "Please confirm your email before signing in." : "Invalid email or password.");
+            return;
+          }
+          await navigate({ to: "/app" });
         }}
       >
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
+            name="email"
             type="email"
             required
             autoComplete="email"
@@ -66,6 +80,7 @@ function LoginPage() {
           </div>
           <Input
             id="password"
+            name="password"
             type="password"
             required
             autoComplete="current-password"
@@ -73,6 +88,7 @@ function LoginPage() {
             className="h-11 rounded-xl"
           />
         </div>
+        {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
         <Button type="submit" disabled={pending} className="h-11 w-full rounded-xl">
           {pending ? "Signing in…" : "Log in"}
         </Button>
@@ -84,8 +100,22 @@ function LoginPage() {
         <span className="h-px flex-1 bg-border" />
       </div>
 
-      <Button variant="outline" className="h-11 w-full rounded-xl" asChild>
-        <Link to="/app">Continue with Google</Link>
+      <Button
+        variant="outline"
+        className="h-11 w-full rounded-xl"
+        type="button"
+        onClick={async () => {
+          setError("");
+          const { error: authError } = await supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+              redirectTo: `${window.location.origin}/auth/callback`,
+            },
+          });
+          if (authError) setError("Google sign-in is unavailable right now.");
+        }}
+      >
+        Continue with Google
       </Button>
     </AuthShell>
   );
