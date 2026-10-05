@@ -10,7 +10,7 @@ export function NovaMark({ className }: { className?: string }) {
       aria-hidden="true"
     >
       <img
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Oct%205%2C%202026%2C%2012_33_49%20PM-uW0oeoZqTkQWwxcv6Kqs7QR7L9C1A7.png"
+        src="/nova-logo.png"
         alt=""
         className="size-full object-cover"
       />
