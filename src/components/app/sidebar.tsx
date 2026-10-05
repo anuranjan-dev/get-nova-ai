@@ -4,6 +4,7 @@ import {
   LineChart,
   Radar,
   Settings,
+  ShieldCheck,
   Sparkles,
   Wand2,
   type LucideIcon,
@@ -14,13 +15,14 @@ import { useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
 
 const nav: {
-  to: "/app" | "/app/trends" | "/app/studio" | "/app/voice" | "/app/insights" | "/app/settings";
+  to: "/app" | "/app/trends" | "/app/reputation" | "/app/studio" | "/app/voice" | "/app/insights" | "/app/settings";
   label: string;
   icon: LucideIcon;
   exact?: boolean;
 }[] = [
   { to: "/app", label: "Overview", icon: LayoutDashboard, exact: true },
   { to: "/app/trends", label: "Trend Scanner", icon: Radar },
+  { to: "/app/reputation", label: "Reputation Check", icon: ShieldCheck },
   { to: "/app/studio", label: "Content Studio", icon: Wand2 },
   { to: "/app/voice", label: "Brand Voice", icon: Sparkles },
   { to: "/app/insights", label: "Insights", icon: LineChart },
