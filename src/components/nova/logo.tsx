@@ -4,26 +4,16 @@ export function NovaMark({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "mark-gradient inline-flex items-center justify-center rounded-[0.6rem] text-primary-foreground",
-        "size-7",
+        "inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-foreground/15 bg-black shadow-sm",
         className,
       )}
       aria-hidden="true"
     >
-      <svg viewBox="0 0 24 24" className="size-[70%]" fill="none">
-        <path
-          d="M12 3.2c.35 2.6 1.1 4.4 2.35 5.65C15.6 10.1 17.4 10.85 20 11.2c-2.6.35-4.4 1.1-5.65 2.35C13.1 14.8 12.35 16.6 12 19.2c-.35-2.6-1.1-4.4-2.35-5.65C8.4 12.3 6.6 11.55 4 11.2c2.6-.35 4.4-1.1 5.65-2.35C10.9 7.6 11.65 5.8 12 3.2Z"
-          fill="currentColor"
-        />
-        <circle
-          cx="12"
-          cy="11.2"
-          r="8.6"
-          stroke="currentColor"
-          strokeOpacity="0.45"
-          strokeWidth="1"
-        />
-      </svg>
+      <img
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Oct%205%2C%202026%2C%2012_33_49%20PM-uW0oeoZqTkQWwxcv6Kqs7QR7L9C1A7.png"
+        alt=""
+        className="size-full object-cover"
+      />
     </span>
   );
 }
