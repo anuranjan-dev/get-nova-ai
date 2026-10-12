@@ -5,13 +5,13 @@ import { StudioHomepage } from "@/components/landing/studio-home";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NOVA — Youth Marketing Intelligence" },
+      { title: "NOVA — AI Marketing Intelligence for Youth Brands" },
       {
         name: "description",
         content:
           "NOVA turns emerging youth-culture signals into clear marketing opportunities, campaign strategy, and on-brand content.",
       },
-      { property: "og:title", content: "NOVA — Youth Marketing Intelligence" },
+      { property: "og:title", content: "NOVA — AI Marketing Intelligence for Youth Brands" },
       {
         property: "og:description",
         content:
