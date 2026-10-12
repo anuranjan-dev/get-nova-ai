@@ -1,393 +1,64 @@
 import { Link } from "@tanstack/react-router";
-import {
-  ArrowLeft,
-  ArrowRight,
-  BadgeCheck,
-  BarChart3,
-  Check,
-  ChevronRight,
-  CircleHelp,
-  Compass,
-  Gauge,
-  Gem,
-  HeartHandshake,
-  Layers3,
-  Menu,
-  MessageCircleHeart,
-  MousePointer2,
-  Palette,
-  Radar,
-  Rocket,
-  ScanSearch,
-  Sparkles,
-  Target,
-  WandSparkles,
-  X,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, Menu, Radar, ShieldCheck, Sparkles, Wand2, X } from "lucide-react";
 import { useState } from "react";
-
-import audioImage from "@/assets/nova-case-audio.jpg";
+import backdrop from "@/assets/nova-minimal-backdrop.jpg";
 import beautyImage from "@/assets/nova-case-beauty.jpg";
 import fashionImage from "@/assets/nova-case-fashion.jpg";
-import wellnessImage from "@/assets/nova-case-wellness.jpg";
+import { IntelligencePreview } from "@/components/landing/intelligence-preview";
 import { NovaLogo } from "@/components/nova/logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type IconType = LucideIcon;
-type Tint = "lavender" | "blue" | "blush" | "yellow" | "mint";
-
-const tintClasses: Record<Tint, string> = {
-  lavender: "bg-studio-lavender shadow-studio-lavender",
-  blue: "bg-studio-blue shadow-studio-blue",
-  blush: "bg-studio-blush shadow-studio-blush",
-  yellow: "bg-studio-yellow shadow-studio-yellow",
-  mint: "bg-studio-mint shadow-studio-mint",
-};
-
-const services: { title: string; copy: string; points: string[]; icon: IconType; tint: Tint }[] = [
-  {
-    title: "Trend intelligence",
-    copy: "Find the cultural signals worth your team’s attention before they become yesterday’s format.",
-    points: ["12 youth categories", "Momentum scoring", "Audience context"],
-    icon: Radar,
-    tint: "lavender",
-  },
-  {
-    title: "Content strategy",
-    copy: "Turn a strong signal into a clear campaign angle and a complete social content direction.",
-    points: ["Campaign concepts", "Channel-specific hooks", "Ready-to-use hashtags"],
-    icon: WandSparkles,
-    tint: "blue",
-  },
-  {
-    title: "Brand voice",
-    copy: "Give every marketer a shared creative standard without flattening the personality of your brand.",
-    points: ["Voice profiles", "Banned-word guardrails", "Consistent output"],
-    icon: MessageCircleHeart,
-    tint: "blush",
-  },
+const links = [{ label: "Platform", href: "#platform" }, { label: "How it works", href: "#workflow" }, { label: "Pricing", href: "#pricing" }, { label: "About", href: "#about" }];
+const capabilities = [
+  { number: "01", icon: Radar, title: "See the signal.", copy: "Explore category-specific directions, audience context, and the cultural shifts worth a closer look.", link: "/app/trends" as const, action: "Trend Scanner" },
+  { number: "02", icon: Wand2, title: "Find your angle.", copy: "Turn an interesting direction into campaign ideas, hooks, captions, and content you can make your own.", link: "/app/studio" as const, action: "Content Studio" },
+  { number: "03", icon: Sparkles, title: "Sound like you.", copy: "Define your personality, vocabulary, and creative boundaries. Keep your brand at the center of every brief.", link: "/app/voice" as const, action: "Brand Voice" },
 ];
-
-const caseStudies = [
-  {
-    image: wellnessImage,
-    client: "Luma Fizz",
-    category: "Wellness beverage",
-    result: "A ritual-led campaign built from an emerging soft-energy signal.",
-  },
-  {
-    image: fashionImage,
-    client: "Halo Form",
-    category: "Streetwear",
-    result: "A tactile product story shaped around low-key futurism.",
-  },
-  {
-    image: beautyImage,
-    client: "Dew Club",
-    category: "Beauty",
-    result: "A calm launch world inspired by the rise of quiet routine content.",
-  },
-  {
-    image: audioImage,
-    client: "Softwave",
-    category: "Consumer tech",
-    result: "A playful identity moment for a new everyday-listening ritual.",
-  },
-];
-
-const benefits: { title: string; copy: string; icon: IconType; tint?: Tint; wide?: boolean }[] = [
-  { title: "Earlier signals", copy: "See new formats and conversation shifts while there is still room to make them yours.", icon: ScanSearch, tint: "lavender", wide: true },
-  { title: "Faster decisions", copy: "Give your team a shared, evidence-backed read in minutes.", icon: Zap },
-  { title: "Brand fit", copy: "Score cultural momentum against your audience and positioning.", icon: Target, tint: "mint" },
-  { title: "One clear voice", copy: "Keep vocabulary, tone and creative boundaries consistent.", icon: BadgeCheck },
-  { title: "Campaign range", copy: "Move from a strategic angle to hooks, captions and formats.", icon: Layers3, tint: "blue", wide: true },
-  { title: "Human judgment", copy: "Recommendations explain the why, so marketers stay in control.", icon: Compass },
-  { title: "Team-ready", copy: "Create work that is easier to present, review and improve together.", icon: HeartHandshake, tint: "blush" },
-  { title: "Category depth", copy: "Explore intelligence tuned to 12 fast-moving youth categories.", icon: BarChart3 },
-];
-
-const process = [
-  { title: "Set the brief", copy: "Choose a category, add your brand if you want personalisation, and define the question.", icon: MousePointer2, tint: "lavender" as Tint },
-  { title: "Read the culture", copy: "NOVA maps audience conversations, formats and early signals around your space.", icon: Radar, tint: "blue" as Tint },
-  { title: "Score the momentum", copy: "Each direction is assessed for audience energy, relevance and fit out of 100.", icon: Gauge, tint: "mint" as Tint },
-  { title: "Find your angle", copy: "The signal becomes a credible marketing opportunity with a clear reason to act.", icon: Target, tint: "yellow" as Tint },
-  { title: "Shape the work", copy: "Build campaign ideas, captions, hooks and hashtags inside your brand voice.", icon: Palette, tint: "blush" as Tint },
-  { title: "Launch with clarity", copy: "Review, copy and share a complete direction your whole team can understand.", icon: Rocket, tint: "lavender" as Tint },
-];
-
-const gallery = [
-  { image: beautyImage, name: "Quiet Glow", category: "Skincare launch", span: "md:col-span-7" },
-  { image: audioImage, name: "Everyday Frequency", category: "Audio campaign", span: "md:col-span-5" },
-  { image: fashionImage, name: "Soft Utility", category: "Streetwear direction", span: "md:col-span-5" },
-  { image: wellnessImage, name: "Ritual Energy", category: "Beverage positioning", span: "md:col-span-7" },
-];
-
-const testimonials = [
-  { quote: "NOVA turns the ‘we should do something with this’ conversation into a real brief before the moment passes.", name: "Maya Chen", role: "Brand Director, Luma", initials: "MC", featured: true },
-  { quote: "The recommendations feel strategic, not like a pile of internet trends dropped into a deck.", name: "Theo Grant", role: "Strategy Lead, Halo", initials: "TG" },
-  { quote: "Our social team finally has one shared view of what matters and why it fits our audience.", name: "Ari Bell", role: "Social Lead, Dew Club", initials: "AB" },
-  { quote: "It makes trend research calmer, clearer and much easier to defend with the wider team.", name: "Noor Patel", role: "Insights Manager", initials: "NP" },
-  { quote: "Brand voice gives us useful guardrails without making every caption sound identical.", name: "Sam Rivera", role: "Creative Producer", initials: "SR" },
-  { quote: "We moved from signal to a launch-ready concept in one working session.", name: "Iris Cole", role: "Growth Director", initials: "IC" },
-];
-
 const faqs = [
-  { q: "Who is NOVA for?", a: "Brand, insights, social and creative teams building for Gen Z and youth audiences." },
-  { q: "Is NOVA a general AI assistant?", a: "No. Every workflow is built around cultural intelligence, campaign strategy and brand-safe content." },
-  { q: "Does it use live trend data?", a: "This preview uses realistic sample intelligence. A production workspace can connect your approved data sources." },
-  { q: "Can we define our own voice?", a: "Yes. Add personality, audience, preferred vocabulary and words to avoid once, then reuse that profile." },
-  { q: "Does NOVA promise virality?", a: "No. It helps teams make more relevant decisions; audience response and distribution remain platform-dependent." },
-  { q: "Can multiple teams use it?", a: "The Team plan is designed for shared brand profiles, collaborative workflows and higher usage." },
+  { q: "Who is NOVA built for?", a: "Marketing, social, strategy, and creative teams working with youth-focused brands and Gen Z audiences." },
+  { q: "Are these live social media trends?", a: "Not in this preview. Trend Scanner uses curated example datasets, not a live social-media feed. The workspace preview on this page is illustrative too." },
+  { q: "Can I explore without adding a brand?", a: "Yes. Choose a category to explore. Add a brand name when you want the recommendations personalized to your brand." },
+  { q: "How does Brand Voice work?", a: "Set your audience, tone, preferred language, and words to avoid. NOVA uses that profile to keep content aligned with your brand." },
+  { q: "Does NOVA guarantee results?", a: "No. NOVA supports creative judgment and clearer decisions. It does not promise virality, reach, or sales." },
 ];
 
-function SectionIntro({ label, title, copy }: { label: string; title: string; copy?: string }) {
-  return (
-    <div className="mx-auto max-w-3xl text-center">
-      <span className="studio-pill">{label}</span>
-      <h2 className="mt-5 text-balance text-3xl font-semibold leading-tight sm:text-5xl">{title}</h2>
-      {copy ? <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">{copy}</p> : null}
-    </div>
-  );
-}
-
-function StudioNav() {
+function Navigation() {
   const [open, setOpen] = useState(false);
-  const links = [
-    ["Services", "#services"], ["About", "#about"], ["Features", "#features"], ["Work", "#work"], ["Pricing", "#pricing"],
-  ];
-  return (
-    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5">
-      <div className={cn("mx-auto max-w-7xl border border-border bg-background/90 px-4 shadow-sm backdrop-blur-xl transition-[border-radius] sm:px-6", open ? "rounded-[2rem]" : "rounded-full")}>
-        <div className="grid h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 md:grid-cols-[1fr_auto_1fr]">
-          <Link to="/" aria-label="NOVA home" className="min-w-0"><NovaLogo /></Link>
-          <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
-            {links.map(([label, href]) => <a key={href} href={href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">{label}</a>)}
-          </nav>
-          <div className="flex shrink-0 justify-end gap-2">
-            <Button asChild className="hidden h-10 rounded-full bg-foreground px-5 text-background shadow-none hover:bg-foreground/85 sm:inline-flex">
-              <Link to="/signup">Request access</Link>
-            </Button>
-            <Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
-              {open ? <X /> : <Menu />}
-            </Button>
-          </div>
-        </div>
-        {open ? (
-          <nav className="border-t border-border px-2 py-4 md:hidden" aria-label="Mobile navigation">
-            {links.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)} className="block rounded-xl px-3 py-3 text-sm font-medium hover:bg-secondary">{label}</a>)}
-            <Button asChild className="mt-3 w-full rounded-full bg-foreground text-background hover:bg-foreground/85"><Link to="/signup">Request access</Link></Button>
-          </nav>
-        ) : null}
-      </div>
-    </header>
-  );
-}
-
-function FloatingObjects() {
-  return (
-    <div className="pointer-events-none absolute inset-0 hidden overflow-hidden sm:block" aria-hidden="true">
-      <span className="studio-float absolute left-[5%] top-20 grid size-16 rotate-[-10deg] place-items-center rounded-3xl bg-studio-blue text-2xl shadow-studio-blue">✦</span>
-      <span className="studio-float-delayed absolute right-[7%] top-28 grid size-20 rotate-[12deg] place-items-center rounded-full bg-studio-blush text-3xl shadow-studio-blush">☺</span>
-      <span className="studio-float absolute bottom-28 left-[10%] grid size-12 rotate-[18deg] place-items-center rounded-2xl bg-studio-yellow text-xl shadow-studio-yellow">●</span>
-      <span className="studio-float-delayed absolute bottom-40 right-[10%] grid h-14 w-20 rotate-[-14deg] place-items-center rounded-[1.4rem] bg-studio-mint text-xl shadow-studio-mint">✧</span>
-    </div>
-  );
+  return <header className="relative z-20 mx-auto max-w-7xl px-5 sm:px-10"><div className="flex h-22 items-center justify-between gap-5"><Link to="/" aria-label="NOVA home"><NovaLogo /></Link><nav aria-label="Main navigation" className="hidden items-center gap-8 md:flex">{links.map((link) => <a key={link.href} href={link.href} className="text-xs text-foreground/75 transition-colors hover:text-foreground">{link.label}</a>)}</nav><div className="flex items-center gap-5"><Link to="/login" className="hidden text-xs text-foreground/80 sm:block">Log in</Link><Button asChild className="hidden h-10 rounded-full px-5 shadow-none sm:inline-flex"><Link to="/signup">Request access <ArrowUpRight /></Link></Button><Button variant="ghost" size="icon" className="md:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="nova-mobile-nav" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button></div></div>{open && <nav id="nova-mobile-nav" aria-label="Mobile navigation" className="absolute inset-x-5 top-20 rounded-lg border border-border bg-surface p-4 shadow-panel md:hidden">{links.map((link) => <a key={link.href} href={link.href} className="block py-3 text-sm" onClick={() => setOpen(false)}>{link.label}</a>)}<div className="mt-3 flex items-center justify-between border-t border-border pt-4"><Link to="/login">Log in</Link><Button asChild className="rounded-full"><Link to="/signup">Request access</Link></Button></div></nav>}</header>;
 }
 
 function Hero() {
-  return (
-    <section className="relative overflow-hidden px-5 pb-24 pt-20 sm:pb-32 sm:pt-28">
-      <FloatingObjects />
-      <div className="relative z-10 mx-auto max-w-5xl text-center">
-        <span className="studio-pill"><Sparkles className="size-3.5" /> Youth culture, made useful</span>
-        <h1 className="mx-auto mt-7 max-w-5xl text-balance text-5xl font-semibold leading-[0.98] sm:text-7xl lg:text-[5.6rem]">
-          See what youth culture is becoming. <span className="text-primary">Create what belongs next.</span>
-        </h1>
-        <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-          NOVA turns emerging cultural signals into clear marketing opportunities, original campaign thinking, and content your brand can confidently own.
-        </p>
-        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button asChild size="lg" className="h-13 w-full rounded-full bg-foreground px-7 text-background shadow-studio-lavender transition-transform hover:-translate-y-0.5 hover:bg-foreground/85 sm:w-auto">
-            <Link to="/signup">Request access <ArrowRight /></Link>
-          </Button>
-          <Button asChild variant="ghost" size="lg" className="h-13 rounded-full px-6 text-foreground"><Link to="/app/trends">Explore Trend Scanner <ChevronRight /></Link></Button>
-        </div>
-        <div className="mt-20">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">Made for ambitious teams in</p>
-          <div className="mx-auto mt-6 flex max-w-4xl flex-wrap items-center justify-center gap-x-9 gap-y-4 text-sm font-semibold text-foreground/55 sm:text-base">
-            <span>BEAUTY LABS</span><span>STREET / FORM</span><span>GOOD DAY GOODS</span><span>SOFTWAVE</span><span>CAMPUS CLUB</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Services() {
-  return (
-    <section id="services" className="studio-section">
-      <SectionIntro label="What NOVA does" title="From cultural noise to your next sharp move." copy="Three connected capabilities help strategy, social, and creative teams move together — without chasing every passing moment." />
-      <div className="mx-auto mt-14 grid max-w-7xl gap-5 lg:grid-cols-3">
-        {services.map((service) => (
-          <article key={service.title} className={cn("studio-card group relative min-h-[26rem] overflow-hidden p-7 transition duration-300 hover:-translate-y-1.5 sm:p-9", tintClasses[service.tint])}>
-            <div className="absolute right-6 top-6 grid size-24 rotate-6 place-items-center rounded-[2rem] border border-background/70 bg-background/55 shadow-lg transition-transform duration-300 group-hover:rotate-0 group-hover:scale-105">
-              <service.icon className="size-10 text-foreground/75" strokeWidth={1.5} />
-            </div>
-            <div className="flex h-full flex-col justify-end pt-40">
-              <h3 className="text-2xl font-semibold">{service.title}</h3>
-              <p className="mt-3 leading-7 text-muted-foreground">{service.copy}</p>
-              <ul className="mt-6 space-y-3">
-                {service.points.map((point) => <li key={point} className="flex items-center gap-3 text-sm font-medium"><span className="grid size-5 place-items-center rounded-full bg-background/70"><Check className="size-3" /></span>{point}</li>)}
-              </ul>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Showcase() {
-  const [active, setActive] = useState(0);
-  const move = (direction: number) => setActive((current) => (current + direction + caseStudies.length) % caseStudies.length);
-  return (
-    <section className="studio-section overflow-hidden" aria-roledescription="carousel">
-      <SectionIntro label="Inside the work" title="Strategy you can see, feel, and build on." copy="A few fictional campaign worlds showing how NOVA can carry an early signal into a distinctive creative direction." />
-      <div className="relative mx-auto mt-14 max-w-7xl">
-        <div className="grid grid-cols-[0.18fr_1fr_0.18fr] items-center gap-3 sm:grid-cols-[0.35fr_1fr_0.35fr] sm:gap-6">
-          {[-1, 0, 1].map((offset) => {
-            const index = (active + offset + caseStudies.length) % caseStudies.length;
-            const item = caseStudies[index];
-            if (!item) return null;
-            return (
-              <article key={`${active}-${offset}`} className={cn("overflow-hidden rounded-[1.75rem] border border-border bg-card transition-all duration-500", offset === 0 ? "relative z-10 shadow-studio-lavender" : "scale-90 opacity-40 blur-[1px]")}>
-                <img src={item.image} alt={`${item.client} ${item.category} campaign concept`} loading="lazy" width={1408} height={1008} className={cn("aspect-[7/5] w-full object-cover", offset !== 0 && "min-h-52")} />
-                {offset === 0 ? <div className="grid gap-2 p-6 sm:grid-cols-[1fr_auto] sm:items-end sm:p-8"><div><p className="text-sm text-muted-foreground">{item.category}</p><h3 className="mt-1 text-2xl font-semibold">{item.client}</h3></div><p className="max-w-sm text-sm leading-6 text-muted-foreground sm:text-right">{item.result}</p></div> : null}
-              </article>
-            );
-          })}
-        </div>
-        <div className="mt-7 flex justify-center gap-3">
-          <Button variant="outline" size="icon" className="size-12 rounded-full bg-card" onClick={() => move(-1)} aria-label="Previous case study"><ArrowLeft /></Button>
-          <Button variant="outline" size="icon" className="size-12 rounded-full bg-card" onClick={() => move(1)} aria-label="Next case study"><ArrowRight /></Button>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="nova-hero relative isolate overflow-hidden"><img src={backdrop} alt="" width={1920} height={1024} className="absolute inset-0 -z-10 h-full w-full object-cover" fetchPriority="high" /><Navigation /><div className="mx-auto max-w-7xl px-5 pb-12 pt-12 sm:px-10 sm:pt-16"><div className="mx-auto max-w-5xl text-center"><p className="inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-foreground/5 px-3 py-1.5 text-[10px] font-medium uppercase"><span className="size-1.5 rounded-full bg-foreground" /> Built for the next generation of brands</p><h1 className="mt-6 text-balance text-[2.6rem] font-medium leading-[1.08] sm:text-6xl lg:text-[4.5rem]">AI Marketing Intelligence<br className="hidden sm:block" /> for Youth Brands.</h1><p className="mx-auto mt-5 max-w-xl text-sm leading-6 text-foreground/75 sm:text-base sm:leading-7">Understand the culture. Find your opportunity.<br className="hidden sm:block" /> Create what comes next — unmistakably in your voice.</p><div className="mt-7 flex flex-wrap items-center justify-center gap-3"><Button asChild className="h-11 rounded-full bg-foreground px-4 text-xs text-background shadow-none hover:bg-foreground/90"><Link to="/signup">Request access <ArrowUpRight /></Link></Button><Button asChild variant="ghost" className="h-11 rounded-full border border-foreground/15 bg-foreground/10 px-4 text-xs hover:bg-foreground/20"><a href="#platform">Explore the platform <ArrowRight /></a></Button></div></div><div className="mx-auto mt-12 max-w-4xl sm:mt-14"><IntelligencePreview /></div></div></section>;
 }
 
 function About() {
-  const cards = [
-    { label: "Our mission", title: "Make cultural intelligence feel clear, useful, and creatively alive.", copy: "NOVA exists to help good teams notice meaningful change without becoming slaves to the feed.", bullets: ["Signals with context", "Ideas with a point of view", "Technology that supports judgment"], tint: "lavender" as Tint, symbol: "✦" },
-    { label: "Who we are", title: "A focused intelligence platform for brands built around young people.", copy: "We blend cultural research, strategic structure, and generative workflows into one calm place to think and make.", bullets: ["Built for brand teams", "Designed around real workflows", "Serious intelligence, friendly interface"], tint: "mint" as Tint, symbol: "◌" },
-  ];
-  return (
-    <section id="about" className="studio-section">
-      <SectionIntro label="About NOVA" title="Calm technology for fast-moving culture." />
-      <div className="mx-auto mt-14 grid max-w-7xl gap-5 lg:grid-cols-2">
-        {cards.map((card) => <article key={card.label} className={cn("studio-card relative min-h-[31rem] overflow-hidden p-8 sm:p-10", tintClasses[card.tint])}>
-          <span className="studio-pill bg-background/60">{card.label}</span>
-          <div className="absolute right-8 top-8 grid size-24 place-items-center rounded-full border border-background/80 bg-background/60 text-4xl shadow-lg">{card.symbol}</div>
-          <div className="mt-32 max-w-xl"><h3 className="text-3xl font-semibold leading-tight sm:text-4xl">{card.title}</h3><p className="mt-5 leading-7 text-muted-foreground">{card.copy}</p><ul className="mt-7 grid gap-3 sm:grid-cols-3">{card.bullets.map((item) => <li key={item} className="border-t border-foreground/10 pt-3 text-sm font-medium">{item}</li>)}</ul></div>
-        </article>)}
-      </div>
-    </section>
-  );
+  return <><div className="border-b border-border"><div className="nova-container flex flex-wrap items-center justify-center gap-x-10 gap-y-4 py-8 text-sm font-medium text-muted-foreground"><span className="text-[10px] uppercase">Built for your world</span>{["Beauty & skincare", "Streetwear", "Gaming", "Food & drink", "Consumer tech"].map((name) => <span key={name}>{name}</span>)}</div></div><section id="about" className="nova-section nova-container"><p className="nova-eyebrow">A clearer perspective</p><h2 className="mt-7 max-w-5xl text-2xl font-medium leading-relaxed sm:text-4xl sm:leading-[1.4]">Culture moves fast. Your brand doesn’t need to chase it all. <span className="text-muted-foreground">NOVA connects cultural signals, marketing opportunities, and creative thinking — so your next move has a reason behind it.</span></h2><div className="mt-10 grid gap-6 border-t border-border pt-7 sm:grid-cols-3">{[{ icon: Radar, title: "Culture first", copy: "Start with your audience, not a blank page." }, { icon: Wand2, title: "Strategy connected", copy: "Carry the signal through to the creative brief." }, { icon: ShieldCheck, title: "Always your brand", copy: "Your voice. Your boundaries. Your judgment." }].map(({ icon: Icon, title, copy }) => <div key={title} className="flex gap-3"><Icon className="mt-1 size-5 shrink-0 text-primary" /><div><h3 className="text-sm font-medium">{title}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground">{copy}</p></div></div>)}</div></section></>;
 }
 
-function Features() {
-  return (
-    <section id="features" className="studio-section">
-      <SectionIntro label="Why NOVA" title="Everything your team needs to move with relevance." copy="Built to make the gap between insight and execution shorter, smarter, and more collaborative." />
-      <div className="mx-auto mt-14 grid max-w-7xl gap-4 md:grid-cols-3">
-        {benefits.map((item) => <article key={item.title} className={cn("studio-card min-h-56 p-7 transition duration-300 hover:-translate-y-1 hover:shadow-lg", item.wide && "md:col-span-2", item.tint ? tintClasses[item.tint] : "bg-card")}><span className="grid size-11 place-items-center rounded-2xl border border-border bg-background/70"><item.icon className="size-5" /></span><h3 className="mt-8 text-xl font-semibold">{item.title}</h3><p className="mt-2 max-w-lg leading-7 text-muted-foreground">{item.copy}</p></article>)}
-      </div>
-    </section>
-  );
+function Platform() {
+  return <section id="platform" className="nova-section bg-muted/40"><div className="nova-container"><div className="flex flex-col justify-between gap-5 md:flex-row md:items-end"><div><p className="nova-eyebrow">One connected platform</p><h2 className="nova-heading mt-5">From what’s happening.<br />To what you make.</h2></div><p className="max-w-sm text-sm leading-6 text-muted-foreground">A focused workspace for the thinking behind relevant marketing. Less scattered research. More creative direction.</p></div><div className="mt-12 grid gap-8 md:grid-cols-3">{capabilities.map(({ number, icon: Icon, title, copy, link, action }) => <article key={title} className="border-t border-border pt-6"><div className="flex items-center justify-between"><Icon className="size-6 text-primary" strokeWidth={1.5} /><span className="text-xs text-muted-foreground">{number}</span></div><h3 className="mt-8 text-2xl font-medium">{title}</h3><p className="mt-4 min-h-24 text-sm leading-6 text-muted-foreground">{copy}</p><Button asChild variant="link" className="mt-5 h-auto p-0 text-foreground"><Link to={link}>{action}<ArrowUpRight /></Link></Button></article>)}</div></div></section>;
 }
 
-function Process() {
-  return (
-    <section className="studio-section">
-      <SectionIntro label="How it works" title="From signal to strategy in six clear steps." />
-      <ol className="mx-auto mt-14 max-w-3xl space-y-4">
-        {process.map((step, index) => <li key={step.title} className={cn("studio-card grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 p-5 sm:gap-6 sm:p-7", tintClasses[step.tint])}><span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-background/70"><step.icon className="size-5" /></span><div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Step {index + 1}</p><h3 className="mt-1 text-lg font-semibold sm:text-xl">{step.title}</h3><p className="mt-1 text-sm leading-6 text-muted-foreground">{step.copy}</p></div><span className="hidden text-3xl font-semibold text-foreground/10 sm:block">0{index + 1}</span></li>)}
-      </ol>
-    </section>
-  );
-}
-
-function Work() {
-  return (
-    <section id="work" className="studio-section">
-      <SectionIntro label="Selected directions" title="Built for brands people want to be part of." />
-      <div className="mx-auto mt-14 grid max-w-7xl gap-5 md:grid-cols-12">
-        {gallery.map((item) => <article key={item.name} className={cn("group relative overflow-hidden rounded-[1.75rem] border border-border bg-card", item.span)}><img src={item.image} alt={`${item.name}, ${item.category}`} loading="lazy" width={1408} height={1008} className="aspect-[7/5] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" /><div className="absolute inset-x-4 bottom-4 translate-y-2 rounded-2xl bg-background/90 p-4 opacity-0 shadow-lg backdrop-blur-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100"><p className="text-sm text-muted-foreground">{item.category}</p><h3 className="font-semibold">{item.name}</h3></div></article>)}
-      </div>
-    </section>
-  );
+function Workflow() {
+  const [step, setStep] = useState(0);
+  const steps = [{ title: "Cultural signals", copy: "Start with your category. Explore the topics, formats, and emerging directions that could matter to your audience." }, { title: "Trend intelligence", copy: "Look beyond the headline. Consider momentum, audience context, and relevance before deciding what deserves attention." }, { title: "Marketing opportunity", copy: "Connect the direction to your positioning. Find a credible angle that your brand can contribute to, rather than simply copy." }, { title: "Content strategy", copy: "Turn that angle into campaign concepts, hooks, and captions. Keep your brand voice and human judgment in the loop." }];
+  return <section id="workflow" className="nova-section nova-container"><div className="text-center"><p className="nova-eyebrow">A sharper creative rhythm</p><h2 className="nova-heading mt-5">Good work starts<br />with a better read.</h2></div><div className="mt-10 grid grid-cols-2 gap-2 border-b border-border pb-5 md:grid-cols-4" role="tablist" aria-label="Marketing workflow">{steps.map((item, index) => <Button key={item.title} id={`workflow-tab-${index}`} role="tab" aria-selected={step === index} aria-controls="workflow-panel" tabIndex={step === index ? 0 : -1} onKeyDown={(event) => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); const next = (step + (event.key === "ArrowRight" ? 1 : -1) + steps.length) % steps.length; setStep(next); document.getElementById(`workflow-tab-${next}`)?.focus(); } }} onClick={() => setStep(index)} variant="ghost" className={cn("h-11 text-xs sm:text-sm", step === index ? "bg-primary-soft text-primary" : "text-muted-foreground")}><span className="opacity-50">0{index + 1}</span>{item.title}</Button>)}</div><div id="workflow-panel" role="tabpanel" aria-labelledby={`workflow-tab-${step}`} className="mt-8 grid gap-8 md:grid-cols-2 md:items-center"><div className="overflow-hidden rounded-lg bg-muted"><img src={step < 2 ? beautyImage : fashionImage} alt={step < 2 ? "Original skincare campaign concept in a soft pink setting" : "Original streetwear campaign concept"} loading="lazy" width={1400} height={1000} className="aspect-[7/5] w-full object-cover" /></div><div className="py-4 md:pl-8"><p className="text-xs text-primary">0{step + 1} / 04</p><h3 className="mt-4 text-3xl font-medium">{steps[step]?.title}</h3><p className="mt-4 max-w-md text-sm leading-7 text-muted-foreground">{steps[step]?.copy}</p><p className="mt-4 text-xs text-muted-foreground">Original campaign concept · illustrative work</p><Button asChild variant="link" className="mt-6 p-0 text-foreground"><Link to="/app/trends">Find your starting point <ArrowUpRight /></Link></Button></div></div></section>;
 }
 
 function Pricing() {
-  const plans = [
-    { name: "NOVA Studio", summary: "For focused teams building a sharper weekly rhythm.", price: "$79", note: "per workspace / month", features: ["Trend Scanner", "12 categories", "Brand Voice profile", "Content Studio", "Saved opportunities", "Email support"], icon: Gem, prominent: false },
-    { name: "NOVA Team", summary: "For growing brand teams working across markets and channels.", price: "$189", note: "per workspace / month", features: ["Everything in Studio", "5 team seats", "Multiple brand profiles", "Priority intelligence", "Shared campaign library", "Priority support"], icon: Sparkles, prominent: true },
-  ];
-  return (
-    <section id="pricing" className="studio-section">
-      <SectionIntro label="Simple pricing" title="Choose the pace that fits your team." copy="Start with one focused workspace. Move up when more brands, markets, and collaborators join the work." />
-      <div className="mx-auto mt-14 grid max-w-5xl gap-5 lg:grid-cols-2">
-        {plans.map((plan) => <article key={plan.name} className={cn("studio-card flex flex-col p-7 sm:p-9", plan.prominent ? "bg-studio-lavender shadow-studio-lavender" : "bg-card")}><div className="flex items-start justify-between gap-4"><span className="grid size-12 place-items-center rounded-2xl bg-background/75"><plan.icon className="size-5" /></span>{plan.prominent ? <span className="studio-pill bg-background/60">Most popular</span> : null}</div><h3 className="mt-8 text-2xl font-semibold">{plan.name}</h3><p className="mt-2 text-muted-foreground">{plan.summary}</p><div className="mt-8"><span className="text-5xl font-semibold">{plan.price}</span><span className="ml-2 text-sm text-muted-foreground">{plan.note}</span></div><Button asChild className="mt-8 h-12 w-full rounded-full bg-foreground text-background hover:bg-foreground/85"><Link to="/signup">Choose {plan.name}</Link></Button><ul className="mt-8 grid gap-x-5 gap-y-3 sm:grid-cols-2">{plan.features.map((feature) => <li key={feature} className="flex gap-2 text-sm"><Check className="mt-0.5 size-4 shrink-0 text-primary" />{feature}</li>)}</ul></article>)}
-      </div>
-    </section>
-  );
-}
-
-function Testimonials() {
-  return (
-    <section className="studio-section">
-      <SectionIntro label="From the team chat" title="Less chasing. More clarity." />
-      <div className="mx-auto mt-14 grid max-w-7xl gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {testimonials.map((item) => <figure key={item.name} className={cn("studio-card flex min-h-64 flex-col p-7", item.featured ? "bg-studio-blue shadow-studio-blue" : "bg-card")}><blockquote className="text-lg leading-7">“{item.quote}”</blockquote><figcaption className="mt-auto flex items-center gap-3 pt-8"><span className="grid size-10 place-items-center rounded-full bg-foreground text-xs font-semibold text-background">{item.initials}</span><span><span className="block text-sm font-semibold">{item.name}</span><span className="block text-xs text-muted-foreground">{item.role}</span></span></figcaption></figure>)}
-      </div>
-    </section>
-  );
+  const plans = [{ name: "NOVA Studio", price: "$79", copy: "A focused workspace for your creative rhythm.", features: ["Trend Scanner", "12 categories", "Brand Voice profile", "Content Studio", "Saved opportunities", "Email support"] }, { name: "NOVA Team", price: "$189", copy: "A shared direction for a growing brand team.", features: ["Everything in Studio", "5 team seats", "Multiple brand profiles", "Priority intelligence", "Shared campaign library", "Priority support"] }];
+  return <section id="pricing" className="nova-section bg-muted/40"><div className="nova-container"><div className="text-center"><p className="nova-eyebrow">The next chapter</p><h2 className="nova-heading mt-5">Space for your brand.<br />Room to grow.</h2><p className="mt-4 text-sm text-muted-foreground">Preview plans. Paid subscriptions are not active yet.</p></div><div className="mx-auto mt-10 grid max-w-4xl gap-5 md:grid-cols-2">{plans.map((plan, index) => <article key={plan.name} className={cn("rounded-lg border p-7 sm:p-9", index === 1 ? "border-primary/25 bg-primary-soft" : "border-border bg-card")}><div className="flex items-center justify-between"><h3 className="text-lg font-medium">{plan.name}</h3>{index === 1 && <Sparkles className="size-5 text-primary" />}</div><p className="mt-3 text-sm text-muted-foreground">{plan.copy}</p><p className="mt-7"><span className="text-5xl font-medium">{plan.price}</span><span className="ml-2 text-xs text-muted-foreground">/ workspace / month</span></p><div className="mt-7 border-t border-border pt-6"><p className="text-[10px] uppercase text-muted-foreground">Planned inclusions</p><ul className="mt-4 space-y-3">{plan.features.map((feature) => <li key={feature} className="flex items-center gap-2 text-sm"><Check className="size-3.5 text-primary" />{feature}</li>)}</ul></div><Button asChild variant={index === 1 ? "default" : "outline"} className="mt-8 h-11 w-full rounded-full shadow-none"><Link to="/signup">Request access <ArrowUpRight /></Link></Button></article>)}</div></div></section>;
 }
 
 function FAQ() {
-  return (
-    <section id="faq" className="studio-section">
-      <SectionIntro label="Good to know" title="Questions, answered simply." />
-      <div className="mx-auto mt-14 grid max-w-7xl gap-x-10 md:grid-cols-2 lg:grid-cols-3">
-        {faqs.map((item) => <article key={item.q} className="border-t border-border py-7"><CircleHelp className="size-5 text-primary" /><h3 className="mt-5 font-semibold">{item.q}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.a}</p></article>)}
-      </div>
-    </section>
-  );
+  return <section className="nova-section nova-container"><div className="grid gap-10 md:grid-cols-[0.8fr_1.2fr]"><div><p className="nova-eyebrow">Good to know</p><h2 className="nova-heading mt-5">A little clarity.</h2><p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">A few answers before your next move.</p></div><div>{faqs.map((faq) => <details key={faq.q} className="group border-b border-border first:border-t"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-sm font-medium [&::-webkit-details-marker]:hidden">{faq.q}<ChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" /></summary><p className="max-w-xl pb-5 pr-7 text-sm leading-7 text-muted-foreground">{faq.a}</p></details>)}</div></div></section>;
 }
 
-function StudioFooter() {
-  return (
-    <footer className="px-4 pb-4 sm:px-6 sm:pb-6">
-      <div className="mx-auto max-w-7xl rounded-[2rem] border border-border bg-studio-lavender p-7 shadow-studio-lavender sm:p-10 lg:p-14">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-          <div><NovaLogo /><h2 className="mt-7 max-w-lg text-3xl font-semibold leading-tight sm:text-4xl">Make your next cultural move feel unmistakably yours.</h2><Button asChild className="mt-7 rounded-full bg-foreground text-background hover:bg-foreground/85"><Link to="/signup">Request access <ArrowRight /></Link></Button></div>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3"><div><p className="text-sm font-semibold">Explore</p><nav className="mt-4 space-y-3 text-sm text-muted-foreground"><a className="block hover:text-foreground" href="#services">Services</a><a className="block hover:text-foreground" href="#features">Features</a><a className="block hover:text-foreground" href="#pricing">Pricing</a></nav></div><div><p className="text-sm font-semibold">Platform</p><nav className="mt-4 space-y-3 text-sm text-muted-foreground"><Link className="block hover:text-foreground" to="/app/trends">Trend Scanner</Link><Link className="block hover:text-foreground" to="/app/studio">Content Studio</Link><Link className="block hover:text-foreground" to="/login">Log in</Link></nav></div><div><p className="text-sm font-semibold">Social</p><nav className="mt-4 space-y-3 text-sm text-muted-foreground"><a className="block hover:text-foreground" href="mailto:hello@nova.example">Email</a><span className="block">LinkedIn</span><span className="block">Instagram</span></nav></div></div>
-        </div>
-        <div className="mt-14 flex flex-col gap-3 border-t border-foreground/10 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between"><p>© {new Date().getFullYear()} NOVA. All rights reserved.</p><p>AI marketing intelligence for youth brands.</p></div>
-      </div>
-    </footer>
-  );
+function Footer() {
+  return <footer className="nova-closing"><div className="nova-container py-16 sm:py-20"><div className="flex flex-col justify-between gap-7 border-b border-foreground/15 pb-14 md:flex-row md:items-end"><div><p className="text-[10px] uppercase text-foreground/60">Your next move</p><h2 className="mt-5 text-4xl font-medium leading-tight sm:text-5xl">Stay close to culture.<br />Make something that matters.</h2></div><Button asChild className="h-12 w-fit rounded-full bg-foreground px-6 text-background shadow-none hover:bg-foreground/90"><Link to="/signup">Request access <ArrowUpRight /></Link></Button></div><div className="mt-12 grid gap-10 sm:grid-cols-[1.5fr_1fr_1fr]"><div><NovaLogo /><p className="mt-4 max-w-xs text-xs leading-6 text-foreground/60">AI marketing intelligence for youth brands.<br />A clearer path from culture to creative.</p></div><nav aria-label="Footer platform" className="space-y-3 text-xs"><p className="mb-4 font-medium">Platform</p><Link to="/app/trends" className="block text-foreground/60 hover:text-foreground">Trend Scanner</Link><Link to="/app/studio" className="block text-foreground/60 hover:text-foreground">Content Studio</Link><Link to="/app/voice" className="block text-foreground/60 hover:text-foreground">Brand Voice</Link></nav><nav aria-label="Footer company" className="space-y-3 text-xs"><p className="mb-4 font-medium">NOVA</p><a href="#about" className="block text-foreground/60 hover:text-foreground">About</a><a href="#pricing" className="block text-foreground/60 hover:text-foreground">Pricing</a><Link to="/login" className="block text-foreground/60 hover:text-foreground">Log in</Link></nav></div><div className="mt-12 flex flex-wrap justify-between gap-3 border-t border-foreground/15 pt-6 text-[10px] text-foreground/50"><p>© {new Date().getFullYear()} NOVA. All rights reserved.</p><p>For the brands shaping what’s next.</p></div></div></footer>;
 }
 
 export function StudioHomepage() {
-  return (
-    <div className="studio-home min-h-screen bg-background font-studio text-foreground">
-      <StudioNav />
-      <main><Hero /><Services /><Showcase /><About /><Features /><Process /><Work /><Pricing /><Testimonials /><FAQ /></main>
-      <StudioFooter />
-    </div>
-  );
+  return <div className="minimal-home min-h-screen font-studio"><main><Hero /><About /><Platform /><Workflow /><Pricing /><FAQ /></main><Footer /></div>;
 }

@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/app/voice")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Brand Voice — NOVA" },
       {
         name: "description",

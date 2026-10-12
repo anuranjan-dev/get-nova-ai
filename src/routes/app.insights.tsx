@@ -7,6 +7,8 @@ import { insightsDemo } from "@/lib/nova/demo-data";
 export const Route = createFileRoute("/app/insights")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Insights — NOVA" },
       {
         name: "description",

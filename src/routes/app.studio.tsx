@@ -21,6 +21,8 @@ import { useWorkspace } from "@/lib/nova/workspace-store";
 export const Route = createFileRoute("/app/studio")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Content Studio — NOVA" },
       {
         name: "description",
