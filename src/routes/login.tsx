@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Log in — NOVA" },
       { name: "description", content: "Log in to your NOVA brand intelligence command center." },
       { property: "og:title", content: "Log in — NOVA" },
