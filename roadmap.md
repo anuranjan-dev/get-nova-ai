@@ -1,3 +1,3 @@
 # Homepage refresh
-- [ ] Replace the playful homepage with a minimal NOVA-specific experience inspired by Vallure.
-- [ ] Verify navigation and homepage at desktop and mobile sizes.
+- [x] Replace the playful homepage with a minimal NOVA-specific experience inspired by Vallure.
+- [x] Verify navigation and homepage at desktop and mobile sizes.
