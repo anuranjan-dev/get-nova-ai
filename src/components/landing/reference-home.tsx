@@ -19,7 +19,7 @@ export function ReferenceHomepage() {
 <header className="sticky top-0 z-50 pt-4 px-4 sm:px-6">
 <div className="max-w-7xl mx-auto backdrop-blur-xl bg-card/85 border border-border/80 rounded-full shadow-sm px-5 sm:px-7 h-16 flex items-center justify-between transition-all duration-300">
 <a className="flex items-center gap-2.5 group active:scale-95 transition-transform" href="/">
-<div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-primary-foreground shadow-md group-hover:bg-primary transition-colors"><span className="font-mono text-lg font-extrabold leading-none select-none">{"N"}</span>
+<div className="w-9 h-9 aspect-square shrink-0 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-md group-hover:bg-primary transition-colors"><span className="font-sans tabular-nums text-lg font-extrabold leading-none select-none translate-y-px">{"N"}</span>
 </div>
 <span className="text-xl font-bold text-foreground">{"NOVA"}</span>
 </a>
@@ -78,7 +78,7 @@ export function ReferenceHomepage() {
 </div>
 <div >
 <div className="flex items-center gap-2">
-<span className="font-bold text-sm text-foreground font-mono">{"NOVA WORKSPACE"}</span>
+<span className="font-bold text-sm text-foreground font-sans tabular-nums">{"NOVA WORKSPACE"}</span>
 <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-primary-soft text-primary border border-primary/20">{"Sample Preview"}</span>
 </div>
 <p className="text-xs text-muted-foreground">{"Your brand's marketing, in one place."}</p>
@@ -118,14 +118,14 @@ export function ReferenceHomepage() {
 <span className="text-xs font-semibold text-muted-foreground uppercase">{"Trend Scanner"}</span>
 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-success-soft text-success border border-success/20">{"Trend activity"}</span>
 </div>
-<div className="flex items-baseline gap-2 mb-1">
-<span className="text-2xl font-bold font-mono text-foreground">{"+142%"}</span>
-<span className="text-xs text-success font-medium">{"Spike detected"}</span>
+<div className="flex flex-col gap-1.5 mb-3">
+<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground">{"+142%"}</span>
+<span className="text-[13px] leading-snug text-success font-semibold">{"Spike detected"}</span>
 </div>
 <p className="text-xs text-muted-foreground">{"Spot rising conversations and style trends."}</p>
 </div>
 <div className="mt-3 pt-2.5 border-t border-border/60"><div className="flex items-center justify-between text-[10px] text-muted-foreground/70 mb-1"><span className="font-medium">{"Interest Over Time"}</span>
-<span className="font-mono text-[9px] bg-card px-1.5 py-0.5 rounded border border-border">{"Sample data"}</span>
+<span className="font-sans tabular-nums text-[9px] bg-card px-1.5 py-0.5 rounded-full border border-border">{"Sample data"}</span>
 </div>
 <div className="h-12 w-full relative flex items-end pb-3.5"><svg className="w-full h-8 overflow-visible" fill="none" viewBox="0 0 100 32"><line stroke="var(--border)" strokeDasharray="2 2" strokeWidth="1" x1="0" x2="100" y1="28" y2="28"></line>
 <line stroke="var(--muted)" strokeWidth="1" x1="0" x2="100" y1="14" y2="14"></line>
@@ -136,7 +136,7 @@ export function ReferenceHomepage() {
 <circle cx="72" cy="17" fill="var(--primary)" r="2"></circle>
 <circle cx="96" cy="4" fill="var(--success)" r="2.5" stroke="var(--card)" strokeWidth="1"></circle>
 </svg>
-<div className="absolute bottom-0 inset-x-0 flex justify-between text-[9px] text-muted-foreground/70 font-mono"><span >{"Mon"}</span>
+<div className="absolute bottom-0 inset-x-0 flex justify-between text-[9px] text-muted-foreground/70 font-sans tabular-nums"><span >{"Mon"}</span>
 <span >{"Tue"}</span>
 <span >{"Wed"}</span>
 <span >{"Thu"}</span>
@@ -149,63 +149,63 @@ export function ReferenceHomepage() {
 <div >
 <div className="flex items-center justify-between mb-2">
 <span className="text-xs font-semibold text-muted-foreground uppercase">{"AI Writer"}</span>
-<span className="px-2 py-0.5 rounded-full text-[10px] font-mono text-muted-foreground bg-card border border-border">{"Illustrative estimate"}</span>
+<span className="px-2 py-0.5 rounded-full text-[10px] font-sans tabular-nums text-muted-foreground bg-card border border-border">{"Illustrative estimate"}</span>
 </div>
-<div className="flex items-baseline gap-2 mb-1">
-<span className="text-2xl font-bold font-mono text-foreground">{"4\u00d7"}</span>
-<span className="text-xs text-primary font-medium">{"Engagement Potential"}</span>
+<div className="flex flex-col gap-1.5 mb-3">
+<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground">{"4\u00d7"}</span>
+<span className="text-[13px] leading-snug text-primary font-semibold">{"Engagement Potential"}</span>
 </div>
 <p className="text-xs text-muted-foreground">{"Create content designed to connect with your audience."}</p>
 </div>
 <div className="mt-3 pt-2.5 border-t border-border/60"><div className="space-y-1.5 mb-1.5"><div ><div className="flex justify-between text-[10px] text-muted-foreground mb-0.5"><span >{"Standard Caption"}</span>
-<span className="font-mono font-medium text-muted-foreground">{"1.0\u00d7 baseline"}</span>
+<span className="font-sans tabular-nums font-medium text-muted-foreground">{"1.0\u00d7 baseline"}</span>
 </div>
 <div className="w-full bg-border/80 h-1.5 rounded-full overflow-hidden"><div className="bg-muted-foreground/70 h-full w-[25%] rounded-full"></div>
 </div>
 </div>
 <div ><div className="flex justify-between text-[10px] text-foreground/80 font-medium mb-0.5"><span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
 {"AI-Assisted"}</span>
-<span className="font-mono font-bold text-primary">{"4.0\u00d7 (+300%)"}</span>
+<span className="font-sans tabular-nums font-bold text-primary">{"4.0\u00d7 (+300%)"}</span>
 </div>
 <div className="w-full bg-border/80 h-1.5 rounded-full overflow-hidden"><div className="bg-primary h-full w-[100%] rounded-full"></div>
 </div>
 </div>
 </div>
-<p className="text-[9px] text-muted-foreground/70 font-mono text-right">{"Illustrative comparison \u00b7 Sample data"}</p>
+<p className="text-[9px] text-muted-foreground/70 font-sans tabular-nums text-right">{"Illustrative comparison \u00b7 Sample data"}</p>
 </div>
 </div>
 <div className="p-4 rounded-lg bg-surface/70 border border-border/70 flex flex-col justify-between hover:border-primary/30 transition-colors">
 <div >
 <div className="flex items-center justify-between mb-2">
 <span className="text-xs font-semibold text-muted-foreground uppercase">{"Brand Personality"}</span>
-<span className="px-2 py-0.5 rounded-full text-[10px] font-mono text-muted-foreground bg-card border border-border">{"Sample data"}</span>
+<span className="px-2 py-0.5 rounded-full text-[10px] font-sans tabular-nums text-muted-foreground bg-card border border-border">{"Sample data"}</span>
 </div>
-<div className="flex items-baseline gap-2 mb-1">
-<span className="text-2xl font-bold font-mono text-foreground">{"94.8%"}</span>
-<span className="text-xs text-muted-foreground font-medium">{"Brand voice match"}</span>
+<div className="flex flex-col gap-1.5 mb-3">
+<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground">{"94.8%"}</span>
+<span className="text-[13px] leading-snug text-muted-foreground font-semibold">{"Brand voice match"}</span>
 </div>
 <p className="text-xs text-muted-foreground">{"Calibrated to youth tone & aesthetic criteria."}</p>
 </div>
 <div className="mt-3 pt-2.5 border-t border-border/60"><div className="space-y-1.5 mb-1.5"><div ><div className="flex justify-between text-[10px] text-muted-foreground mb-0.5"><span className="font-medium">{"Casual"}</span>
-<span className="font-mono text-primary font-semibold">{"85%"}</span>
+<span className="font-sans tabular-nums text-primary font-semibold">{"85%"}</span>
 </div>
 <div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-primary h-full w-[85%] rounded-full"></div>
 </div>
 </div>
 <div ><div className="flex justify-between text-[10px] text-muted-foreground mb-0.5"><span className="font-medium">{"Playful"}</span>
-<span className="font-mono text-info font-semibold">{"60%"}</span>
+<span className="font-sans tabular-nums text-info font-semibold">{"60%"}</span>
 </div>
 <div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-info h-full w-[60%] rounded-full"></div>
 </div>
 </div>
 <div ><div className="flex justify-between text-[10px] text-muted-foreground mb-0.5"><span className="font-medium">{"Formal"}</span>
-<span className="font-mono text-success font-semibold">{"15%"}</span>
+<span className="font-sans tabular-nums text-success font-semibold">{"15%"}</span>
 </div>
 <div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-success h-full w-[15%] rounded-full"></div>
 </div>
 </div>
 </div>
-<p className="text-[9px] text-muted-foreground/70 font-mono text-right">{"Sample brand preferences"}</p>
+<p className="text-[9px] text-muted-foreground/70 font-sans tabular-nums text-right">{"Sample brand preferences"}</p>
 </div>
 </div>
 </div>
@@ -214,24 +214,24 @@ export function ReferenceHomepage() {
 <div >
 <h4 className="text-sm font-bold text-foreground flex items-center gap-2">
 <span >{"Trending in Your Niche"}</span>
-<span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-card text-muted-foreground border border-border">{"Sample data"}</span>
+<span className="px-2 py-0.5 rounded-full text-[10px] font-sans tabular-nums bg-card text-muted-foreground border border-border">{"Sample data"}</span>
 </h4>
 <p className="text-xs text-muted-foreground">{"Explore conversations and styles that could inspire your next post."}</p>
 </div>
-<span className="text-[11px] font-mono text-primary bg-primary-soft px-3 py-1 rounded-full border border-primary/20">{"Updated just now"}</span>
+<span className="text-[11px] font-sans tabular-nums text-primary bg-primary-soft px-3 py-1 rounded-full border border-primary/20">{"Updated just now"}</span>
 </div>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div className="p-4 rounded-lg bg-card border border-border/80 hover:border-primary/40 hover:shadow-md transition-all flex flex-col justify-between">
 <div >
 <div className="flex items-center justify-between mb-2">
-<span className="font-mono font-bold text-sm text-foreground">{"#AestheticCore"}</span>
+<span className="font-sans tabular-nums font-bold text-sm text-foreground">{"#AestheticCore"}</span>
 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-primary-soft text-primary border border-primary/20">{"Trending"}</span>
 </div>
 <p className="text-xs text-muted-foreground leading-relaxed mb-4">{"\n                    Minimal outfits, carefully styled details, and mood-driven visuals are inspiring a new wave of fashion content.\n                  "}</p>
 </div>
-<div className="pt-3 border-t border-muted"><div className="flex items-center justify-between mb-2"><div className="flex items-center gap-1.5 text-xs text-muted-foreground"><TrendingUp className="size-5 shrink-0 text-[16px] text-success" aria-hidden="true" /><span className="font-mono text-success font-semibold">{"+142%"}</span>
+<div className="pt-3 border-t border-muted"><div className="flex items-center justify-between mb-2"><div className="flex items-center gap-1.5 text-xs text-muted-foreground"><TrendingUp className="size-5 shrink-0 text-[16px] text-success" aria-hidden="true" /><span className="font-sans tabular-nums text-success font-semibold">{"+142%"}</span>
 {" interest"}</div>
-<span className="text-[9px] font-mono text-muted-foreground/70">{"Sample data"}</span>
+<span className="text-[9px] font-sans tabular-nums text-muted-foreground/70">{"Sample data"}</span>
 </div>
 <div className="bg-surface p-2 rounded-lg border border-muted flex items-center justify-between gap-3"><div className="h-7 flex-1 relative flex items-center"><svg className="w-full h-6 overflow-visible" fill="none" viewBox="0 0 80 20"><line stroke="var(--border)" strokeDasharray="2 2" strokeWidth="0.75" x1="0" x2="80" y1="18" y2="18"></line>
 <path d="M2 16 L20 13 L40 9 L60 10 L78 2" stroke="var(--primary)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75"></path>
@@ -245,14 +245,14 @@ export function ReferenceHomepage() {
 <div className="p-4 rounded-lg bg-card border border-border/80 hover:border-primary/40 hover:shadow-md transition-all flex flex-col justify-between">
 <div >
 <div className="flex items-center justify-between mb-2">
-<span className="font-mono font-bold text-sm text-foreground">{"#OldMoneyStyle"}</span>
+<span className="font-sans tabular-nums font-bold text-sm text-foreground">{"#OldMoneyStyle"}</span>
 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-info-soft text-info border border-info/20">{"Rising"}</span>
 </div>
 <p className="text-xs text-muted-foreground leading-relaxed mb-4">{"\n                    Classic silhouettes, neutral colors, and timeless styling offer an opportunity for brands exploring a more refined look.\n                  "}</p>
 </div>
-<div className="pt-3 border-t border-muted"><div className="flex items-center justify-between mb-2"><div className="flex items-center gap-1.5 text-xs text-muted-foreground"><TrendingUp className="size-5 shrink-0 text-[16px] text-success" aria-hidden="true" /><span className="font-mono text-success font-semibold">{"+86%"}</span>
+<div className="pt-3 border-t border-muted"><div className="flex items-center justify-between mb-2"><div className="flex items-center gap-1.5 text-xs text-muted-foreground"><TrendingUp className="size-5 shrink-0 text-[16px] text-success" aria-hidden="true" /><span className="font-sans tabular-nums text-success font-semibold">{"+86%"}</span>
 {" interest"}</div>
-<span className="text-[9px] font-mono text-muted-foreground/70">{"Sample data"}</span>
+<span className="text-[9px] font-sans tabular-nums text-muted-foreground/70">{"Sample data"}</span>
 </div>
 <div className="bg-surface p-2 rounded-lg border border-muted flex items-center justify-between gap-3"><div className="h-7 flex-1 relative flex items-center"><svg className="w-full h-6 overflow-visible" fill="none" viewBox="0 0 80 20"><line stroke="var(--border)" strokeDasharray="2 2" strokeWidth="0.75" x1="0" x2="80" y1="18" y2="18"></line>
 <path d="M2 16 L22 14 L42 11 L60 8 L78 3" stroke="var(--info)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75"></path>
@@ -272,12 +272,12 @@ export function ReferenceHomepage() {
 <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-border text-foreground/80">{"X"}</span>
 </div>
 </div>
-<div className="space-y-2 mb-3"><div className="p-3 rounded-lg bg-card border border-border text-xs text-foreground/80"><span className="text-[10px] text-muted-foreground/70 block font-mono uppercase mb-0.5">{"Brief:"}</span>
+<div className="space-y-2 mb-3"><div className="p-3 rounded-lg bg-card border border-border text-xs text-foreground/80"><span className="text-[10px] text-muted-foreground/70 block font-sans tabular-nums uppercase mb-0.5">{"Brief:"}</span>
 {"Promote our new oversized hoodie."}</div>
-<div className="grid grid-cols-2 gap-2 text-xs"><div className="p-2.5 rounded-lg bg-card border border-border"><span className="text-[10px] text-muted-foreground/70 block font-mono uppercase">{"Brand"}</span>
+<div className="grid grid-cols-2 gap-2 text-xs"><div className="p-2.5 rounded-lg bg-card border border-border"><span className="text-[10px] text-muted-foreground/70 block font-sans tabular-nums uppercase">{"Brand"}</span>
 <strong className="text-foreground">{"Aura Wear"}</strong>
 </div>
-<div className="p-2.5 rounded-lg bg-card border border-border"><span className="text-[10px] text-muted-foreground/70 block font-mono uppercase">{"Tone"}</span>
+<div className="p-2.5 rounded-lg bg-card border border-border"><span className="text-[10px] text-muted-foreground/70 block font-sans tabular-nums uppercase">{"Tone"}</span>
 <strong className="text-primary">{"Bold & Playful"}</strong>
 </div>
 </div>
@@ -290,15 +290,15 @@ export function ReferenceHomepage() {
 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-success-soft text-success border border-success/20">{"Sample caption"}</span>
 </div>
 <div className="p-4 rounded-lg bg-surface border border-border/80 text-xs text-foreground leading-relaxed font-sans"><p className="mb-3 font-normal leading-relaxed" contentEditable={editing} suppressContentEditableWarning onBlur={(event) => setCaption(event.currentTarget.textContent ?? caption)}>{caption}</p>
-<div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/60"><span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-mono text-primary">{"#AuraWear"}</span>
-<span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-mono text-primary">{"#Streetwear"}</span>
-<span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-mono text-primary">{"#OOTD"}</span>
-<span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-mono text-primary">{"#StreetStyle"}</span>
-<span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-mono text-primary">{"#NewDrop"}</span>
+<div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/60"><span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-sans tabular-nums text-primary">{"#AuraWear"}</span>
+<span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-sans tabular-nums text-primary">{"#Streetwear"}</span>
+<span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-sans tabular-nums text-primary">{"#OOTD"}</span>
+<span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-sans tabular-nums text-primary">{"#StreetStyle"}</span>
+<span className="px-2.5 py-0.5 rounded-full bg-card border border-border text-[10px] font-sans tabular-nums text-primary">{"#NewDrop"}</span>
 </div>
 </div>
 </div>
-<div className="pt-3 mt-3 border-t border-muted flex flex-wrap items-center justify-between gap-2"><span className="text-[11px] text-muted-foreground/70 font-mono">{"Preset: Aura Wear Street \u00b7 1/3"}</span>
+<div className="pt-3 mt-3 border-t border-muted flex flex-wrap items-center justify-between gap-2"><span className="text-[11px] text-muted-foreground/70 font-sans tabular-nums">{"Preset: Aura Wear Street \u00b7 1/3"}</span>
 <div className="flex flex-wrap gap-2"><Button className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border border-border text-foreground/80 hover:bg-surface transition-colors copy-btn shadow-xs" onClick={copyCaption} variant="ghost">{copied ? "Copied!" : <><Copy className="size-4" /> Copy Caption</>}</Button>
 <Button className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border border-border text-foreground/80 hover:bg-surface transition-colors shadow-xs" variant="ghost" onClick={() => setEditing(!editing)}><PenLine className="size-5 shrink-0 text-[14px]" aria-hidden="true" /><span >{"Edit Caption"}</span>
 </Button>
@@ -364,7 +364,7 @@ export function ReferenceHomepage() {
 <span className="text-[11px] text-success font-medium block">{"(+12% engagement over previous benchmark)"}</span>
 </div>
 </div>
-<span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-muted-foreground bg-muted">{"Sample data"}</span>
+<span className="px-2.5 py-1 rounded-full text-[10px] font-sans tabular-nums text-muted-foreground bg-muted">{"Sample data"}</span>
 </div>
 </div>
 </div>
@@ -376,7 +376,7 @@ export function ReferenceHomepage() {
 <div >
 <div className="flex justify-between text-xs font-medium text-foreground/80 mb-1">
 <span >{"Casual"}</span>
-<span className="text-primary font-mono">{"85%"}</span>
+<span className="text-primary font-sans tabular-nums">{"85%"}</span>
 </div>
 <div className="w-full bg-border h-2.5 rounded-full overflow-hidden">
 <div className="bg-primary h-full w-[85%] rounded-full"></div>
@@ -385,7 +385,7 @@ export function ReferenceHomepage() {
 <div >
 <div className="flex justify-between text-xs font-medium text-foreground/80 mb-1">
 <span >{"Formal"}</span>
-<span className="text-success font-mono">{"15%"}</span>
+<span className="text-success font-sans tabular-nums">{"15%"}</span>
 </div>
 <div className="w-full bg-border h-2.5 rounded-full overflow-hidden">
 <div className="bg-success h-full w-[15%] rounded-full"></div>
@@ -394,7 +394,7 @@ export function ReferenceHomepage() {
 <div >
 <div className="flex justify-between text-xs font-medium text-foreground/80 mb-1">
 <span >{"Playful"}</span>
-<span className="text-info font-mono">{"60%"}</span>
+<span className="text-info font-sans tabular-nums">{"60%"}</span>
 </div>
 <div className="w-full bg-border h-2.5 rounded-full overflow-hidden">
 <div className="bg-info h-full w-[60%] rounded-full"></div>
@@ -406,7 +406,7 @@ export function ReferenceHomepage() {
 <div >
 <h4 className="text-xs font-bold uppercase text-muted-foreground mb-3">{"Audience & Palette Profile"}</h4>
 <div className="p-3.5 rounded-lg bg-surface border border-border/70 mb-3">
-<span className="text-[11px] text-muted-foreground/70 block uppercase font-mono">{"Target Audience"}</span>
+<span className="text-[11px] text-muted-foreground/70 block uppercase font-sans tabular-nums">{"Target Audience"}</span>
 <span className="text-xs font-bold text-foreground">{"Age group: 18\u201324"}</span>
 <p className="text-[11px] text-muted-foreground mt-0.5">{"Youth culture, streetwear enthusiasts, modern aesthetics."}</p>
 </div>
@@ -449,7 +449,7 @@ export function ReferenceHomepage() {
 <div className="p-6 rounded-lg bg-card border border-border/90 shadow-sm flex flex-col justify-between hover:border-primary/40 hover:shadow-md transition-all">
 <div >
 <div className="flex items-center justify-between mb-5">
-<span className="font-mono text-2xl font-extrabold text-primary">{"01"}</span>
+<span className="font-sans tabular-nums text-2xl font-extrabold text-primary">{"01"}</span>
 <div className="w-9 h-9 rounded-lg bg-primary-soft text-primary flex items-center justify-center">
 <Search className="size-5 shrink-0 text-[20px]" aria-hidden="true" />
 </div>
@@ -464,13 +464,13 @@ export function ReferenceHomepage() {
 <span className="px-2 py-0.5 rounded-full bg-muted text-[10px] text-muted-foreground font-medium">{"Reddit"}</span>
 <span className="px-2 py-0.5 rounded-full bg-muted text-[10px] text-muted-foreground font-medium">{"X"}</span>
 </div>
-<div className="px-3 py-1.5 rounded-lg bg-surface border border-border/60 font-mono text-[11px] text-primary">{"\n              Sample: #Streetwear\n            "}</div>
+<div className="px-3 py-1.5 rounded-lg bg-surface border border-border/60 font-sans tabular-nums text-[11px] text-primary">{"\n              Sample: #Streetwear\n            "}</div>
 </div>
 </div>
 <div className="p-6 rounded-lg bg-card border border-border/90 shadow-sm flex flex-col justify-between hover:border-primary/40 hover:shadow-md transition-all">
 <div >
 <div className="flex items-center justify-between mb-5">
-<span className="font-mono text-2xl font-extrabold text-primary">{"02"}</span>
+<span className="font-sans tabular-nums text-2xl font-extrabold text-primary">{"02"}</span>
 <div className="w-9 h-9 rounded-lg bg-primary-soft text-primary flex items-center justify-center">
 <PenLine className="size-5 shrink-0 text-[20px]" aria-hidden="true" />
 </div>
@@ -481,7 +481,7 @@ export function ReferenceHomepage() {
 <div className="pt-4 border-t border-muted">
 <div className="p-2 rounded-lg bg-surface border border-border/60 text-[11px] text-muted-foreground mb-2 truncate">{"\n              \"Promote our new oversized hoodie.\"\n            "}</div>
 <div className="flex items-center justify-between">
-<span className="text-[10px] font-mono text-success font-semibold">{"1-4 micro flow"}</span>
+<span className="text-[10px] font-sans tabular-nums text-success font-semibold">{"1-4 micro flow"}</span>
 <div className="flex gap-1">
 <Button className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-card border border-border text-muted-foreground copy-btn" onClick={copyCaption} variant="ghost">{"Copy"}</Button>
 <Button className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-card border border-border text-muted-foreground" onClick={() => { setTab("writer"); setEditing(true); document.getElementById("workspace")?.scrollIntoView(); }} variant="ghost">{"Edit"}</Button>
@@ -492,7 +492,7 @@ export function ReferenceHomepage() {
 <div className="p-6 rounded-lg bg-card border border-border/90 shadow-sm flex flex-col justify-between hover:border-primary/40 hover:shadow-md transition-all">
 <div >
 <div className="flex items-center justify-between mb-5">
-<span className="font-mono text-2xl font-extrabold text-primary">{"03"}</span>
+<span className="font-sans tabular-nums text-2xl font-extrabold text-primary">{"03"}</span>
 <div className="w-9 h-9 rounded-lg bg-primary-soft text-primary flex items-center justify-center">
 <Clock className="size-5 shrink-0 text-[20px]" aria-hidden="true" />
 </div>
@@ -504,7 +504,7 @@ export function ReferenceHomepage() {
 <div className="flex items-center justify-between mb-2">
 <span className="px-2.5 py-0.5 rounded-full bg-primary-soft text-primary text-[10px] font-medium">{"6:45 PM recommendation"}</span>
 </div>
-<div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground/70">
+<div className="flex items-center justify-between text-[10px] font-sans tabular-nums text-muted-foreground/70">
 <span >{"Calendar snippet"}</span>
 <span >{"Sample data"}</span>
 </div>
@@ -513,7 +513,7 @@ export function ReferenceHomepage() {
 <div className="p-6 rounded-lg bg-card border border-border/90 shadow-sm flex flex-col justify-between hover:border-primary/40 hover:shadow-md transition-all">
 <div >
 <div className="flex items-center justify-between mb-5">
-<span className="font-mono text-2xl font-extrabold text-primary">{"04"}</span>
+<span className="font-sans tabular-nums text-2xl font-extrabold text-primary">{"04"}</span>
 <div className="w-9 h-9 rounded-lg bg-primary-soft text-primary flex items-center justify-center">
 <SlidersHorizontal className="size-5 shrink-0 text-[20px]" aria-hidden="true" />
 </div>
@@ -526,7 +526,7 @@ export function ReferenceHomepage() {
 <span >{"Aura Wear"}</span>
 <span className="font-medium text-primary">{"Bold & Playful"}</span>
 </div>
-<div className="text-[10px] text-muted-foreground mt-1 font-mono">{"18\u201324 age group summary"}</div>
+<div className="text-[10px] text-muted-foreground mt-1 font-sans tabular-nums">{"18\u201324 age group summary"}</div>
 </div>
 </div>
 </div>
@@ -546,7 +546,7 @@ export function ReferenceHomepage() {
 <p className="text-xs text-muted-foreground mt-1">{"For creators and brands getting started."}</p>
 </div>
 <div className="mb-6 pb-6 border-b border-border/70">
-<div className="text-4xl font-bold font-mono text-foreground">{"$0"}</div>
+<div className="text-4xl font-bold font-sans tabular-nums text-foreground">{"$0"}</div>
 <span className="text-xs text-muted-foreground">{"/ month"}</span>
 </div>
 <ul className="space-y-3.5 mb-8">
@@ -578,7 +578,7 @@ export function ReferenceHomepage() {
 <p className="text-xs text-muted-foreground mt-1">{"For growing brands ready to do more."}</p>
 </div>
 <div className="mb-6 pb-6 border-b border-border/70">
-<div className="text-4xl font-bold font-mono text-foreground">{"$19"}</div>
+<div className="text-4xl font-bold font-sans tabular-nums text-foreground">{"$19"}</div>
 <span className="text-xs text-muted-foreground">{"/ month"}</span>
 </div>
 <ul className="space-y-3.5 mb-8">
@@ -613,7 +613,7 @@ export function ReferenceHomepage() {
 <p className="text-xs text-muted-foreground mt-1">{"For teams managing multiple brands."}</p>
 </div>
 <div className="mb-6 pb-6 border-b border-border/70">
-<div className="text-4xl font-bold font-mono text-foreground">{"$49"}</div>
+<div className="text-4xl font-bold font-sans tabular-nums text-foreground">{"$49"}</div>
 <span className="text-xs text-muted-foreground">{"/ month"}</span>
 </div>
 <ul className="space-y-3.5 mb-8">
@@ -644,7 +644,7 @@ export function ReferenceHomepage() {
 <section className="py-20 md:py-28 bg-background" id="about">
 <div className="max-w-7xl mx-auto px-6">
 <div className="max-w-4xl mx-auto">
-<span className="text-xs font-semibold text-primary uppercase font-mono block mb-3">{"About NOVA"}</span>
+<span className="text-xs font-semibold text-primary uppercase font-sans tabular-nums block mb-3">{"About NOVA"}</span>
 <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground mb-6">{"\n          Marketing Should Feel More Human.\n        "}</h2>
 <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-12">{"\n          NOVA is designed to simplify the work behind effective marketing. By bringing trend discovery, content creation, scheduling, performance analysis, and brand personalization into one connected workspace, NOVA helps brands spend less time juggling tools and more time developing ideas that connect with their audience.\n        "}</p>
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -676,7 +676,7 @@ export function ReferenceHomepage() {
 <section className="py-20 md:py-28 bg-card border-y border-border/70" id="faq">
 <div className="max-w-4xl mx-auto px-6">
 <div className="text-center max-w-2xl mx-auto mb-14">
-<span className="text-xs font-semibold text-primary uppercase font-mono block mb-2">{"Got Questions?"}</span>
+<span className="text-xs font-semibold text-primary uppercase font-sans tabular-nums block mb-2">{"Got Questions?"}</span>
 <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">{"\n          Frequently Asked Questions\n        "}</h2>
 </div>
 <div className="space-y-4">
@@ -745,7 +745,7 @@ export function ReferenceHomepage() {
 <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
 <div className="flex flex-col items-center md:items-start gap-2">
 <div className="flex items-center gap-2.5">
-<div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-primary-foreground"><span className="font-mono text-sm font-extrabold leading-none select-none">{"N"}</span>
+<div className="w-7 h-7 aspect-square shrink-0 rounded-full bg-primary flex items-center justify-center text-primary-foreground"><span className="font-sans tabular-nums text-sm font-extrabold leading-none select-none translate-y-px">{"N"}</span>
 </div>
 <span className="text-lg font-bold text-foreground">{"NOVA"}</span>
 </div>
