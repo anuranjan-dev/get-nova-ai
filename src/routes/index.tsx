@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { StudioHomepage } from "@/components/landing/studio-home";
+import { ReferenceHomepage } from "@/components/landing/reference-home";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -21,5 +21,5 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: StudioHomepage,
+  component: ReferenceHomepage,
 });
