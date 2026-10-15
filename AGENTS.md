@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Keep public homepage components and their scoped theme separate from the application workspace so homepage redesigns do not affect app pages.
+- Implement supplied homepage screens as React presentation components using shared controls and scoped semantic tokens, keeping existing workspace routes intact; this preserves navigation and theme isolation.
