@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "NOVA turns emerging youth-culture signals into clear marketing opportunities, campaign strategy, and on-brand content.",
+          "Discover emerging trends, create on-brand content, and make smarter marketing decisions with NOVA.",
       },
       { property: "og:title", content: "NOVA — AI Marketing Intelligence for Youth Brands" },
       {
