@@ -1,10 +1,24 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CirclePlay, PanelsTopLeft, Store, RefreshCw, Radar, Sparkles, CalendarDays, Fingerprint, TrendingUp, FileText, Copy, PenLine, ChartNoAxesCombined, Check, ChevronDown, Focus, AudioLines, Search, Rocket, Zap, SlidersHorizontal, Palette, Clock, Users, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 const captions = ["Your new everyday essential just dropped. Oversized comfort, effortless style, and a fit that speaks for itself. Which color are you picking? Shop the drop — link in bio.", "Big comfort. Bigger energy. The Aura Wear oversized hoodie is here to make every day your own. Pick your color and meet your new go-to. #AuraWear #NewDrop", "Not just a hoodie. Your off-duty uniform. Find your fit, make it yours, and show us how you wear it. The new Aura Wear drop is live. #Streetwear #OOTD"];
+function CountUp({ to, decimals = 0, prefix = "", suffix = "", duration = 1700, delay = 0 }: { to: number; decimals?: number; prefix?: string; suffix?: string; duration?: number; delay?: number }) {
+ const [v, setV] = useState(0);
+ const raf = useRef(0);
+ useEffect(() => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setV(to); return; }
+  let start = 0;
+  const step = (t: number) => { if (!start) start = t; const p = Math.min(1, (t - start - delay) / duration); if (p < 0) { raf.current = requestAnimationFrame(step); return; } const e = 1 - Math.pow(1 - p, 4); setV(to * e); if (p < 1) raf.current = requestAnimationFrame(step); };
+  raf.current = requestAnimationFrame(step);
+  return () => cancelAnimationFrame(raf.current);
+ }, [to, duration, delay]);
+ return <>{prefix}{v.toFixed(decimals)}{suffix}</>;
+}
 export function ReferenceHomepage() {
  const [tab, setTab] = useState("trend");
+ const [go, setGo] = useState(false);
+ useEffect(() => { const id = requestAnimationFrame(() => setGo(true)); return () => cancelAnimationFrame(id); }, []);
  const [menuOpen, setMenuOpen] = useState(false);
  const [faq, setFaq] = useState<number | null>(null);
  const [scanning, setScanning] = useState(false);
@@ -15,7 +29,7 @@ export function ReferenceHomepage() {
  function scanTrends() { setTab("trend"); setScanning(true); window.setTimeout(() => { setScanning(false); toast.success("Aura Wear sample trends refreshed"); }, 900); }
  function generateCaption() { const next = (variation + 1) % captions.length; setVariation(next); setCaption(captions[next] ?? ""); toast.success("Sample caption refreshed"); }
  async function copyCaption() { try { await navigator.clipboard.writeText(caption); setCopied(true); window.setTimeout(() => setCopied(false), 1800); } catch { toast.error("Could not copy. Select the caption to copy it."); } }
- return <div className="reference-home min-h-screen font-sans">
+ return <div className={`reference-home min-h-screen font-sans ${go ? "nova-go" : ""}`}>
 <header className="sticky top-0 z-50 pt-4 px-4 sm:px-6">
 <div className="max-w-7xl mx-auto backdrop-blur-xl bg-card/85 border border-border/80 rounded-full shadow-sm px-5 sm:px-7 h-16 flex items-center justify-between transition-all duration-300">
 <a className="flex items-center gap-2.5 group active:scale-95 transition-transform" href="/">
@@ -57,7 +71,7 @@ export function ReferenceHomepage() {
 </span>
 <span className="text-[11px] sm:text-xs font-semibold text-primary uppercase">{"BUILT FOR THE NEXT GENERATION OF BRANDS"}</span>
 </div>
-<h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-foreground max-w-4xl mx-auto mb-6 leading-[1.12]">{"\n        AI Marketing Intelligence for "}<span className="bg-gradient-to-r from-primary via-primary to-info bg-clip-text text-transparent">{"Youth Brands."}</span>
+<h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-foreground max-w-4xl mx-auto mb-6 leading-[1.12]">{"\n        AI Marketing Intelligence for "}<span className="nova-gradient-text bg-clip-text text-transparent">{"Youth Brands."}</span>
 </h1>
 <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-normal">{"\n        Spot emerging trends. Create content that connects. Grow your brand with AI built for youth culture.\n      "}</p>
 <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-14">
@@ -119,7 +133,7 @@ export function ReferenceHomepage() {
 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-success-soft text-success border border-success/20">{"Trend activity"}</span>
 </div>
 <div className="flex flex-col gap-1.5 mb-3">
-<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground">{"+142%"}</span>
+<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground"><CountUp to={142} prefix="+" suffix="%" /></span>
 <span className="text-[13px] leading-snug text-success font-semibold">{"Spike detected"}</span>
 </div>
 <p className="text-xs text-muted-foreground">{"Spot rising conversations and style trends."}</p>
@@ -129,12 +143,12 @@ export function ReferenceHomepage() {
 </div>
 <div className="h-12 w-full relative flex items-end pb-3.5"><svg className="w-full h-8 overflow-visible" fill="none" viewBox="0 0 100 32"><line stroke="var(--border)" strokeDasharray="2 2" strokeWidth="1" x1="0" x2="100" y1="28" y2="28"></line>
 <line stroke="var(--muted)" strokeWidth="1" x1="0" x2="100" y1="14" y2="14"></line>
-<path d="M4 25 L24 22 L48 15 L72 17 L96 4" stroke="var(--primary)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-<circle cx="4" cy="25" fill="var(--primary)" r="2"></circle>
-<circle cx="24" cy="22" fill="var(--primary)" r="2"></circle>
-<circle cx="48" cy="15" fill="var(--primary)" r="2"></circle>
-<circle cx="72" cy="17" fill="var(--primary)" r="2"></circle>
-<circle cx="96" cy="4" fill="var(--success)" r="2.5" stroke="var(--card)" strokeWidth="1"></circle>
+<path d="M4 25 L24 22 L48 15 L72 17 L96 4" stroke="var(--primary)" pathLength={1} className="nova-line" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
+<circle className="nova-dot" cx="4" cy="25" fill="var(--primary)" r="2"></circle>
+<circle className="nova-dot" cx="24" cy="22" fill="var(--primary)" r="2"></circle>
+<circle className="nova-dot" cx="48" cy="15" fill="var(--primary)" r="2"></circle>
+<circle className="nova-dot" cx="72" cy="17" fill="var(--primary)" r="2"></circle>
+<circle className="nova-dot" cx="96" cy="4" fill="var(--success)" r="2.5" stroke="var(--card)" strokeWidth="1"></circle>
 </svg>
 <div className="absolute bottom-0 inset-x-0 flex justify-between text-[9px] text-muted-foreground/70 font-sans tabular-nums"><span >{"Mon"}</span>
 <span >{"Tue"}</span>
@@ -152,7 +166,7 @@ export function ReferenceHomepage() {
 <span className="px-2 py-0.5 rounded-full text-[10px] font-sans tabular-nums text-muted-foreground bg-card border border-border">{"Illustrative estimate"}</span>
 </div>
 <div className="flex flex-col gap-1.5 mb-3">
-<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground">{"4\u00d7"}</span>
+<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground"><CountUp to={4} suffix={"\u00d7"} /></span>
 <span className="text-[13px] leading-snug text-primary font-semibold">{"Engagement Potential"}</span>
 </div>
 <p className="text-xs text-muted-foreground">{"Create content designed to connect with your audience."}</p>
@@ -160,14 +174,14 @@ export function ReferenceHomepage() {
 <div className="mt-3 pt-2.5 border-t border-border/60"><div className="space-y-1.5 mb-1.5"><div ><div className="flex justify-between text-[10px] text-muted-foreground mb-0.5"><span >{"Standard Caption"}</span>
 <span className="font-sans tabular-nums font-medium text-muted-foreground">{"1.0\u00d7 baseline"}</span>
 </div>
-<div className="w-full bg-border/80 h-1.5 rounded-full overflow-hidden"><div className="bg-muted-foreground/70 h-full w-[25%] rounded-full"></div>
+<div className="w-full bg-border/80 h-1.5 rounded-full overflow-hidden"><div className="bg-muted-foreground/70 h-full w-[25%] rounded-full nova-bar"></div>
 </div>
 </div>
 <div ><div className="flex justify-between text-[10px] text-foreground/80 font-medium mb-0.5"><span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
 {"AI-Assisted"}</span>
-<span className="font-sans tabular-nums font-bold text-primary">{"4.0\u00d7 (+300%)"}</span>
+<span className="font-sans tabular-nums font-bold text-primary"><><CountUp to={4} decimals={1} suffix={"\u00d7"} /> (+<CountUp to={300} suffix="%" />)</></span>
 </div>
-<div className="w-full bg-border/80 h-1.5 rounded-full overflow-hidden"><div className="bg-primary h-full w-[100%] rounded-full"></div>
+<div className="w-full bg-border/80 h-1.5 rounded-full overflow-hidden"><div className="bg-primary h-full w-[100%] rounded-full nova-bar"></div>
 </div>
 </div>
 </div>
@@ -181,27 +195,27 @@ export function ReferenceHomepage() {
 <span className="px-2 py-0.5 rounded-full text-[10px] font-sans tabular-nums text-muted-foreground bg-card border border-border">{"Sample data"}</span>
 </div>
 <div className="flex flex-col gap-1.5 mb-3">
-<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground">{"94.8%"}</span>
+<span className="text-3xl font-bold leading-none tracking-tight tabular-nums text-foreground"><CountUp to={94.8} decimals={1} suffix="%" /></span>
 <span className="text-[13px] leading-snug text-muted-foreground font-semibold">{"Brand voice match"}</span>
 </div>
 <p className="text-xs text-muted-foreground">{"Calibrated to youth tone & aesthetic criteria."}</p>
 </div>
 <div className="mt-3 pt-2.5 border-t border-border/60"><div className="space-y-1.5 mb-1.5"><div ><div className="flex justify-between text-[10px] text-muted-foreground mb-0.5"><span className="font-medium">{"Casual"}</span>
-<span className="font-sans tabular-nums text-primary font-semibold">{"85%"}</span>
+<span className="font-sans tabular-nums text-primary font-semibold"><CountUp to={85} suffix="%" delay={200} /></span>
 </div>
-<div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-primary h-full w-[85%] rounded-full"></div>
+<div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-primary h-full w-[85%] rounded-full nova-bar"></div>
 </div>
 </div>
 <div ><div className="flex justify-between text-[10px] text-muted-foreground mb-0.5"><span className="font-medium">{"Playful"}</span>
-<span className="font-sans tabular-nums text-info font-semibold">{"60%"}</span>
+<span className="font-sans tabular-nums text-info font-semibold"><CountUp to={60} suffix="%" delay={350} /></span>
 </div>
-<div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-info h-full w-[60%] rounded-full"></div>
+<div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-info h-full w-[60%] rounded-full nova-bar"></div>
 </div>
 </div>
 <div ><div className="flex justify-between text-[10px] text-muted-foreground mb-0.5"><span className="font-medium">{"Formal"}</span>
-<span className="font-sans tabular-nums text-success font-semibold">{"15%"}</span>
+<span className="font-sans tabular-nums text-success font-semibold"><CountUp to={15} suffix="%" delay={500} /></span>
 </div>
-<div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-success h-full w-[15%] rounded-full"></div>
+<div className="w-full bg-border/70 h-1.5 rounded-full overflow-hidden"><div className="bg-success h-full w-[15%] rounded-full nova-bar"></div>
 </div>
 </div>
 </div>
@@ -229,13 +243,13 @@ export function ReferenceHomepage() {
 </div>
 <p className="text-xs text-muted-foreground leading-relaxed mb-4">{"\n                    Minimal outfits, carefully styled details, and mood-driven visuals are inspiring a new wave of fashion content.\n                  "}</p>
 </div>
-<div className="pt-3 border-t border-muted"><div className="flex items-center justify-between mb-2"><div className="flex items-center gap-1.5 text-xs text-muted-foreground"><TrendingUp className="size-5 shrink-0 text-[16px] text-success" aria-hidden="true" /><span className="font-sans tabular-nums text-success font-semibold">{"+142%"}</span>
+<div className="pt-3 border-t border-muted"><div className="flex items-center justify-between mb-2"><div className="flex items-center gap-1.5 text-xs text-muted-foreground"><TrendingUp className="size-5 shrink-0 text-[16px] text-success" aria-hidden="true" /><span className="font-sans tabular-nums text-success font-semibold"><CountUp to={142} prefix="+" suffix="%" /></span>
 {" interest"}</div>
 <span className="text-[9px] font-sans tabular-nums text-muted-foreground/70">{"Sample data"}</span>
 </div>
 <div className="bg-surface p-2 rounded-lg border border-muted flex items-center justify-between gap-3"><div className="h-7 flex-1 relative flex items-center"><svg className="w-full h-6 overflow-visible" fill="none" viewBox="0 0 80 20"><line stroke="var(--border)" strokeDasharray="2 2" strokeWidth="0.75" x1="0" x2="80" y1="18" y2="18"></line>
-<path d="M2 16 L20 13 L40 9 L60 10 L78 2" stroke="var(--primary)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75"></path>
-<circle cx="78" cy="2" fill="var(--success)" r="2"></circle>
+<path d="M2 16 L20 13 L40 9 L60 10 L78 2" stroke="var(--primary)" pathLength={1} className="nova-line" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75"></path>
+<circle className="nova-dot" cx="78" cy="2" fill="var(--success)" r="2"></circle>
 </svg>
 </div>
 <Button className="px-3 py-1.5 rounded-full text-xs font-medium text-primary bg-primary-soft hover:bg-primary hover:text-primary-foreground transition-colors shrink-0" onClick={() => setTab("writer")} variant="ghost">{"Explore Trend \u2192"}</Button>
@@ -250,13 +264,13 @@ export function ReferenceHomepage() {
 </div>
 <p className="text-xs text-muted-foreground leading-relaxed mb-4">{"\n                    Classic silhouettes, neutral colors, and timeless styling offer an opportunity for brands exploring a more refined look.\n                  "}</p>
 </div>
-<div className="pt-3 border-t border-muted"><div className="flex items-center justify-between mb-2"><div className="flex items-center gap-1.5 text-xs text-muted-foreground"><TrendingUp className="size-5 shrink-0 text-[16px] text-success" aria-hidden="true" /><span className="font-sans tabular-nums text-success font-semibold">{"+86%"}</span>
+<div className="pt-3 border-t border-muted"><div className="flex items-center justify-between mb-2"><div className="flex items-center gap-1.5 text-xs text-muted-foreground"><TrendingUp className="size-5 shrink-0 text-[16px] text-success" aria-hidden="true" /><span className="font-sans tabular-nums text-success font-semibold"><CountUp to={86} prefix="+" suffix="%" /></span>
 {" interest"}</div>
 <span className="text-[9px] font-sans tabular-nums text-muted-foreground/70">{"Sample data"}</span>
 </div>
 <div className="bg-surface p-2 rounded-lg border border-muted flex items-center justify-between gap-3"><div className="h-7 flex-1 relative flex items-center"><svg className="w-full h-6 overflow-visible" fill="none" viewBox="0 0 80 20"><line stroke="var(--border)" strokeDasharray="2 2" strokeWidth="0.75" x1="0" x2="80" y1="18" y2="18"></line>
-<path d="M2 16 L22 14 L42 11 L60 8 L78 3" stroke="var(--info)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75"></path>
-<circle cx="78" cy="3" fill="var(--success)" r="2"></circle>
+<path d="M2 16 L22 14 L42 11 L60 8 L78 3" stroke="var(--info)" pathLength={1} className="nova-line" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75"></path>
+<circle className="nova-dot" cx="78" cy="3" fill="var(--success)" r="2"></circle>
 </svg>
 </div>
 <Button className="px-3 py-1.5 rounded-full text-xs font-medium text-primary bg-primary-soft hover:bg-primary hover:text-primary-foreground transition-colors shrink-0" onClick={() => setTab("writer")} variant="ghost">{"Explore Trend \u2192"}</Button>
@@ -376,28 +390,28 @@ export function ReferenceHomepage() {
 <div >
 <div className="flex justify-between text-xs font-medium text-foreground/80 mb-1">
 <span >{"Casual"}</span>
-<span className="text-primary font-sans tabular-nums">{"85%"}</span>
+<span className="text-primary font-sans tabular-nums"><CountUp to={85} suffix="%" delay={200} /></span>
 </div>
 <div className="w-full bg-border h-2.5 rounded-full overflow-hidden">
-<div className="bg-primary h-full w-[85%] rounded-full"></div>
+<div className="bg-primary h-full w-[85%] rounded-full nova-bar"></div>
 </div>
 </div>
 <div >
 <div className="flex justify-between text-xs font-medium text-foreground/80 mb-1">
 <span >{"Formal"}</span>
-<span className="text-success font-sans tabular-nums">{"15%"}</span>
+<span className="text-success font-sans tabular-nums"><CountUp to={15} suffix="%" delay={500} /></span>
 </div>
 <div className="w-full bg-border h-2.5 rounded-full overflow-hidden">
-<div className="bg-success h-full w-[15%] rounded-full"></div>
+<div className="bg-success h-full w-[15%] rounded-full nova-bar"></div>
 </div>
 </div>
 <div >
 <div className="flex justify-between text-xs font-medium text-foreground/80 mb-1">
 <span >{"Playful"}</span>
-<span className="text-info font-sans tabular-nums">{"60%"}</span>
+<span className="text-info font-sans tabular-nums"><CountUp to={60} suffix="%" delay={350} /></span>
 </div>
 <div className="w-full bg-border h-2.5 rounded-full overflow-hidden">
-<div className="bg-info h-full w-[60%] rounded-full"></div>
+<div className="bg-info h-full w-[60%] rounded-full nova-bar"></div>
 </div>
 </div>
 </div>
