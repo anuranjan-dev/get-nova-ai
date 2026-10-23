@@ -1,94 +1,94 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
+  CalendarClock,
   LayoutDashboard,
   LineChart,
+  PenLine,
   Radar,
-  Settings,
-  ShieldCheck,
   Sparkles,
-  Wand2,
   type LucideIcon,
 } from "lucide-react";
 
 import { NovaLogo } from "@/components/nova/logo";
-import { useWorkspace } from "@/lib/nova/workspace-store";
+import { initials, useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
 
 const nav: {
-  to: "/app" | "/app/trends" | "/app/reputation" | "/app/studio" | "/app/voice" | "/app/insights" | "/app/settings";
+  to: "/app" | "/app/trends" | "/app/captions" | "/app/scheduler" | "/app/voice" | "/app/insights";
   label: string;
   icon: LucideIcon;
   exact?: boolean;
+  soon?: boolean;
 }[] = [
   { to: "/app", label: "Overview", icon: LayoutDashboard, exact: true },
   { to: "/app/trends", label: "Trend Scanner", icon: Radar },
-  { to: "/app/reputation", label: "Reputation Check", icon: ShieldCheck },
-  { to: "/app/studio", label: "Content Studio", icon: Wand2 },
+  { to: "/app/captions", label: "AI Caption Generator", icon: PenLine },
+  { to: "/app/scheduler", label: "Scheduler & Analyzer", icon: CalendarClock },
   { to: "/app/voice", label: "Brand Voice", icon: Sparkles },
-  { to: "/app/insights", label: "Insights", icon: LineChart },
-  { to: "/app/settings", label: "Settings", icon: Settings },
+  { to: "/app/insights", label: "Insights", icon: LineChart, soon: true },
 ];
 
 export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const { profile, profileComplete } = useWorkspace();
+  const { user, profileComplete } = useWorkspace();
+  const profileActive = pathname.startsWith("/app/profile");
 
   return (
-    <div className="flex h-full flex-col bg-sidebar">
-      <div className="px-4 py-4">
-        <Link to="/" onClick={onNavigate} aria-label="NOVA home">
+    <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
+      <div className="px-5 py-5">
+        <Link to="/app" onClick={onNavigate} aria-label="NOVA overview">
           <NovaLogo />
         </Link>
       </div>
 
-      <nav className="mt-2 space-y-0.5 px-3">
+      <nav aria-label="Workspace" className="space-y-1 px-3">
         {nav.map((item) => {
-          const active = item.exact ? pathname === item.to : pathname.startsWith(item.to);
+          const active = item.exact ? pathname === item.to || pathname === "/app/" : pathname.startsWith(item.to);
           return (
             <Link
               key={item.to}
               to={item.to}
               onClick={onNavigate}
+              aria-current={active ? "page" : undefined}
               className={cn(
-                "flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors",
+                "relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 active
                   ? "bg-sidebar-accent text-sidebar-accent-foreground"
                   : "text-muted-foreground hover:bg-sidebar-accent/60 hover:text-foreground",
               )}
             >
-              <item.icon className="size-4" />
-              {item.label}
+              {active ? <span aria-hidden className="absolute inset-y-2 left-0 w-1 rounded-full bg-primary" /> : null}
+              <item.icon className="size-4 shrink-0" />
+              <span className="truncate">{item.label}</span>
+              {item.soon ? (
+                <span className="ml-auto rounded-full bg-surface-2 px-2 py-0.5 text-[0.65rem] font-medium text-muted-foreground">
+                  Soon
+                </span>
+              ) : null}
             </Link>
           );
         })}
       </nav>
 
-      <div className="mt-auto space-y-3 p-3">
-        {!profileComplete ? (
-          <Link
-            to="/app/voice"
-            onClick={onNavigate}
-            className="block rounded-xl border border-border bg-surface p-3 transition-colors hover:border-border-strong"
-          >
-            <p className="text-xs font-medium text-foreground">Brand voice not set</p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Define it once so every generation sounds like you.
-            </p>
-          </Link>
-        ) : null}
-
+      <div className="mt-auto border-t border-sidebar-border p-3">
         <Link
-          to="/app/settings"
+          to="/app/profile"
           onClick={onNavigate}
-          className="flex items-center gap-3 rounded-xl px-2 py-2 transition-colors hover:bg-sidebar-accent/60"
+          aria-label="Open your profile"
+          className={cn(
+            "flex items-center gap-3 rounded-xl px-2 py-2 transition-colors hover:bg-sidebar-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            profileActive && "bg-sidebar-accent",
+          )}
         >
-          <span className="flex size-8 items-center justify-center rounded-full bg-surface-2 text-xs font-medium text-foreground">
-            AR
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+            {initials(user.fullName)}
           </span>
           <span className="min-w-0">
-            <span className="block truncate text-sm text-foreground">Ada Reyes</span>
+            <span className="block truncate text-sm font-medium text-foreground">
+              {user.fullName || "Your profile"}
+            </span>
             <span className="block truncate text-xs text-muted-foreground">
-              {profile.brandName || "Marketing workspace"}
+              {profileComplete ? "Brand voice ready" : "Brand voice not set up"}
             </span>
           </span>
         </Link>

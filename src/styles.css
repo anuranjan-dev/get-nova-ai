@@ -634,3 +634,77 @@
 .nova-gradient-text { background-image: linear-gradient(110deg, var(--primary) 0%, #60a5fa 30%, #22d3ee 55%, var(--primary) 100%); background-size: 250% 100%; background-clip: text; animation: nova-gradient-move 6s ease-in-out infinite; }
 .reference-home:not(.nova-go) .nova-gradient-text { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .nova-bar, .nova-bar::after, .nova-line, .nova-dot, .nova-gradient-text { animation: none; } }
+
+/* ---------------------------------------------------------------
+   NOVA workspace palette (signed-in app only).
+   Scoped to html.nova-ws (set by the /app layout) and .nova-ws so the
+   public pages keep their own colours. Popovers portal to <body>, which is
+   why the html-level class is needed as well.
+---------------------------------------------------------------- */
+html.nova-ws.light,
+.light .nova-ws {
+  --background: oklch(0.985 0.006 255);
+  --foreground: oklch(0.24 0.06 264);
+  --surface: oklch(0.97 0.012 255);
+  --surface-2: oklch(0.945 0.02 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.06 264);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.06 264);
+  --primary: oklch(0.55 0.22 262);
+  --primary-foreground: oklch(0.99 0 0);
+  --primary-soft: oklch(0.55 0.22 262 / 10%);
+  --secondary: oklch(0.95 0.02 255);
+  --secondary-foreground: oklch(0.3 0.06 264);
+  --muted: oklch(0.955 0.012 255);
+  --muted-foreground: oklch(0.47 0.03 260);
+  --accent: oklch(0.94 0.035 255);
+  --accent-foreground: oklch(0.3 0.12 262);
+  --border: oklch(0.9 0.015 255);
+  --border-strong: oklch(0.84 0.025 255);
+  --input: oklch(0.88 0.02 255);
+  --ring: oklch(0.55 0.22 262 / 55%);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.3 0.05 264);
+  --sidebar-primary: oklch(0.55 0.22 262);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.94 0.035 255);
+  --sidebar-accent-foreground: oklch(0.42 0.2 262);
+  --sidebar-border: oklch(0.91 0.015 255);
+  --success: oklch(0.58 0.13 160);
+  --warning: oklch(0.7 0.15 70);
+}
+
+html.nova-ws.dark,
+.dark .nova-ws {
+  --background: oklch(0.19 0.035 262);
+  --foreground: oklch(0.96 0.01 255);
+  --surface: oklch(0.225 0.04 262);
+  --surface-2: oklch(0.26 0.045 262);
+  --card: oklch(0.225 0.04 262);
+  --card-foreground: oklch(0.96 0.01 255);
+  --popover: oklch(0.24 0.042 262);
+  --popover-foreground: oklch(0.96 0.01 255);
+  --primary: oklch(0.65 0.19 258);
+  --primary-foreground: oklch(0.99 0 0);
+  --primary-soft: oklch(0.65 0.19 258 / 16%);
+  --secondary: oklch(0.27 0.045 262);
+  --secondary-foreground: oklch(0.94 0.01 255);
+  --muted: oklch(0.26 0.04 262);
+  --muted-foreground: oklch(0.76 0.03 258);
+  --accent: oklch(0.3 0.07 260);
+  --accent-foreground: oklch(0.96 0.01 255);
+  --border: oklch(1 0 0 / 9%);
+  --border-strong: oklch(1 0 0 / 16%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.65 0.19 258 / 60%);
+  --sidebar: oklch(0.17 0.033 262);
+  --sidebar-foreground: oklch(0.92 0.01 255);
+  --sidebar-primary: oklch(0.65 0.19 258);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.65 0.19 258 / 18%);
+  --sidebar-accent-foreground: oklch(0.85 0.1 255);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --success: oklch(0.72 0.14 160);
+  --warning: oklch(0.8 0.14 75);
+}

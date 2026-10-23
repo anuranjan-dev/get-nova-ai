@@ -7,7 +7,29 @@ export interface BrandProfile {
   tone: string;
   useWords: string;
   avoidWords: string;
+  /** Tone dropdown choice; `tone` keeps the resolved text (custom or option). */
+  toneOption?: string;
+  customTone?: string;
+  /** Where the voice applies, e.g. "All content". */
+  usage?: string;
   updatedAt: number | null;
+}
+
+export interface UserProfile {
+  fullName: string;
+  email: string;
+}
+
+export type PostStatus = "draft" | "planned";
+
+export interface PlannedPost {
+  id: string;
+  title: string;
+  platform: string;
+  /** Local date-time string, "YYYY-MM-DDTHH:mm". */
+  when: string;
+  status: PostStatus;
+  notes: string;
 }
 
 export type ContentPlatform =
@@ -64,7 +86,7 @@ export interface TrendReport {
   conversations: { audience: string; quote: string; takeaway: string }[];
 }
 
-export type ActivityKind = "trend" | "content" | "voice";
+export type ActivityKind = "trend" | "content" | "caption" | "voice" | "plan" | "profile";
 
 export interface ActivityItem {
   id: string;

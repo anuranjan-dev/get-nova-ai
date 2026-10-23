@@ -1,200 +1,164 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, Sparkles } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { PageHeader, PageShell } from "@/components/app/page-header";
+import { PageHeader, PageShell, Panel } from "@/components/app/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import type { BrandProfile } from "@/lib/nova/types";
-import { useWorkspace } from "@/lib/nova/workspace-store";
+import { PERSONALITIES, VOICE_TONES, VOICE_USAGE, voiceExample } from "@/lib/nova/workspace-content";
+import { emptyProfile, useWorkspace } from "@/lib/nova/workspace-store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/app/voice")({
   head: () => ({
     meta: [
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
       { title: "Brand Voice — NOVA" },
-      {
-        name: "description",
-        content:
-          "Define your brand personality, audience, tone and word choices once so every NOVA generation stays on brand.",
-      },
+      { name: "description", content: "Define your brand personality, audience, tone and word choices so NOVA content stays on brand." },
       { property: "og:title", content: "Brand Voice — NOVA" },
-      {
-        property: "og:description",
-        content: "Set personality, audience, tone and word rules for consistent brand content.",
-      },
+      { property: "og:description", content: "Set personality, audience, tone and word rules for consistent brand content." },
     ],
   }),
   component: BrandVoice,
 });
 
-const personalities = [
-  "Playful",
-  "Bold",
-  "Warm",
-  "Minimal",
-  "Rebellious",
-  "Nerdy",
-  "Premium",
-  "Wholesome",
-];
-
 function BrandVoice() {
-  const { profile, saveProfile, logActivity } = useWorkspace();
-  const [draft, setDraft] = useState<BrandProfile>(profile);
+  const { profile, saveProfile, hydrated, logActivity } = useWorkspace();
+  const [form, setForm] = useState<BrandProfile>(emptyProfile);
+  const [errors, setErrors] = useState<{ brandName?: string; audience?: string; tone?: string }>({});
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    setDraft(profile);
-  }, [profile]);
+    if (hydrated) setForm({ ...profile, toneOption: profile.toneOption || (VOICE_TONES.includes(profile.tone) ? profile.tone : profile.tone ? "Custom" : ""), customTone: profile.customTone || (!VOICE_TONES.includes(profile.tone) ? profile.tone : "") });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
 
-  const toggle = (item: string) => {
-    setDraft((prev) => ({
-      ...prev,
-      personality: prev.personality.includes(item)
-        ? prev.personality.filter((p) => p !== item)
-        : [...prev.personality, item],
-    }));
-  };
+  const dirty = hydrated && JSON.stringify({ ...form, updatedAt: null }) !== JSON.stringify({ ...profile, toneOption: profile.toneOption ?? form.toneOption, customTone: profile.customTone ?? form.customTone, updatedAt: null });
+  const set = (patch: Partial<BrandProfile>) => setForm((f) => ({ ...f, ...patch }));
+  const example = voiceExample(form);
 
-  const submit = () => {
-    if (!draft.brandName.trim()) {
-      toast.error("Add your brand name first.");
-      return;
-    }
-    saveProfile(draft);
-    logActivity("voice", "Updated brand voice", draft.personality.join(", ") || "Voice saved");
-    toast.success("Brand voice saved");
-  };
+  useEffect(() => {
+    if (!dirty) return undefined;
+    const h = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", h);
+    return () => window.removeEventListener("beforeunload", h);
+  }, [dirty]);
+
+  function save() {
+    const e: { brandName?: string; audience?: string; tone?: string } = {};
+    if (!form.brandName.trim()) e.brandName = "Add your brand name.";
+    if (!form.audience.trim()) e.audience = "Describe who you want to reach.";
+    if (!form.toneOption) e.tone = "Choose a tone of voice.";
+    if (form.toneOption === "Custom" && !form.customTone?.trim()) e.tone = "Describe your custom tone.";
+    setErrors(e);
+    if (Object.keys(e).length) { toast.error("Please complete the highlighted fields."); return; }
+    setSaving(true);
+    window.setTimeout(() => {
+      try {
+        const tone = form.toneOption === "Custom" ? form.customTone!.trim() : form.toneOption!;
+        saveProfile({ ...form, brandName: form.brandName.trim(), tone });
+        logActivity("voice", "Saved Brand Voice", form.brandName.trim());
+        toast.success("Brand Voice saved");
+      } catch {
+        toast.error("Couldn't save your Brand Voice. Please try again.");
+      } finally {
+        setSaving(false);
+      }
+    }, 300);
+  }
 
   return (
     <PageShell>
-      <PageHeader
-        eyebrow="Brand Voice"
-        title="Teach NOVA how you sound"
-        description="Set this once. Content Studio uses it for every hook, caption and ad so your brand never drifts."
-        action={
-          profile.updatedAt ? (
-            <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Check className="size-3.5 text-primary" />
-              Saved {new Date(profile.updatedAt).toLocaleDateString()}
-            </span>
-          ) : undefined
-        }
-      />
+      <PageHeader eyebrow="Personalize" title="Brand Voice" description="Tell NOVA how your brand sounds so your captions stay consistent. Saved in this browser." action={<Button onClick={save} disabled={saving}>{saving ? <Loader2 className="size-4 animate-spin" /> : null} Save Brand Voice</Button>} />
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_20rem]">
-        <form
-          className="space-y-6 rounded-2xl border border-border bg-surface p-6"
-          onSubmit={(event) => {
-            event.preventDefault();
-            submit();
-          }}
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">Brand name</Label>
-              <Input
-                value={draft.brandName}
-                onChange={(event) => setDraft({ ...draft, brandName: event.target.value })}
-                placeholder="NOVA"
-              />
+      <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+        <div className="space-y-6">
+          <Panel className="space-y-5">
+            <h2 className="text-lg font-semibold">Brand information</h2>
+            <div className="space-y-2">
+              <Label htmlFor="bv-name">Brand name</Label>
+              <Input id="bv-name" value={form.brandName} onChange={(e) => set({ brandName: e.target.value })} placeholder="Enter your brand name" aria-invalid={Boolean(errors.brandName)} />
+              {errors.brandName ? <p className="text-sm text-destructive">{errors.brandName}</p> : null}
             </div>
-            <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">Target audience</Label>
-              <Input
-                value={draft.audience}
-                onChange={(event) => setDraft({ ...draft, audience: event.target.value })}
-                placeholder="18–24, urban, creator-adjacent"
-              />
+            <div className="space-y-2">
+              <Label htmlFor="bv-aud">Target audience</Label>
+              <Textarea id="bv-aud" rows={2} value={form.audience} onChange={(e) => set({ audience: e.target.value })} placeholder="Describe the people your brand wants to reach." aria-invalid={Boolean(errors.audience)} />
+              {errors.audience ? <p className="text-sm text-destructive">{errors.audience}</p> : null}
             </div>
-          </div>
+          </Panel>
 
-          <div className="space-y-2">
-            <Label className="text-xs text-muted-foreground">Personality</Label>
+          <Panel className="space-y-5">
+            <div>
+              <h2 className="text-lg font-semibold">Brand personality</h2>
+              <p className="text-sm text-muted-foreground">Pick the traits that fit.</p>
+            </div>
             <div className="flex flex-wrap gap-2">
-              {personalities.map((item) => {
-                const active = draft.personality.includes(item);
+              {PERSONALITIES.map((p) => {
+                const on = form.personality.includes(p);
                 return (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => toggle(item)}
-                    className={cn(
-                      "rounded-full border px-3 py-1.5 text-xs transition-colors",
-                      active
-                        ? "border-primary bg-primary/15 text-foreground"
-                        : "border-border bg-surface-2 text-muted-foreground hover:text-foreground",
-                    )}
-                  >
-                    {item}
+                  <button key={p} type="button" aria-pressed={on} onClick={() => set({ personality: on ? form.personality.filter((x) => x !== p) : [...form.personality, p] })} className={cn("flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors", on ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary hover:text-primary")}>
+                    {on ? <Check className="size-4" /> : null}{p}
                   </button>
                 );
               })}
             </div>
-          </div>
 
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Tone of voice</Label>
-            <Textarea
-              rows={3}
-              value={draft.tone}
-              onChange={(event) => setDraft({ ...draft, tone: event.target.value })}
-              placeholder="Direct and a bit cheeky. Short sentences. No corporate filler."
-            />
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">Words to use</Label>
-              <Textarea
-                rows={3}
-                value={draft.useWords}
-                onChange={(event) => setDraft({ ...draft, useWords: event.target.value })}
-                placeholder="drop, crew, real talk"
-              />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="bv-tone">Tone of voice</Label>
+                <Select value={form.toneOption ?? ""} onValueChange={(v) => set({ toneOption: v })}>
+                  <SelectTrigger id="bv-tone" className="w-full" aria-invalid={Boolean(errors.tone)}><SelectValue placeholder="Choose a tone" /></SelectTrigger>
+                  <SelectContent>{VOICE_TONES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="bv-usage">Use this voice for</Label>
+                <Select value={form.usage || "All content"} onValueChange={(v) => set({ usage: v })}>
+                  <SelectTrigger id="bv-usage" className="w-full"><SelectValue /></SelectTrigger>
+                  <SelectContent>{VOICE_USAGE.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
             </div>
-            <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">Words to avoid</Label>
-              <Textarea
-                rows={3}
-                value={draft.avoidWords}
-                onChange={(event) => setDraft({ ...draft, avoidWords: event.target.value })}
-                placeholder="synergy, leverage, revolutionary"
-              />
+            {form.toneOption === "Custom" ? (
+              <div className="space-y-2">
+                <Label htmlFor="bv-custom">Describe your preferred tone</Label>
+                <Input id="bv-custom" value={form.customTone ?? ""} onChange={(e) => set({ customTone: e.target.value })} placeholder="e.g. calm and clever, never pushy" />
+              </div>
+            ) : null}
+            {errors.tone ? <p className="text-sm text-destructive">{errors.tone}</p> : null}
+          </Panel>
+
+          <Panel className="grid gap-5 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="bv-use">Words or phrases to use</Label>
+              <Textarea id="bv-use" rows={3} value={form.useWords} onChange={(e) => set({ useWords: e.target.value })} placeholder="e.g. made to last, everyday, crew" />
+              <p className="text-xs text-muted-foreground">Separate with commas.</p>
             </div>
-          </div>
+            <div className="space-y-2">
+              <Label htmlFor="bv-avoid">Words or phrases to avoid</Label>
+              <Textarea id="bv-avoid" rows={3} value={form.avoidWords} onChange={(e) => set({ avoidWords: e.target.value })} placeholder="e.g. cheap, hype, guaranteed" />
+              <p className="text-xs text-muted-foreground">These are removed from examples.</p>
+            </div>
+          </Panel>
+        </div>
 
-          <Button type="submit">
-            <Sparkles className="size-4" />
-            Save brand voice
-          </Button>
-        </form>
-
-        <aside className="rounded-2xl border border-border bg-surface p-6">
-          <h2 className="text-sm font-semibold text-foreground">Voice preview</h2>
-          <p className="mt-1 text-xs text-muted-foreground">
-            How a caption reads with your current settings.
-          </p>
-          <div className="mt-4 rounded-xl bg-surface-2 p-4 text-sm text-muted-foreground">
-            {draft.brandName.trim() ? (
-              <p>
-                <span className="text-foreground">{draft.brandName}</span> for{" "}
-                {draft.audience.trim() || "your audience"} —{" "}
-                {draft.personality.length
-                  ? draft.personality.join(", ").toLowerCase()
-                  : "clear and direct"}
-                . {draft.tone.trim() || "Short sentences, no filler."}
-              </p>
-            ) : (
-              <p>Add your brand name to see a preview.</p>
-            )}
-          </div>
-        </aside>
+        <div className="lg:sticky lg:top-4 lg:self-start">
+          <Panel>
+            <h2 className="text-lg font-semibold">Example caption using your brand voice</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Preview how your selected settings may influence your writing. This is an example, not a published post.</p>
+            <div className="mt-4 rounded-xl bg-surface p-4">
+              {example ? <p className="leading-relaxed">{example}</p> : <p className="text-sm text-muted-foreground">Add your brand name to see an example.</p>}
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">Built from a template using your settings. It updates as you edit.</p>
+            {dirty ? <p className="mt-3 text-sm font-medium text-primary">You have unsaved changes.</p> : null}
+          </Panel>
+        </div>
       </div>
     </PageShell>
   );
